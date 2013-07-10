@@ -1,4 +1,4 @@
-doodlekit
+DoodleKit
 =========
 
-The Doodlekit
+The DoodleKit

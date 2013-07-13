@@ -10,9 +10,17 @@
 #import <GameKit/GameKit.h>
 
 
+static NSInteger const HostTestFlag = 1 << 0;
+static NSInteger const HostVerifyFlag = 1 << 1;
+static NSInteger const HostConfirmFlag = 1 << 2;
+
 @interface GTViewController ()
+@property (nonatomic) NSMutableArray *deviceIDs;
 @property (nonatomic) NSMutableSet *playersToInvite;
 @property (nonatomic) GKMatch *match;
+@property (nonatomic) NSInteger playerCount;
+@property (nonatomic) BOOL isHost;
+@property (nonatomic) GKPlayer *hostPlayer;
 @end
 
 @implementation GTViewController
@@ -22,6 +30,10 @@
     self = [super init];
     if (self) {
         self.playersToInvite = [NSMutableSet set];
+        self.deviceIDs = [NSMutableArray array];
+
+        self.playerCount = 2;
+        self.isHost = NO;
     }
     return self;
 }
@@ -42,8 +54,8 @@
 
 - (void)didTouchButton {
     GKMatchRequest *request = [[GKMatchRequest alloc] init];
-    request.minPlayers = 2;
-    request.maxPlayers = 3;
+    request.minPlayers = self.playerCount;
+    request.maxPlayers = self.playerCount;
 
     GKMatchmakerViewController *viewController = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
     viewController.matchmakerDelegate = self;
@@ -62,17 +74,29 @@
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)match {
 
     self.match = match;
+    self.match.delegate = self;
     if (match.expectedPlayerCount == 0) {
         [self dismissViewControllerAnimated:YES completion:nil];
         [self.match chooseBestHostPlayerWithCompletionHandler:^(NSString *playerID) {
             NSLog(@"%@", self.match);
             NSLog(@"%@", playerID);
+
+            NSString *myIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+            [self.deviceIDs addObject:myIdentifier];
+            NSError *error;
+            [self sendHostTest:myIdentifier];
+            if (error) { assert(0); }
         }];
     }
-
-
 }
 
+- (void)sendHostTest:(NSString *)deviceID {
+    NSData *payload = [self payloadForDictionary:@{ @"DeviceID": deviceID } withFlag:HostTestFlag];
+    NSError *error;
+    [self.match sendDataToAllPlayers:payload withDataMode:GKMatchSendDataReliable error:&error];
+    if (error) { assert(0); }
+
+}
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindPlayers:(NSArray *)playerIDs {
     
 }
@@ -158,11 +182,79 @@
 }
 
 
-// The match received data sent from the player.
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
-    
+// The match received data sent from the player.c
+
+- (NSInteger)flagFromPayload:(NSData *)payload {
+    NSInteger flag;
+    [payload getBytes:&flag length:sizeof(NSInteger)];
+    return flag;
 }
 
+- (NSDictionary *)dictionaryFromPayload:(NSData *)payload {
+    NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:
+                             [payload subdataWithRange:NSMakeRange(sizeof(NSInteger), [payload length] - sizeof(NSInteger))]];
+    return dictionary;
+}
+
+- (void)receivedHostTestDictionary:(NSDictionary *)dictionary {
+    NSString *deviceID = dictionary[@"DeviceID"];
+    [self.deviceIDs addObject:deviceID];
+    if (self.deviceIDs.count == self.playerCount) {
+        [self.deviceIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSString *string1 = (NSString *)obj1;
+            NSString *string2 = (NSString *)obj2;
+            return [string1 compare:string2];
+        }];
+
+        if ([self.deviceIDs[0] isEqualToString:[[[UIDevice currentDevice] identifierForVendor] UUIDString]]) {
+            [self becomeHost];
+        }
+    }
+}
+
+- (void)receivedHostVerifyDictionary:(NSDictionary *)dictionary {
+    NSLog(@"%@", dictionary);
+}
+
+- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
+    NSInteger flag = [self flagFromPayload:data];
+    NSDictionary *dictionary = [self dictionaryFromPayload:data];
+
+
+    switch (flag) {
+        case HostTestFlag: {
+            [self receivedHostTestDictionary:dictionary];
+            break;
+        }
+        case HostVerifyFlag: {
+            [self receivedHostVerifyDictionary:dictionary];
+        }
+        case HostConfirmFlag: {
+            break;
+        }
+        default: {
+            assert(0);
+            break;
+        }
+    }
+}
+
+- (NSData *)payloadForDictionary:(NSDictionary *)dictionary withFlag:(NSInteger)flag {
+    NSMutableData *prelude = [NSMutableData dataWithBytes:&flag length:sizeof(NSInteger)];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
+    [prelude appendData:data];
+    return prelude;
+}
+
+- (void)becomeHost {
+    self.isHost = YES;
+
+    NSData *payload = [self payloadForDictionary:@{ @"message-id": @"become-host" } withFlag:HostVerifyFlag];
+    NSError *error;
+    [self.match sendDataToAllPlayers:payload withDataMode:GKMatchSendDataReliable error:&error];
+    if (error) { assert(0); }
+
+}
 
 // The player state changed (eg. connected or disconnected)
 - (void)match:(GKMatch *)match player:(NSString *)playerID didChangeState:(GKPlayerConnectionState)state {

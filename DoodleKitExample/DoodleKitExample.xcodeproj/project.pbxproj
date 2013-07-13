@@ -23,6 +23,11 @@
 		7840AA411790FF77005B1A2B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7840AA401790FF77005B1A2B /* Default-568h@2x.png */; };
 		7840AA481790FF8F005B1A2B /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA471790FF8F005B1A2B /* GameKit.framework */; };
 		7840AA4A1790FF9B005B1A2B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA491790FF9B005B1A2B /* QuartzCore.framework */; };
+		7856E7C21791B9D4001161CF /* DPLobbyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C11791B9D4001161CF /* DPLobbyController.m */; };
+		7856E7C51791BAAC001161CF /* DPLobbyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C41791BAAC001161CF /* DPLobbyView.m */; };
+		7856E7C81791BAFE001161CF /* DPLobbyAvatarsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C71791BAFE001161CF /* DPLobbyAvatarsContainerView.m */; };
+		7856E7CB1791BB48001161CF /* DKLobbyAvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7CA1791BB48001161CF /* DKLobbyAvatarView.m */; };
+		7856E7CE1791BE99001161CF /* DPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7CD1791BE99001161CF /* DPPlayer.m */; };
 		78ACAC631791022700C8F296 /* btn_start_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 78ACAC511791022700C8F296 /* btn_start_press.png */; };
 		78ACAC641791022700C8F296 /* btn_start_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78ACAC521791022700C8F296 /* btn_start_press@2x.png */; };
 		78ACAC651791022700C8F296 /* btn_start.png in Resources */ = {isa = PBXBuildFile; fileRef = 78ACAC531791022700C8F296 /* btn_start.png */; };
@@ -72,6 +77,16 @@
 		7840AA401790FF77005B1A2B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7840AA471790FF8F005B1A2B /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		7840AA491790FF9B005B1A2B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7856E7C01791B9D4001161CF /* DPLobbyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLobbyController.h; sourceTree = "<group>"; };
+		7856E7C11791B9D4001161CF /* DPLobbyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLobbyController.m; sourceTree = "<group>"; };
+		7856E7C31791BAAC001161CF /* DPLobbyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLobbyView.h; sourceTree = "<group>"; };
+		7856E7C41791BAAC001161CF /* DPLobbyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLobbyView.m; sourceTree = "<group>"; };
+		7856E7C61791BAFE001161CF /* DPLobbyAvatarsContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLobbyAvatarsContainerView.h; sourceTree = "<group>"; };
+		7856E7C71791BAFE001161CF /* DPLobbyAvatarsContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLobbyAvatarsContainerView.m; sourceTree = "<group>"; };
+		7856E7C91791BB47001161CF /* DKLobbyAvatarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKLobbyAvatarView.h; sourceTree = "<group>"; };
+		7856E7CA1791BB48001161CF /* DKLobbyAvatarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKLobbyAvatarView.m; sourceTree = "<group>"; };
+		7856E7CC1791BE99001161CF /* DPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPPlayer.h; sourceTree = "<group>"; };
+		7856E7CD1791BE99001161CF /* DPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPPlayer.m; sourceTree = "<group>"; };
 		78ACAC511791022700C8F296 /* btn_start_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_start_press.png; path = res/icons/btn_start_press.png; sourceTree = SOURCE_ROOT; };
 		78ACAC521791022700C8F296 /* btn_start_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_start_press@2x.png"; path = "res/icons/btn_start_press@2x.png"; sourceTree = SOURCE_ROOT; };
 		78ACAC531791022700C8F296 /* btn_start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_start.png; path = res/icons/btn_start.png; sourceTree = SOURCE_ROOT; };
@@ -116,6 +131,12 @@
 				5A6985D01791096B009542EE /* SSPieProgressView.m */,
 				5ACB97351791321D00EC86EF /* DPSwatchToolbar.h */,
 				5ACB97361791321D00EC86EF /* DPSwatchToolbar.m */,
+				7856E7C31791BAAC001161CF /* DPLobbyView.h */,
+				7856E7C41791BAAC001161CF /* DPLobbyView.m */,
+				7856E7C61791BAFE001161CF /* DPLobbyAvatarsContainerView.h */,
+				7856E7C71791BAFE001161CF /* DPLobbyAvatarsContainerView.m */,
+				7856E7C91791BB47001161CF /* DKLobbyAvatarView.h */,
+				7856E7CA1791BB48001161CF /* DKLobbyAvatarView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -174,6 +195,10 @@
 			children = (
 				7840AA391790FF77005B1A2B /* DKAppDelegate.h */,
 				7840AA3A1790FF77005B1A2B /* DKAppDelegate.m */,
+				7856E7C01791B9D4001161CF /* DPLobbyController.h */,
+				7856E7C11791B9D4001161CF /* DPLobbyController.m */,
+				7856E7CC1791BE99001161CF /* DPPlayer.h */,
+				7856E7CD1791BE99001161CF /* DPPlayer.m */,
 				5A6985CE1791094D009542EE /* Views */,
 				5ACB972D1791245900EC86EF /* Controls */,
 				5A6985D217910973009542EE /* Utilities */,
@@ -358,6 +383,11 @@
 				5A6985D11791096B009542EE /* SSPieProgressView.m in Sources */,
 				5ACB97301791253A00EC86EF /* DPSwatch.m in Sources */,
 				5ACB97371791321D00EC86EF /* DPSwatchToolbar.m in Sources */,
+				7856E7C21791B9D4001161CF /* DPLobbyController.m in Sources */,
+				7856E7C51791BAAC001161CF /* DPLobbyView.m in Sources */,
+				7856E7C81791BAFE001161CF /* DPLobbyAvatarsContainerView.m in Sources */,
+				7856E7CB1791BB48001161CF /* DKLobbyAvatarView.m in Sources */,
+				7856E7CE1791BE99001161CF /* DPPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

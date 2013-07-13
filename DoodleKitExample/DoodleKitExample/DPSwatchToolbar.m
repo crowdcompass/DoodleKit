@@ -153,7 +153,7 @@
  The toolbar animates in by moving down 100% of it's height
  */
 - (void)showToolbar {
-    [UIView animateWithDuration:0.8 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.transform = CGAffineTransformMakeTranslation(0.0, CGRectGetHeight(self.bounds));
         [self animateTimerAndTrashIn];
         [self animateSwatchesIn];

@@ -13,14 +13,14 @@
 
 #import "SSDrawingUtilities.h"
 
-const CGFloat kPartyViewYPortrait = 145.f;
-const CGFloat kPartyViewYLandscape = 70.f;
+const CGFloat kPartyViewYPortrait = 125.f;
+const CGFloat kPartyViewYLandscape = 50.f;
 
-const CGFloat kPartyToAvatarVerticalPortrait = 180.f;
-const CGFloat kPartyToAvatarVerticalLandscape = 60.f;
+const CGFloat kPartyToAvatarVerticalPortrait = 95.f;
+const CGFloat kPartyToAvatarVerticalLandscape = 50.f;
 
-const CGFloat kPartyButtonYPortrait = 880.f;
-const CGFloat kPartyButtonYLandscape = 640.f;
+const CGFloat kPartyButtonYPortrait = 760.f;
+const CGFloat kPartyButtonYLandscape = 580.f;
 
 @interface DPLobbyView ()
 

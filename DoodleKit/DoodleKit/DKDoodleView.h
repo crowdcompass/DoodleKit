@@ -8,6 +8,52 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    ACEDrawingToolTypePen,
+    ACEDrawingToolTypeLine,
+    ACEDrawingToolTypeRectagleStroke,
+    ACEDrawingToolTypeRectagleFill,
+    ACEDrawingToolTypeEllipseStroke,
+    ACEDrawingToolTypeEllipseFill,
+    ACEDrawingToolTypeEraser
+} ACEDrawingToolType;
+
+@protocol DKDoodleViewDelegate, ACEDrawingTool;
+
 @interface DKDoodleView : UIView
+
+@property (nonatomic, assign) ACEDrawingToolType drawTool;
+@property (nonatomic, assign) id<DKDoodleViewDelegate> delegate;
+
+// public properties
+@property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic, assign) CGFloat lineWidth;
+@property (nonatomic, assign) CGFloat lineAlpha;
+
+
+// get the current drawing
+@property (nonatomic, strong, readonly) UIImage *image;
+@property (nonatomic, readonly) NSUInteger undoSteps;
+
+
+// erase all
+- (void)clear;
+
+// undo / redo
+- (BOOL)canUndo;
+- (void)undoLatestStep;
+
+- (BOOL)canRedo;
+- (void)redoLatestStep;
+
+@end
+
+#pragma mark -
+
+@protocol DKDoodleViewDelegate <NSObject>
+
+@optional
+- (void)drawingView:(DKDoodleView *)view willBeginDrawUsingTool:(id<ACEDrawingTool>)tool;
+- (void)drawingView:(DKDoodleView *)view didEndDrawUsingTool:(id<ACEDrawingTool>)tool;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "DPLobbyController.h"
-
+#import "DKBoardController.h"
 #import "DPLobbyView.h"
 #import "DPStartDoodleButton.h"
 
@@ -51,7 +51,8 @@
 #pragma mark Target/action
 
 - (void)startPressed {
-    //attack!
+    DKBoardController *boardController = [[DKBoardController alloc] init];
+    [self presentViewController:boardController animated:YES completion:nil];
 }
 
 @end

@@ -37,15 +37,15 @@ void uncaughtExceptionHandler(NSException *exception) {
 //    [self testToolbar];
 */
 
-//    DPLobbyController *lobbyController = [[DPLobbyController alloc] initWithPlayer:nil];
-//    self.window.rootViewController = lobbyController;
+    DPLobbyController *lobbyController = [[DPLobbyController alloc] initWithPlayer:nil];
+    self.window.rootViewController = lobbyController;
     [self.window makeKeyAndVisible];
 
-    //TEST CODE
-    self.window.backgroundColor = [UIColor grayColor];
-    [self testToolbar];
-
-
+//    //TEST CODE
+//    self.window.backgroundColor = [UIColor grayColor];
+//    [self testToolbar];
+//
+//
     return YES;
 }
 

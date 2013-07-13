@@ -15,7 +15,7 @@
 - (id)init {
     self = [DPStartDoodleButton buttonWithType:UIButtonTypeCustom];
     if (self) {
-        [self useWaitingImage];
+        [self useReadyImage];
         self.frame = CGRectSetSize(self.frame, self.imageView.image.size);
     }
     

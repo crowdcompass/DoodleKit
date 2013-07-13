@@ -1,3 +1,3 @@
 platform :ios, '6.0'
 pod 'BlocksKit', '~> 1.8.2'
-pod 'DoodleKit', git: 'https://github.com/crowdcompass/DoodleKit.git', branch: 'framework'
+pod 'DoodleKit', git: 'https://github.com/crowdcompass/DoodleKit.git'

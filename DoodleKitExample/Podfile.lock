@@ -1,21 +1,20 @@
 PODS:
   - BlocksKit (1.8.2):
     - libffi
-  - DoodleKit (0.0.4)
+  - DoodleKit (0.0.6)
   - libffi (3.0.13)
 
 DEPENDENCIES:
   - BlocksKit (~> 1.8.2)
-  - DoodleKit (from `https://github.com/crowdcompass/DoodleKit.git`, branch `framework`)
+  - DoodleKit (from `https://github.com/crowdcompass/DoodleKit.git`)
 
 EXTERNAL SOURCES:
   DoodleKit:
-    :branch: framework
     :git: https://github.com/crowdcompass/DoodleKit.git
 
 SPEC CHECKSUMS:
   BlocksKit: 7396526b0816734103f6133fbb1a520c8b04e80c
-  DoodleKit: c985244f26ffbe43f43271aa61423a59f61ef4f9
+  DoodleKit: d275eb4d7206ed053bb9ab60d48429f9b64bd2dc
   libffi: 64ef39353e747bb2b25e1026afd96a157bf9231c
 
 COCOAPODS: 0.22.2

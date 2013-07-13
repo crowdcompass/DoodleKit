@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/crowdcompass/DoodleKit.git', :branch => "framework" }
   s.source_files =  'DoodleKit/DoodleKit', 'DoodleKit/DoodleKit/Drawing'
   s.requires_arc = true
+  s.public_header_files = 'DoodleKit/DoodleKit.h', 'DoodleKit/Drawing/DKDoodleView.h', 'DoodleKit/Drawing/DKSerializer.h'
 
   s.ios.deployment_target = '6.0'
   s.ios.frameworks = 'CoreFoundation', 'CoreGraphics', 'UIKit'

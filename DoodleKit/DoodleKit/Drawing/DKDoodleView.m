@@ -83,6 +83,28 @@
 
 #pragma mark - Drawing
 
+- (void)drawUsingToolType:(DKDoodleToolType)toolType withPoints:(NSArray *)points {
+    if (toolType == DKDOodleToolTypeRectangle) {
+        
+        // make sure we have enough points
+        if ([points count] < 2) {
+            return;
+        }
+        
+        // Serialize
+        [self.serializer startUsingTool:_toolType];
+        [self.serializer setInitialPoint:[(NSValue *)[points objectAtIndex:0] CGPointValue]];
+        
+        DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithCurrentPoint:[(NSValue *)[points lastObject] CGPointValue]];
+        [self.serializer addDKPointData:rectPoint];
+
+        [self.serializer finishUsingTool]; 
+    }
+    else {
+        NSLog(@"Implement this method for tool of type");
+    }
+}
+
 - (void)drawRect:(CGRect)rect
 {
 #if PARTIAL_REDRAW
@@ -138,6 +160,7 @@
             
         case DKDOodleToolTypeRectangle:
             tool = ACE_AUTORELEASE([ACEDrawingRectangleTool new]);
+            ((ACEDrawingRectangleTool *)tool).fill = YES;
             break;
             
         default:

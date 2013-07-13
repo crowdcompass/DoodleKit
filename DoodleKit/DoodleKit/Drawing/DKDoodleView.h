@@ -27,6 +27,7 @@
 @property (nonatomic, strong, readonly) UIImage *image;
 @property (nonatomic, readonly) NSUInteger undoSteps;
 
+- (void)drawUsingToolType:(DKDoodleToolType)toolType withPoints:(NSArray *)points;
 
 // erase all
 - (void)clear;

@@ -97,18 +97,32 @@ void uncaughtExceptionHandler(NSException *exception) {
     DPSwatchToolbar *toolbar = [[DPSwatchToolbar alloc] init];
     toolbar.frame = CGRectMake(0.0, 20.0, toolbar.bounds.size.width, toolbar.bounds.size.height);
     [self.window addSubview:toolbar];
-    [toolbar startCountdown];
+    
     
     UIButton *testButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [testButton setTitle:@"animated" forState:UIControlStateNormal];
-//    [testButton addTarget:toolbar action:@selector(animateSwatchesIn) forControlEvents:UIControlEventTouchUpInside];
     [testButton addEventHandler:^(id sender) {
         [toolbar showToolbar];
     } forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *pieButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [pieButton setTitle:@"pie" forState:UIControlStateNormal];
+    [pieButton addEventHandler:^(id sender) {
+        [toolbar.progressView stop];
+        [toolbar.progressView start];
+        
+    } forControlEvents:UIControlEventTouchUpInside];
+    
     testButton.center = CGPointMake(200.0, 400.0);
     testButton.backgroundColor = [UIColor blueColor];
     [testButton sizeToFit];
+    
+    pieButton.center = CGPointMake(250.0, 500.0);
+    pieButton.backgroundColor = [UIColor blueColor];
+    [pieButton sizeToFit];
+    
     [self.window addSubview:testButton];
+    [self.window addSubview:pieButton];
     
     
 }

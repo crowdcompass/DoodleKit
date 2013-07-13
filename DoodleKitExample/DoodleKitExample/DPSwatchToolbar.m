@@ -12,7 +12,6 @@
 #import "NSArray+BlocksKit.h"
 
 #define kToolbarDefaultHeight 44.0
-#define kCountdownTimeInSeconds 30.0
 #define kToolbarDefaultTopPadding 5.0
 #define kToolbarEraserIndex 6
 
@@ -25,8 +24,8 @@
 @property (nonatomic) NSUInteger selectedSwatchIndex;
 
 - (void)setupToolbar;
-//- (void)animateSwatchesIn;
-//- (void)animateTimerAndTrashIn
+- (void)animateSwatchesIn;
+- (void)animateTimerAndTrashIn;
 - (void)swatchSelected:(id)swatch;
 - (void)didSelectEraser;
 - (void)didTrash;
@@ -60,9 +59,10 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
-    _progressView = [[SSPieProgressView alloc] init];
+    _progressView = [[DPPieTimer alloc] init];
     CGRect progressRect = CGRectMake(12.0, kToolbarDefaultTopPadding, 33.0, 33.0);
     _progressView.frame = progressRect;
+    _progressView.delegate = self;
     
     _trash = [UIButton buttonWithType:UIButtonTypeCustom];
     [_trash setImage:[UIImage imageNamed:@"trash"] forState:UIControlStateNormal];
@@ -163,16 +163,17 @@
 
 
 - (void)startCountdown {
-    __block NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 block:^(NSTimeInterval time){
-        _progressView.progress = _progressView.progress + (1.0/(kCountdownTimeInSeconds*60.0));
-        if (_progressView.progress == 1.0f) {
-            [timer invalidate];
-            if (_delegate && [_delegate respondsToSelector:@selector(toolbarCountdownDidFinish)]) {
-                [_delegate toolbarCountdownDidFinish];
-            }
-        }
-        
-    } repeats:YES];
+    [_progressView start];
+}
+
+//////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark PieTimerDelegate
+
+- (void)pieTimerDidExpire {
+    if (_delegate && [_delegate respondsToSelector:@selector(toolbarCountdownDidFinish)]) {
+        [_delegate toolbarCountdownDidFinish];
+    }
 }
 
 

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SSPieProgressView.h"
+#import "DPPieTimer.h"
 #import "DPSwatch.h"
 
 @protocol DPSwatchToolbarDelegate <NSObject>
@@ -19,17 +19,14 @@
 
 @end
 
-@interface DPSwatchToolbar : UIView
+@interface DPSwatchToolbar : UIView <DPPieTimerDelegate>
 
-@property (nonatomic, strong) SSPieProgressView *progressView;
+@property (nonatomic, strong) DPPieTimer *progressView;
 @property (nonatomic, strong) NSArray *swatches;
 @property (nonatomic, weak) id<DPSwatchToolbarDelegate> delegate;
 
 - (void)showToolbar;
 - (void)startCountdown;
-//test
-- (void)animateSwatchesIn;
-- (void)animateTimerAndTrashIn;
 
 
 @end

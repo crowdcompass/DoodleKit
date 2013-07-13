@@ -13,6 +13,7 @@
 		5ACB97331791310B00EC86EF /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACB97311791310B00EC86EF /* trash.png */; };
 		5ACB97341791310B00EC86EF /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACB97321791310B00EC86EF /* trash@2x.png */; };
 		5ACB97371791321D00EC86EF /* DPSwatchToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACB97361791321D00EC86EF /* DPSwatchToolbar.m */; };
+		5ACB973A1791D55E00EC86EF /* DPPieTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACB97391791D55E00EC86EF /* DPPieTimer.m */; };
 		7840AA2B1790FF77005B1A2B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA2A1790FF77005B1A2B /* UIKit.framework */; };
 		7840AA2D1790FF77005B1A2B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA2C1790FF77005B1A2B /* Foundation.framework */; };
 		7840AA2F1790FF77005B1A2B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA2E1790FF77005B1A2B /* CoreGraphics.framework */; };
@@ -65,6 +66,8 @@
 		5ACB97321791310B00EC86EF /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash@2x.png"; sourceTree = "<group>"; };
 		5ACB97351791321D00EC86EF /* DPSwatchToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSwatchToolbar.h; sourceTree = "<group>"; };
 		5ACB97361791321D00EC86EF /* DPSwatchToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSwatchToolbar.m; sourceTree = "<group>"; };
+		5ACB97381791D55E00EC86EF /* DPPieTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPPieTimer.h; sourceTree = "<group>"; };
+		5ACB97391791D55E00EC86EF /* DPPieTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPPieTimer.m; sourceTree = "<group>"; };
 		763C4703FCEB4EB78EEDBE8D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7840AA271790FF77005B1A2B /* DoodleKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoodleKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7840AA2A1790FF77005B1A2B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -141,6 +144,8 @@
 				7856E7C71791BAFE001161CF /* DPLobbyAvatarsContainerView.m */,
 				7856E7C91791BB47001161CF /* DPLobbyAvatarView.h */,
 				7856E7CA1791BB48001161CF /* DPLobbyAvatarView.m */,
+				5ACB97381791D55E00EC86EF /* DPPieTimer.h */,
+				5ACB97391791D55E00EC86EF /* DPPieTimer.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -396,6 +401,7 @@
 				7856E7CB1791BB48001161CF /* DPLobbyAvatarView.m in Sources */,
 				7856E7CE1791BE99001161CF /* DPPlayer.m in Sources */,
 				06F3CF571791DF6300E27A07 /* DKBoardController.m in Sources */,
+				5ACB973A1791D55E00EC86EF /* DPPieTimer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		068CBCAF1791E6950036DA79 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068CBCAE1791E6950036DA79 /* QuartzCore.framework */; };
 		8733161C17914129001DD588 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8733161B17914129001DD588 /* Foundation.framework */; };
 		8733162B1791412A001DD588 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8733162A1791412A001DD588 /* SenTestingKit.framework */; };
 		8733162D1791412A001DD588 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8733162C1791412A001DD588 /* UIKit.framework */; };
@@ -47,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		068CBCAE1791E6950036DA79 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8733161817914129001DD588 /* libDoodleKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDoodleKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8733161B17914129001DD588 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8733161F17914129001DD588 /* DoodleKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DoodleKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				8733165917914944001DD588 /* UIKit.framework in Frameworks */,
 				8733161C17914129001DD588 /* Foundation.framework in Frameworks */,
 				87331657179148B6001DD588 /* CoreGraphics.framework in Frameworks */,
+				068CBCAF1791E6950036DA79 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +119,7 @@
 		8733161A17914129001DD588 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				068CBCAE1791E6950036DA79 /* QuartzCore.framework */,
 				8733165817914944001DD588 /* UIKit.framework */,
 				87331656179148B6001DD588 /* CoreGraphics.framework */,
 				873316541791487B001DD588 /* CoreFoundation.framework */,
@@ -452,6 +456,7 @@
 				8733163F1791412A001DD588 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		873316401791412A001DD588 /* Build configuration list for PBXNativeTarget "DoodleKitTests" */ = {
 			isa = XCConfigurationList;
@@ -460,6 +465,7 @@
 				873316421791412A001DD588 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

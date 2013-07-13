@@ -2,11 +2,12 @@
 //  DKSerializer.h
 //  DoodleKit
 //
-//  Created on 7/12/13.
+//  Created by Kerney, Benjamin on 7/12/13.
 //  Copyright (c) 2013 DaveVan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 #warning Move these to another file
 // Move these into a separate file

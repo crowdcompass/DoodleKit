@@ -9,22 +9,24 @@
 #import "DPLobbyView.h"
 
 #import "DPLobbyAvatarsContainerView.h"
+#import "DPStartDoodleButton.h"
 
 #import "SSDrawingUtilities.h"
 
 const CGFloat kPartyViewYPortrait = 145.f;
 const CGFloat kPartyViewYLandscape = 70.f;
 
-const CGFloat kPartyToAvatarVerticalPortrait = 175.f;
+const CGFloat kPartyToAvatarVerticalPortrait = 180.f;
 const CGFloat kPartyToAvatarVerticalLandscape = 60.f;
 
-const CGFloat kPartyButtonYPortrait = 800.f;
-const CGFloat kPartyButtonYLandscape = 660.f;
+const CGFloat kPartyButtonYPortrait = 880.f;
+const CGFloat kPartyButtonYLandscape = 640.f;
 
 @interface DPLobbyView ()
 
 @property (nonatomic, strong) UIImageView *partyView;
 @property (nonatomic, strong) DPLobbyAvatarsContainerView *avatarsView;
+
 
 @end
 
@@ -49,6 +51,12 @@ const CGFloat kPartyButtonYLandscape = 660.f;
         CGFloat avatarsY = frame.origin.y + (_partyView.frame.origin.y +  _partyView.frame.size.height + partyToAvatarVerticalSep);
         _avatarsView = [[DPLobbyAvatarsContainerView alloc] initWithFrame:CGRectMake(0.f, avatarsY, frame.size.width, 180.f)];
         [self addSubview:_avatarsView];
+        
+        _button = [[DPStartDoodleButton alloc] init];
+        _button.center = CGPointMake(self.center.x, 0.f);
+        CGFloat buttonY = isPortrait ? kPartyButtonYPortrait : kPartyButtonYLandscape;
+        _button.frame = CGRectSetY(_button.frame, buttonY);
+        [self addSubview:_button];
     }
     
     return self;
@@ -64,7 +72,12 @@ const CGFloat kPartyButtonYLandscape = 660.f;
     
     CGFloat partyToAvatarVerticalSep = isPortrait ? kPartyToAvatarVerticalPortrait : kPartyToAvatarVerticalLandscape;
     CGFloat avatarsY = self.frame.origin.y + (_partyView.frame.origin.y +  _partyView.frame.size.height + partyToAvatarVerticalSep);
-    self.avatarsView.center = CGPointMake(width/ 2.f, (avatarsY + self.frame.size.height) / 2.f);
+    self.avatarsView.frame = CGRectSetY(self.avatarsView.frame, avatarsY);
+    self.avatarsView.center = CGPointMake(width/ 2.f, self.avatarsView.center.y);
+    
+    CGFloat buttonY = isPortrait ? kPartyButtonYPortrait : kPartyButtonYLandscape;
+    self.button.frame = CGRectSetY(self.button.frame, buttonY);
+    self.button.center = CGPointMake(width / 2.f, self.button.center.y);
 }
 
 /*

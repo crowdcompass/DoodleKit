@@ -9,8 +9,12 @@
 #import "DPLobbyController.h"
 
 #import "DPLobbyView.h"
+#import "DPStartDoodleButton.h"
 
 @interface DPLobbyController ()
+
+//target/action
+- (void)startPressed;
 
 @end
 
@@ -33,11 +37,21 @@
     DPLobbyView *lobbyView = [[DPLobbyView alloc] initWithFrame:self.view.frame];
     [self.view addSubview:lobbyView];
     self.lobbyView = lobbyView;
+    
+    [self.lobbyView.button addTarget:self action:@selector(startPressed) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - DPLobbyController
+
+#pragma mark Target/action
+
+- (void)startPressed {
+    //attack!
 }
 
 @end

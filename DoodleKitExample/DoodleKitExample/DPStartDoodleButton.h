@@ -1,5 +1,5 @@
 //
-//  DPLobbyView.h
+//  DPStartDoodleButton.h
 //  DoodleKitExample
 //
 //  Created by Alexander Belliotti on 7/13/13.
@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class DPStartDoodleButton;
+@interface DPStartDoodleButton : UIButton
 
-@interface DPLobbyView : UIView
-
-@property (nonatomic, strong) DPStartDoodleButton *button;
+- (void)useWaitingImage;
+- (void)useReadyImage;
 
 @end

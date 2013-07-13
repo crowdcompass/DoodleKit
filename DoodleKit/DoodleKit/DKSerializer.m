@@ -38,13 +38,12 @@
 - (void)finishUsingTool {
     _toolType = DKDoodleToolTypeNone;
     _initialPoint = CGPointMake(0.f, 0.f);
-    
-    __weak DKSerializer *weakSelf = self;
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, NULL), ^{
-        [weakSelf.delegate startDrawingWithTool:_toolType atPoint:_initialPoint];
-        
-    });
+
+    [self.delegate startDrawingWithTool:_toolType atPoint:_initialPoint];
+    for (NSValue *dataPoint in _dataPoints) {
+        [self.delegate drawDKPointData:dataPoint];
+    }
+    [self.delegate finishDrawing];
 }
 
 @end

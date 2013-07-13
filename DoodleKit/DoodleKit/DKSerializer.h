@@ -29,6 +29,8 @@ struct DKPenPoint {
     CGPoint currentPoint;
 };
 
+typedef struct DKPenPoint DKPenPoint;
+
 @interface DKDrawingStrokeDefinition : NSObject < NSCoding >
 
 @property (nonatomic, assign) DKDoodleToolType toolType;

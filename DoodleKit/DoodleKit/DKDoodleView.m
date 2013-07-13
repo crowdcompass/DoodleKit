@@ -7,6 +7,7 @@
 //
 
 #import "DKDoodleView.h"
+#import "DKSerializer.h"
 
 #define kDefaultLineColor       [UIColor blackColor]
 #define kDefaultLineWidth       10.0f;
@@ -15,7 +16,7 @@
 // experimental code
 #define PARTIAL_REDRAW          0
 
-@interface DKDoodleView () {
+@interface DKDoodleView ()<DKSerializerDelegate> {
     CGPoint currentPoint;
     CGPoint previousPoint1;
     CGPoint previousPoint2;
@@ -62,6 +63,8 @@
     
     // set the transparent background
     self.backgroundColor = [UIColor clearColor];
+    
+    self.serializer = [[DKSerializer alloc] init];
 }
 
 
@@ -113,25 +116,15 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // init the bezier path
-    self.currentTool = [self toolWithCurrentSettings];
-    self.currentTool.lineWidth = self.lineWidth;
-    self.currentTool.lineColor = self.lineColor;
-    self.currentTool.lineAlpha = self.lineAlpha;
-    [self.pathArray addObject:self.currentTool];
-    
     // add the first touch
     UITouch *touch = [touches anyObject];
     
     previousPoint1 = [touch previousLocationInView:self];
     currentPoint = [touch locationInView:self];
     
-    [self.currentTool setInitialPoint:currentPoint];
-    
-    // call the delegate
-    if ([self.delegate respondsToSelector:@selector(drawingView:willBeginDrawUsingTool:)]) {
-        [self.delegate drawingView:self willBeginDrawUsingTool:self.currentTool];
-    }
+    // Serialize
+    [self.serializer startUsingTool:DKDoodleToolTypePen];
+    [self.serializer setInitialPoint:currentPoint];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -143,21 +136,10 @@
     previousPoint1 = [touch previousLocationInView:self];
     currentPoint = [touch locationInView:self];
     
-    if ([self.currentTool isKindOfClass:[ACEDrawingPenTool class]]) {
-        CGRect bounds = [(ACEDrawingPenTool*)self.currentTool addPathPreviousPreviousPoint:previousPoint2 withPreviousPoint:previousPoint1 withCurrentPoint:currentPoint];
-        
-        CGRect drawBox = bounds;
-        drawBox.origin.x -= self.lineWidth * 2.0;
-        drawBox.origin.y -= self.lineWidth * 2.0;
-        drawBox.size.width += self.lineWidth * 4.0;
-        drawBox.size.height += self.lineWidth * 4.0;
-        
-        [self setNeedsDisplayInRect:drawBox];
-    }
-    else {
-        [self.currentTool moveFromPoint:previousPoint1 toPoint:currentPoint];
-        [self setNeedsDisplay];
-    }
+    DKPenPoint penPoint;
+    penPoint.previousPoint = previousPoint1;
+    penPoint.previousPreviousPoint = previousPoint2;
+    penPoint.currentPoint = currentPoint;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -167,17 +149,9 @@
     
     // update the image
     [self updateCacheImage:NO];
-    
-    // clear the current tool
-    self.currentTool = nil;
-    
-    // clear the redo queue
-    [self.bufferArray removeAllObjects];
-    
-    // call the delegate
-    if ([self.delegate respondsToSelector:@selector(drawingView:didEndDrawUsingTool:)]) {
-        [self.delegate drawingView:self didEndDrawUsingTool:self.currentTool];
-    }
+
+    [self.serializer finishUsingTool];
+
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -249,5 +223,41 @@
 }
 
 #endif
+
+#pragma mark - DKSerializerDelegate methods
+
+- (void)startDrawingWithTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint
+{
+    // init the bezier path
+    self.currentTool = [self toolWithCurrentSettings];
+    self.currentTool.lineWidth = self.lineWidth;
+    self.currentTool.lineColor = self.lineColor;
+    self.currentTool.lineAlpha = self.lineAlpha;
+    [self.currentTool setInitialPoint:currentPoint];
+
+}
+
+- (void)drawDKPointData:(NSValue *)pointData
+{   
+    if ([self.currentTool isKindOfClass:[ACEDrawingPenTool class]]) {
+        CGRect bounds = [(ACEDrawingPenTool*)self.currentTool addPathPreviousPreviousPoint:previousPoint2 withPreviousPoint:previousPoint1 withCurrentPoint:currentPoint];
+        
+        CGRect drawBox = bounds;
+        drawBox.origin.x -= self.lineWidth * 2.0;
+        drawBox.origin.y -= self.lineWidth * 2.0;
+        drawBox.size.width += self.lineWidth * 4.0;
+        drawBox.size.height += self.lineWidth * 4.0;
+        
+        [self setNeedsDisplayInRect:drawBox];
+    } else {
+        [self.currentTool moveFromPoint:previousPoint1 toPoint:currentPoint];
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)finishDrawing
+{
+    self.currentTool = nil;
+}
 
 @end

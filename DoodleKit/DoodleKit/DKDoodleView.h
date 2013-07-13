@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ACEDrawingTools.h"
+#import "DKSerializer.h"
 
 @protocol DKDoodleViewDelegate, ACEDrawingTool;
 
@@ -15,6 +16,7 @@
 
 @property (nonatomic, assign) ACEDrawingPenTool *drawTool;
 @property (nonatomic, assign) id<DKDoodleViewDelegate> delegate;
+@property (nonatomic, strong) DKSerializer *serializer;
 
 // public properties
 @property (nonatomic, strong) UIColor *lineColor;

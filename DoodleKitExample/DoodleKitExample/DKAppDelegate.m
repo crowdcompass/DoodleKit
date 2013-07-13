@@ -7,10 +7,7 @@
 //
 
 #import "DKAppDelegate.h"
-#import "SSPieProgressView.h"
-#import "NSTimer+BlocksKit.h"
-
-#define kDrawingTimeInSeconds 30.0
+#import "DPSwatchToolbar.h"
 
 @implementation DKAppDelegate
 
@@ -20,7 +17,9 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    [self testPieProgress];
+    //TEST CODE
+    self.window.backgroundColor = [UIColor grayColor];
+    [self testToolbar];
     return YES;
 }
 
@@ -51,16 +50,28 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)testPieProgress {
-    SSPieProgressView *progressView = [[SSPieProgressView alloc] initWithFrame:CGRectMake(95.0f, 245.0f, 130.0f, 130.0f)];
-    __block NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 block:^(NSTimeInterval time){
-        progressView.progress = progressView.progress + (1.0/(kDrawingTimeInSeconds*30.0));
-        if (progressView.progress == 1.0f) {
-            [timer invalidate];
-        }
-        
-        } repeats:YES];
-    [self.window addSubview:progressView];
+//- (void)testPieProgress {
+//    SSPieProgressView *progressView = [[SSPieProgressView alloc] initWithFrame:CGRectMake(95.0f, 245.0f, 130.0f, 130.0f)];
+//    __block NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 block:^(NSTimeInterval time){
+//        progressView.progress = progressView.progress + (1.0/(kDrawingTimeInSeconds*30.0));
+//        if (progressView.progress == 1.0f) {
+//            [timer invalidate];
+//        }
+//        
+//        } repeats:YES];
+//    [self.window addSubview:progressView];
+//    
+//    DPSwatch *swatch = [[DPSwatch alloc] initWithColor:[UIColor blueColor] andBorderColor:[UIColor greenColor]];
+//    swatch.center = CGPointMake(100.0, 100.0);
+//    swatch.selected = YES;
+//    [self.window addSubview:swatch];
+//}
+
+- (void)testToolbar {
+    DPSwatchToolbar *toolbar = [[DPSwatchToolbar alloc] init];
+    toolbar.frame = CGRectMake(0.0, 20.0, toolbar.bounds.size.width, toolbar.bounds.size.height);
+    [self.window addSubview:toolbar];
+    [toolbar startCountdown];
 }
 
 @end

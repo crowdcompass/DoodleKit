@@ -1,14 +1,14 @@
 //
-//  DKDrawingView.m
+//  DKDoodleView.m
 //  DoodleKit
 //
 //  Created by Kerney, Benjamin on 7/12/13.
 //  Copyright (c) 2013 DaveVan. All rights reserved.
 //
 
-#import "DKDrawingView.h"
+#import "DKDoodleView.h"
 
-@implementation DKDrawingView
+@implementation DKDoodleView
 
 - (id)initWithFrame:(CGRect)frame
 {

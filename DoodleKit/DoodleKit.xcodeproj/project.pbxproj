@@ -26,7 +26,8 @@
 		061314E21791078F006742EA /* DoodleKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314E11791078F006742EA /* DoodleKitTests.m */; };
 		061314F017910A5C006742EA /* ACEDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314ED17910A5C006742EA /* ACEDrawingTools.m */; };
 		061314F117910A5C006742EA /* ACEDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314EF17910A5C006742EA /* ACEDrawingView.m */; };
-		061314F517910AED006742EA /* DKDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F417910AED006742EA /* DKDrawingView.m */; };
+		061314F517910AED006742EA /* DKDoodleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F417910AED006742EA /* DKDoodleView.m */; };
+		061314F817910D9F006742EA /* DKSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F717910D9F006742EA /* DKSerializer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +68,10 @@
 		061314ED17910A5C006742EA /* ACEDrawingTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEDrawingTools.m; sourceTree = "<group>"; };
 		061314EE17910A5C006742EA /* ACEDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEDrawingView.h; sourceTree = "<group>"; };
 		061314EF17910A5C006742EA /* ACEDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEDrawingView.m; sourceTree = "<group>"; };
-		061314F317910AED006742EA /* DKDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDrawingView.h; sourceTree = "<group>"; };
-		061314F417910AED006742EA /* DKDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDrawingView.m; sourceTree = "<group>"; };
+		061314F317910AED006742EA /* DKDoodleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDoodleView.h; sourceTree = "<group>"; };
+		061314F417910AED006742EA /* DKDoodleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDoodleView.m; sourceTree = "<group>"; };
+		061314F617910D9F006742EA /* DKSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSerializer.h; sourceTree = "<group>"; };
+		061314F717910D9F006742EA /* DKSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSerializer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,8 +180,10 @@
 			isa = PBXGroup;
 			children = (
 				061314F217910A74006742EA /* ACEDrawingView */,
-				061314F317910AED006742EA /* DKDrawingView.h */,
-				061314F417910AED006742EA /* DKDrawingView.m */,
+				061314F317910AED006742EA /* DKDoodleView.h */,
+				061314F417910AED006742EA /* DKDoodleView.m */,
+				061314F617910D9F006742EA /* DKSerializer.h */,
+				061314F717910D9F006742EA /* DKSerializer.m */,
 			);
 			name = DKLib;
 			sourceTree = "<group>";
@@ -309,7 +314,8 @@
 				061314BA1791078F006742EA /* main.m in Sources */,
 				061314BE1791078F006742EA /* DKAppDelegate.m in Sources */,
 				061314C71791078F006742EA /* DKViewController.m in Sources */,
-				061314F517910AED006742EA /* DKDrawingView.m in Sources */,
+				061314F517910AED006742EA /* DKDoodleView.m in Sources */,
+				061314F817910D9F006742EA /* DKSerializer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

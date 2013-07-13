@@ -1,5 +1,5 @@
 //
-//  DKDrawingView.h
+//  DKDoodleView.h
 //  DoodleKit
 //
 //  Created by Kerney, Benjamin on 7/12/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DKDrawingView : UIView
+@interface DKDoodleView : UIView
 
 @end

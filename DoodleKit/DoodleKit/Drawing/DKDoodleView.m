@@ -118,7 +118,7 @@
 
 - (void)flushDrawing
 {
-    if (_toolType == DKDoodleToolTypePen) {
+    if ([self.serializer isProcessingToolSession] && self.serializer.toolType == DKDoodleToolTypePen) {
         [self.serializer finishUsingTool];
         [self.serializer startUsingTool:_toolType];
     }

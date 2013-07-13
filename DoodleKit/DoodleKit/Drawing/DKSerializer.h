@@ -31,5 +31,6 @@
 - (void)setInitialPoint:(CGPoint)point;
 - (void)addDKPointData:(NSObject<NSCoding> *)pointData;
 - (void)finishUsingTool;
+- (BOOL)isProcessingToolSession;
 
 @end

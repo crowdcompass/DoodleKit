@@ -24,6 +24,9 @@
 - (DKDoodleToolType)toolType { return _toolType; }
 - (CGPoint)initialPoint { return _initialPoint; }
 - (NSArray *)dataPoints { return [NSArray arrayWithArray:_dataPoints]; }
+- (BOOL)isProcessingToolSession {
+    return _toolType != DKDoodleToolTypeNone;
+}
 
 - (void)startUsingTool:(DKDoodleToolType)toolType {
     _toolType = toolType;

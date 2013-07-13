@@ -11,7 +11,8 @@
 #warning Move these to another file
 // Move these into a separate file
 enum _DKDoodleToolType {
-    DKDoodleToolPen = 0,
+    DKDoodleToolTypeNone = 0,
+    DKDoodleToolTypePen = 0,
 };
 typedef NSUInteger DKDoodleToolType;
 
@@ -23,6 +24,10 @@ struct DKPenPoint {
 };
 
 @interface DKSerializer : NSObject
+
+@property (nonatomic, assign, readonly) DKDoodleToolType toolType;
+@property (nonatomic, assign, readonly) CGPoint initialPoint;
+@property (nonatomic, assign, readonly) NSArray *dataPoints;
 
 - (void)startUsingTool:(DKDoodleToolType)toolType;
 - (void)setInitialPoint:(CGPoint)point;

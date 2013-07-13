@@ -12,6 +12,7 @@
 enum _DKDoodleToolType {
     DKDoodleToolTypeNone = 0,
     DKDoodleToolTypePen,
+    DKDOodleToolTypeRectangle,
 };
 typedef NSUInteger DKDoodleToolType;
 
@@ -30,5 +31,13 @@ typedef NSUInteger DKDoodleToolType;
 @property (nonatomic, assign) CGPoint previousPreviousPoint;
 
 + (DKPenPoint *)penPointWithCurrentPoint:(CGPoint)currentPoint previousPoint:(CGPoint)point1 previousPreviousPoint:(CGPoint)point2;
+
+@end
+
+@interface DKRectanglePoint : NSObject  < NSCoding >
+
+@property (nonatomic, assign) CGPoint currentPoint;
+
++ (DKRectanglePoint *)rectanglePointWithCurrentPoint:(CGPoint)currentPoint;
 
 @end

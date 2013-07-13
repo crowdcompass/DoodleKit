@@ -7,18 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ACEDrawingTools.h"
 #import "DKSerializer.h"
 
-@protocol DKDoodleViewDelegate, ACEDrawingTool;
+@protocol DKDoodleViewDelegate;
 
 @interface DKDoodleView : UIView
 
-@property (nonatomic, assign) ACEDrawingPenTool *drawTool;
-@property (nonatomic, assign) id<DKDoodleViewDelegate> delegate;
+@property (nonatomic, weak) id<DKDoodleViewDelegate> delegate;
 @property (nonatomic, strong) DKSerializer *serializer;
 
 // public properties
+@property (nonatomic, assign) DKDoodleToolType toolType;
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, assign) CGFloat lineWidth;
 @property (nonatomic, assign) CGFloat lineAlpha;
@@ -46,7 +45,7 @@
 @protocol DKDoodleViewDelegate <NSObject>
 
 @optional
-- (void)drawingView:(DKDoodleView *)view willBeginDrawUsingTool:(id<ACEDrawingTool>)tool;
-- (void)drawingView:(DKDoodleView *)view didEndDrawUsingTool:(id<ACEDrawingTool>)tool;
+- (void)drawingView:(DKDoodleView *)view willBeginDrawUsingToolType:(DKDoodleToolType)toolType;
+- (void)drawingView:(DKDoodleView *)view didEndDrawUsingToolType:(DKDoodleToolType)toolType;
 
 @end

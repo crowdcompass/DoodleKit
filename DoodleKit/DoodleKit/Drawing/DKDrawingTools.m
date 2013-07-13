@@ -63,3 +63,29 @@
 }
 
 @end
+
+@implementation DKRectanglePoint
+
++ (DKRectanglePoint *)rectanglePointWithCurrentPoint:(CGPoint)currentPoint {
+    DKRectanglePoint *newRectanglePoint = [[DKRectanglePoint alloc] init];
+    newRectanglePoint.currentPoint = currentPoint;
+    
+    return newRectanglePoint;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    if (self) {
+        _currentPoint = [aDecoder decodeCGPointForKey:@"currentPoint"];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeCGPoint:_currentPoint forKey:@"currentPoint"];
+}
+
+@end

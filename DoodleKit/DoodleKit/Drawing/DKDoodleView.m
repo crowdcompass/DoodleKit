@@ -9,6 +9,7 @@
 #import "DKDoodleView.h"
 #import "DKSerializer.h"
 #import "DKDrawingTools.h"
+#import "ACEDrawingTools.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -24,6 +25,8 @@
     CGPoint previousPoint1;
     CGPoint previousPoint2;
 }
+
+@property (nonatomic, assign) ACEDrawingPenTool *drawTool;
 
 @property (nonatomic, strong) NSMutableArray *pathArray;
 @property (nonatomic, strong) NSMutableArray *bufferArray;
@@ -55,6 +58,8 @@
 
 - (void)configure
 {
+    _toolType = DKDOodleToolTypeRectangle;
+    
     // init the private arrays
     self.pathArray = [NSMutableArray array];
     self.bufferArray = [NSMutableArray array];
@@ -92,7 +97,7 @@
 - (void)flushDrawing
 {
     [self.serializer finishUsingTool];
-    [self.serializer startUsingTool:DKDoodleToolTypePen];
+    [self.serializer startUsingTool:_toolType];
 }
 
 - (void)updateCacheImage:(BOOL)redraw
@@ -120,9 +125,23 @@
     UIGraphicsEndImageContext();
 }
 
-- (id<ACEDrawingTool>)toolWithCurrentSettings
+- (id<ACEDrawingTool>)toolWithCurrentSettingsAndType:(DKDoodleToolType)toolType
 {
-    return ACE_AUTORELEASE([ACEDrawingPenTool new]);
+    id<ACEDrawingTool> tool;
+    
+    switch (toolType) {
+        case DKDoodleToolTypePen:
+            tool = ACE_AUTORELEASE([ACEDrawingPenTool new]);
+            break;
+            
+        case DKDOodleToolTypeRectangle:
+            tool = ACE_AUTORELEASE([ACEDrawingRectangleTool new]);
+            break;
+            
+        default:
+            break;
+    }
+    return tool;
 }
 
 
@@ -137,7 +156,7 @@
     currentPoint = [touch locationInView:self];
     
     // Serialize
-    [self.serializer startUsingTool:DKDoodleToolTypePen];
+    [self.serializer startUsingTool:_toolType];
     [self.serializer setInitialPoint:currentPoint];
 }
 
@@ -150,11 +169,29 @@
     previousPoint1 = [touch previousLocationInView:self];
     currentPoint = [touch locationInView:self];
     
-    DKPenPoint *penPoint = [DKPenPoint penPointWithCurrentPoint:currentPoint
-                                                previousPoint:previousPoint1
-                                          previousPreviousPoint:previousPoint2];
-        
-    [self.serializer addDKPointData:penPoint];
+    switch (_toolType) {
+        case DKDoodleToolTypePen:
+        {
+            DKPenPoint *penPoint = [DKPenPoint penPointWithCurrentPoint:currentPoint
+                                                          previousPoint:previousPoint1
+                                                  previousPreviousPoint:previousPoint2];
+            
+            [self.serializer addDKPointData:penPoint];
+        }
+            break;
+            
+        case DKDOodleToolTypeRectangle:
+        {
+            DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithCurrentPoint:currentPoint];
+            [self.serializer addDKPointData:rectPoint];
+        }
+
+            
+        default:
+            break;
+    }
+    
+
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -240,7 +277,7 @@
 - (void)startDrawingWithTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint
 {
     // init the bezier path
-    self.currentTool = [self toolWithCurrentSettings];
+    self.currentTool = [self toolWithCurrentSettingsAndType:toolType];
     self.currentTool.lineWidth = self.lineWidth;
     self.currentTool.lineColor = self.lineColor;
     self.currentTool.lineAlpha = self.lineAlpha;

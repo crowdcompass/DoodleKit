@@ -23,7 +23,6 @@
     
     __weak GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     [localPlayer setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
-        NSLog(@"%@", error);
         if (viewController) {
             [self.window.rootViewController presentViewController:viewController animated:YES completion:nil];
         }

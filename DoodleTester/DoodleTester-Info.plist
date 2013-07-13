@@ -28,6 +28,7 @@
 	<array>
 		<string>armv7</string>
 		<string>gamekit</string>
+		<string>peer-peer</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

@@ -52,6 +52,10 @@
 
 - (void)startSearching
 {
+    GKMatchmaker *matchmaker = [GKMatchmaker sharedMatchmaker];
+    [matchmaker setInviteHandler:^(GKInvite *invite, NSArray *players) {
+        NSLog(@"SCREW THIS");
+    }];
     [[GKMatchmaker sharedMatchmaker] startBrowsingForNearbyPlayersWithReachableHandler:^(NSString *playerID, BOOL reachable) {
         if (reachable) {
             [self.playersToInvite addObject:playerID];

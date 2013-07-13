@@ -43,8 +43,8 @@
 - (void)didTouchButton {
     GKMatchRequest *request = [[GKMatchRequest alloc] init];
     request.minPlayers = 2;
-    request.maxPlayers = 4;
-    
+    request.maxPlayers = 3;
+
     GKMatchmakerViewController *viewController = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
     viewController.matchmakerDelegate = self;
     [self presentViewController:viewController animated:YES completion:nil];
@@ -60,7 +60,17 @@
 }
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)match {
-    
+
+    self.match = match;
+    if (match.expectedPlayerCount == 0) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.match chooseBestHostPlayerWithCompletionHandler:^(NSString *playerID) {
+            NSLog(@"%@", self.match);
+            NSLog(@"%@", playerID);
+        }];
+    }
+
+
 }
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindPlayers:(NSArray *)playerIDs {

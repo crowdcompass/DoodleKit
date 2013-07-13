@@ -149,12 +149,8 @@
 {
     // make sure a point is recorded
     [self touchesMoved:touches withEvent:event];
-    
-    // update the image
-    [self updateCacheImage:NO];
 
     [self.serializer finishUsingTool];
-
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event

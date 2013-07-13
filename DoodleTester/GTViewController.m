@@ -41,8 +41,16 @@
 }
 
 - (void)didTouchButton {
-    NSLog(@"%@", self.playersToInvite);
-    
+    CGPointMake
+    GKMatchRequest *request = [[GKMatchRequest alloc] init];
+    request.minPlayers = 2;
+    request.maxPlayers = 4;
+    request.playersToInvite = self.playersToInvite;
+    [[GKMatchmaker sharedMatchmaker] findMatchForRequest:request withCompletionHandler:^(GKMatch *match, NSError *error) {
+        NSLog(@"FIND MATCH");
+        NSLog(@"%@", match);
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)viewDidLoad
@@ -54,7 +62,9 @@
 {
     GKMatchmaker *matchmaker = [GKMatchmaker sharedMatchmaker];
     [matchmaker setInviteHandler:^(GKInvite *invite, NSArray *players) {
-        NSLog(@"SCREW THIS");
+        NSLog(@"INVITE HANDLER");
+        NSLog(@"%@", invite);
+        NSLog(@"%@", players);
     }];
     [[GKMatchmaker sharedMatchmaker] startBrowsingForNearbyPlayersWithReachableHandler:^(NSString *playerID, BOOL reachable) {
         if (reachable) {

@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Robert Corlett. All rights reserved.
 //
 
+#import "GTViewController.h"
 #import "GTAppDelegate.h"
+#import <GameKit/GameKit.h>
 
 @implementation GTAppDelegate
 
@@ -14,8 +16,17 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    self.window.rootViewController = [[GTViewController alloc] init];
+    
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    [localPlayer setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
+        [self.window.rootViewController presentViewController:viewController animated:YES completion:nil];
+    }];
+
+    
     return YES;
 }
 

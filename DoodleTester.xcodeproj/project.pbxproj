@@ -21,6 +21,8 @@
 		C9AA925E17910A0D0049B606 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AA923F17910A0D0049B606 /* Foundation.framework */; };
 		C9AA926617910A0D0049B606 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9AA926417910A0D0049B606 /* InfoPlist.strings */; };
 		C9AA926917910A0D0049B606 /* DoodleTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AA926817910A0D0049B606 /* DoodleTesterTests.m */; };
+		C9AA927417910ADF0049B606 /* GTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AA927317910ADF0049B606 /* GTViewController.m */; };
+		C9AA927617910B300049B606 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AA927517910B300049B606 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,9 @@
 		C9AA926517910A0D0049B606 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9AA926717910A0D0049B606 /* DoodleTesterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoodleTesterTests.h; sourceTree = "<group>"; };
 		C9AA926817910A0D0049B606 /* DoodleTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoodleTesterTests.m; sourceTree = "<group>"; };
+		C9AA927217910ADF0049B606 /* GTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTViewController.h; sourceTree = "<group>"; };
+		C9AA927317910ADF0049B606 /* GTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTViewController.m; sourceTree = "<group>"; };
+		C9AA927517910B300049B606 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +68,7 @@
 				C9AA923E17910A0D0049B606 /* UIKit.framework in Frameworks */,
 				C9AA924017910A0D0049B606 /* Foundation.framework in Frameworks */,
 				C9AA924217910A0D0049B606 /* CoreGraphics.framework in Frameworks */,
+				C9AA927617910B300049B606 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +107,7 @@
 		C9AA923C17910A0D0049B606 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9AA927517910B300049B606 /* GameKit.framework */,
 				C9AA923D17910A0D0049B606 /* UIKit.framework */,
 				C9AA923F17910A0D0049B606 /* Foundation.framework */,
 				C9AA924117910A0D0049B606 /* CoreGraphics.framework */,
@@ -115,6 +122,8 @@
 				C9AA924C17910A0D0049B606 /* GTAppDelegate.h */,
 				C9AA924D17910A0D0049B606 /* GTAppDelegate.m */,
 				C9AA924417910A0D0049B606 /* Supporting Files */,
+				C9AA927217910ADF0049B606 /* GTViewController.h */,
+				C9AA927317910ADF0049B606 /* GTViewController.m */,
 			);
 			path = DoodleTester;
 			sourceTree = "<group>";
@@ -264,6 +273,7 @@
 			files = (
 				C9AA924A17910A0D0049B606 /* main.m in Sources */,
 				C9AA924E17910A0D0049B606 /* GTAppDelegate.m in Sources */,
+				C9AA927417910ADF0049B606 /* GTViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

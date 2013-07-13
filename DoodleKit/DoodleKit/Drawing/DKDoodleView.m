@@ -8,6 +8,7 @@
 
 #import "DKDoodleView.h"
 #import "DKSerializer.h"
+#import "DKDrawingTools.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -149,12 +150,11 @@
     previousPoint1 = [touch previousLocationInView:self];
     currentPoint = [touch locationInView:self];
     
-    DKPenPoint penPoint;
-    penPoint.previousPoint = previousPoint1;
-    penPoint.previousPreviousPoint = previousPoint2;
-    penPoint.currentPoint = currentPoint;
-    
-    [self.serializer addDKPointData:[NSValue value:&penPoint withObjCType:@encode(DKPenPoint)]];
+    DKPenPoint *penPoint = [DKPenPoint penPointWithCurrentPoint:currentPoint
+                                                previousPoint:previousPoint1
+                                          previousPreviousPoint:previousPoint2];
+        
+    [self.serializer addDKPointData:penPoint];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -248,10 +248,9 @@
 
 }
 
-- (void)drawDKPointData:(NSValue *)pointData
+- (void)drawDKPointData:(NSObject *)pointData
 {
-    DKPenPoint penPoint;
-    [pointData getValue:&penPoint];
+    DKPenPoint *penPoint = (DKPenPoint *)pointData;
     
     if ([self.currentTool isKindOfClass:[ACEDrawingPenTool class]]) {
         CGRect bounds = [(ACEDrawingPenTool*)self.currentTool addPathPreviousPreviousPoint:penPoint.previousPreviousPoint

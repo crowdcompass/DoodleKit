@@ -9,41 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-#warning Move these to another file
-// Move these into a separate file
-enum _DKDoodleToolType {
-    DKDoodleToolTypeNone = 0,
-    DKDoodleToolTypePen,
-};
-typedef NSUInteger DKDoodleToolType;
-
-// DKDoodleToolType toolType = DKDoodleToolTypePen;
-//
-// NSValue *anObj = [NSValue value:&toolType withObjCType:@encode(DKDoodleToolType)];
-//
-// DKDoodleToolType bToolType;
-// [anObj getValue:&bToolType];
-
-struct DKPenPoint {
-    CGPoint previousPreviousPoint;
-    CGPoint previousPoint;
-    CGPoint currentPoint;
-};
-
-typedef struct DKPenPoint DKPenPoint;
-
-@interface DKDrawingStrokeDefinition : NSObject < NSCoding >
-
-@property (nonatomic, assign) DKDoodleToolType toolType;
-@property (nonatomic, assign) CGPoint initialPoint;
-@property (nonatomic, retain) NSArray *dataPoints;
-
-@end
+#import "DKDrawingTools.h"
 
 @protocol DKSerializerDelegate <NSObject>
 
 - (void)startDrawingWithTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint;
-- (void)drawDKPointData:(NSValue *)pointData;
+- (void)drawDKPointData:(NSObject *)pointData;
 - (void)finishDrawing;
 
 @end
@@ -58,7 +29,7 @@ typedef struct DKPenPoint DKPenPoint;
 
 - (void)startUsingTool:(DKDoodleToolType)toolType;
 - (void)setInitialPoint:(CGPoint)point;
-- (void)addDKPointData:(NSValue *)pointData;
+- (void)addDKPointData:(NSObject<NSCoding> *)pointData;
 - (void)finishUsingTool;
 
 @end

@@ -9,7 +9,7 @@
 #import "DKSerializer.h"
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+
 
 @interface DKSerializer () {
     DKDoodleToolType _toolType;
@@ -34,7 +34,7 @@
     _initialPoint = point;
 }
 
-- (void)addDKPointData:(NSValue *)pointData {
+- (void)addDKPointData:(NSObject<NSCoding> *)pointData {
     [_dataPoints addObject:pointData];
 }
 
@@ -53,7 +53,7 @@
     __weak DKSerializer *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf.delegate startDrawingWithTool:strokeDefinition.toolType atPoint:strokeDefinition.initialPoint];
-        for (NSValue *dataPoint in strokeDefinition.dataPoints) {
+        for (NSObject *dataPoint in strokeDefinition.dataPoints) {
             [weakSelf.delegate drawDKPointData:dataPoint];
         }
         [weakSelf.delegate finishDrawing];
@@ -63,25 +63,3 @@
 
 @end
 
-@implementation DKDrawingStrokeDefinition
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    
-    self = [super init];
-    if (self) {
-        _toolType = [aDecoder decodeIntegerForKey:@"toolType"];
-        _initialPoint = [aDecoder decodeCGPointForKey:@"initialPoint"];
-        _dataPoints = [aDecoder decodeObjectForKey:@"dataPoints"];
-    }
-    
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-    
-    [aCoder encodeInteger:_toolType forKey:@"toolType"];
-    [aCoder encodeCGPoint:_initialPoint forKey:@"initialPoint"];
-    [aCoder encodeObject:_dataPoints forKey:@"dataPoints"];
-}
-
-@end

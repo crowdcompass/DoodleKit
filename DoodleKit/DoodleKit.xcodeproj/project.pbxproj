@@ -23,6 +23,8 @@
 		873316531791483B001DD588 /* DKSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8733164817914468001DD588 /* DKSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87331657179148B6001DD588 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87331656179148B6001DD588 /* CoreGraphics.framework */; };
 		8733165917914944001DD588 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8733165817914944001DD588 /* UIKit.framework */; };
+		874621361791EB54009F9265 /* DKDrawingTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 874621341791EB54009F9265 /* DKDrawingTools.h */; };
+		874621371791EB54009F9265 /* DKDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 874621351791EB54009F9265 /* DKDrawingTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		873316541791487B001DD588 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		87331656179148B6001DD588 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8733165817914944001DD588 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		874621341791EB54009F9265 /* DKDrawingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDrawingTools.h; sourceTree = "<group>"; };
+		874621351791EB54009F9265 /* DKDrawingTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDrawingTools.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,8 @@
 			children = (
 				8733164417914468001DD588 /* ACEDrawingTools.h */,
 				8733164517914468001DD588 /* ACEDrawingTools.m */,
+				874621341791EB54009F9265 /* DKDrawingTools.h */,
+				874621351791EB54009F9265 /* DKDrawingTools.m */,
 				8733164617914468001DD588 /* DKDoodleView.h */,
 				8733164717914468001DD588 /* DKDoodleView.m */,
 				8733164817914468001DD588 /* DKSerializer.h */,
@@ -190,6 +196,7 @@
 				8733165117914828001DD588 /* DKDoodleView.h in Headers */,
 				8733165217914831001DD588 /* DoodleKit.h in Headers */,
 				873316531791483B001DD588 /* DKSerializer.h in Headers */,
+				874621361791EB54009F9265 /* DKDrawingTools.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +302,7 @@
 				8733164A17914468001DD588 /* ACEDrawingTools.m in Sources */,
 				8733164B17914468001DD588 /* DKDoodleView.m in Sources */,
 				8733164C17914468001DD588 /* DKSerializer.m in Sources */,
+				874621371791EB54009F9265 /* DKDrawingTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

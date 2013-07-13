@@ -11,8 +11,9 @@
 
 
 static NSInteger const HostTestFlag = 1 << 0;
-static NSInteger const HostVerifyFlag = 1 << 1;
+static NSInteger const HostClaimFlag = 1 << 1;
 static NSInteger const HostConfirmFlag = 1 << 2;
+static NSInteger const StartGameFlag = 1 << 3;
 
 @interface GTViewController ()
 @property (nonatomic) NSMutableArray *deviceIDs;
@@ -20,7 +21,10 @@ static NSInteger const HostConfirmFlag = 1 << 2;
 @property (nonatomic) GKMatch *match;
 @property (nonatomic) NSInteger playerCount;
 @property (nonatomic) BOOL isHost;
-@property (nonatomic) GKPlayer *hostPlayer;
+@property (nonatomic) NSString *hostPlayerID;
+@property (nonatomic) NSMutableSet *confirmedPlayers;
+
+@property (nonatomic) UILabel *startGameLabel;
 @end
 
 @implementation GTViewController
@@ -31,6 +35,7 @@ static NSInteger const HostConfirmFlag = 1 << 2;
     if (self) {
         self.playersToInvite = [NSMutableSet set];
         self.deviceIDs = [NSMutableArray array];
+        self.confirmedPlayers = [NSMutableSet set];
 
         self.playerCount = 2;
         self.isHost = NO;
@@ -50,6 +55,16 @@ static NSInteger const HostConfirmFlag = 1 << 2;
     [button addTarget:self action:@selector(didTouchButton) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
     [self.view addSubview:button];
+
+    UILabel *startGameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    startGameLabel.text = @"LETS GET THIS PARTY STARTED";
+    startGameLabel.backgroundColor = [UIColor clearColor];
+    startGameLabel.textColor = [UIColor blackColor];
+    [startGameLabel sizeToFit];
+    startGameLabel.center = CGPointMake(100.f, 100.f);
+    [self.view addSubview:startGameLabel];
+    self.startGameLabel = startGameLabel;
+    [self.startGameLabel setHidden:YES];
 }
 
 - (void)didTouchButton {
@@ -212,8 +227,41 @@ static NSInteger const HostConfirmFlag = 1 << 2;
     }
 }
 
-- (void)receivedHostVerifyDictionary:(NSDictionary *)dictionary {
+- (void)sendHostConfirmation {
+    NSData *payload = [self payloadForDictionary:@{ @"message-id": @"you are the host" } withFlag:HostTestFlag];
+    NSError *error;
+    [self.match sendData:payload toPlayers:@[ self.hostPlayerID ] withDataMode:GKMatchSendDataReliable error:&error];
+    if (error) { assert(0); }
+}
+
+- (void)sendStartGame {
+    NSData *payload = [self payloadForDictionary:@{ @"message-id": @"start game" } withFlag:StartGameFlag];
+    NSError *error;
+    [self.match sendDataToAllPlayers:payload withDataMode:GKMatchSendDataReliable error:&error];
+    if (error) { assert(0); }
+
+    [self startGame];
+}
+
+- (void)receivedHostConfirmDictionary:(NSDictionary *)dictionary fromPlayer:(NSString *)playerID {
+    [self.confirmedPlayers addObject:playerID];
+    if (self.confirmedPlayers.count == self.playerCount - 1) {
+        [self sendStartGame];
+    }
+}
+
+- (void)receivedHostClaimDictionary:(NSDictionary *)dictionary fromPlayer:(NSString *)playerID {
+    self.hostPlayerID = playerID;
+    [self sendHostConfirmation];
     NSLog(@"%@", dictionary);
+}
+
+- (void)startGame {
+    [self.startGameLabel setHidden:NO];
+}
+
+- (void)receivedHostStartGameDictionary:(NSDictionary *)dictionary {
+    [self startGame];
 }
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
@@ -226,10 +274,15 @@ static NSInteger const HostConfirmFlag = 1 << 2;
             [self receivedHostTestDictionary:dictionary];
             break;
         }
-        case HostVerifyFlag: {
-            [self receivedHostVerifyDictionary:dictionary];
+        case HostClaimFlag: {
+            [self receivedHostClaimDictionary:dictionary fromPlayer:playerID];
         }
         case HostConfirmFlag: {
+            [self receivedHostConfirmDictionary:dictionary fromPlayer:playerID];
+            break;
+        }
+        case StartGameFlag: {
+            [self receivedHostStartGameDictionary:dictionary];
             break;
         }
         default: {
@@ -249,7 +302,7 @@ static NSInteger const HostConfirmFlag = 1 << 2;
 - (void)becomeHost {
     self.isHost = YES;
 
-    NSData *payload = [self payloadForDictionary:@{ @"message-id": @"become-host" } withFlag:HostVerifyFlag];
+    NSData *payload = [self payloadForDictionary:@{ @"message-id": @"become-host" } withFlag:HostClaimFlag];
     NSError *error;
     [self.match sendDataToAllPlayers:payload withDataMode:GKMatchSendDataReliable error:&error];
     if (error) { assert(0); }

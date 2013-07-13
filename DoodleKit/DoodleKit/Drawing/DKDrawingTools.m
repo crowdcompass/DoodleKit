@@ -66,9 +66,10 @@
 
 @implementation DKRectanglePoint
 
-+ (DKRectanglePoint *)rectanglePointWithCurrentPoint:(CGPoint)currentPoint {
++ (DKRectanglePoint *)rectanglePointWithTopLeftPoint:(CGPoint)topLeftPoint andBottomRightPoint:(CGPoint)bottomRightPoint {
     DKRectanglePoint *newRectanglePoint = [[DKRectanglePoint alloc] init];
-    newRectanglePoint.currentPoint = currentPoint;
+    newRectanglePoint.topLeftPoint = topLeftPoint;
+    newRectanglePoint.bottomRightPoint = bottomRightPoint;
     
     return newRectanglePoint;
 }
@@ -77,7 +78,8 @@
     
     self = [super init];
     if (self) {
-        _currentPoint = [aDecoder decodeCGPointForKey:@"currentPoint"];
+        _topLeftPoint = [aDecoder decodeCGPointForKey:@"topLeftPoint"];
+        _bottomRightPoint = [aDecoder decodeCGPointForKey:@"bottomRightPoint"];
     }
     
     return self;
@@ -85,7 +87,8 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
-    [aCoder encodeCGPoint:_currentPoint forKey:@"currentPoint"];
+    [aCoder encodeCGPoint:_topLeftPoint forKey:@"topLeftPoint"];
+    [aCoder encodeCGPoint:_bottomRightPoint forKey:@"bottomRightPoint"];
 }
 
 @end

@@ -95,7 +95,7 @@
         [self.serializer startUsingTool:_toolType];
         [self.serializer setInitialPoint:[(NSValue *)[points objectAtIndex:0] CGPointValue]];
         
-        DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithCurrentPoint:[(NSValue *)[points lastObject] CGPointValue]];
+        DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithTopLeftPoint:[(NSValue *)[points objectAtIndex:0] CGPointValue] andBottomRightPoint:[(NSValue *)[points lastObject] CGPointValue]];
         [self.serializer addDKPointData:rectPoint];
 
         [self.serializer finishUsingTool]; 
@@ -207,7 +207,7 @@
             
         case DKDOodleToolTypeRectangle:
         {
-            DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithCurrentPoint:currentPoint];
+            DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithTopLeftPoint:previousPoint1 andBottomRightPoint:currentPoint];
             [self.serializer addDKPointData:rectPoint];
         }
 
@@ -312,9 +312,9 @@
 
 - (void)drawDKPointData:(NSObject *)pointData
 {
-    DKPenPoint *penPoint = (DKPenPoint *)pointData;
-    
     if ([self.currentTool isKindOfClass:[ACEDrawingPenTool class]]) {
+        DKPenPoint *penPoint = (DKPenPoint *)pointData;
+        
         CGRect bounds = [(ACEDrawingPenTool*)self.currentTool addPathPreviousPreviousPoint:penPoint.previousPreviousPoint
                                                                          withPreviousPoint:penPoint.previousPoint
                                                                           withCurrentPoint:penPoint.currentPoint];
@@ -327,7 +327,8 @@
         
         [self setNeedsDisplayInRect:drawBox];
     } else {
-        [self.currentTool moveFromPoint:previousPoint1 toPoint:currentPoint];
+        DKRectanglePoint *rectPoint = (DKRectanglePoint *)pointData;
+        [self.currentTool moveFromPoint:rectPoint.topLeftPoint toPoint:rectPoint.bottomRightPoint];
         [self setNeedsDisplay];
     }
 }

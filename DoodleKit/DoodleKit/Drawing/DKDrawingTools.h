@@ -36,8 +36,9 @@ typedef NSUInteger DKDoodleToolType;
 
 @interface DKRectanglePoint : NSObject  < NSCoding >
 
-@property (nonatomic, assign) CGPoint currentPoint;
+@property (nonatomic, assign) CGPoint topLeftPoint;
+@property (nonatomic, assign) CGPoint bottomRightPoint;
 
-+ (DKRectanglePoint *)rectanglePointWithCurrentPoint:(CGPoint)currentPoint;
++ (DKRectanglePoint *)rectanglePointWithTopLeftPoint:(CGPoint)topLeftPoint andBottomRightPoint:(CGPoint)bottomRightPoint;
 
 @end

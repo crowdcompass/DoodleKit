@@ -97,9 +97,6 @@
 		8733160F17914129001DD588 = {
 			isa = PBXGroup;
 			children = (
-				8733165817914944001DD588 /* UIKit.framework */,
-				87331656179148B6001DD588 /* CoreGraphics.framework */,
-				873316541791487B001DD588 /* CoreFoundation.framework */,
 				8733161D17914129001DD588 /* DoodleKit */,
 				873316321791412A001DD588 /* DoodleKitTests */,
 				8733161A17914129001DD588 /* Frameworks */,
@@ -119,6 +116,9 @@
 		8733161A17914129001DD588 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8733165817914944001DD588 /* UIKit.framework */,
+				87331656179148B6001DD588 /* CoreGraphics.framework */,
+				873316541791487B001DD588 /* CoreFoundation.framework */,
 				8733161B17914129001DD588 /* Foundation.framework */,
 				8733162A1791412A001DD588 /* SenTestingKit.framework */,
 				8733162C1791412A001DD588 /* UIKit.framework */,

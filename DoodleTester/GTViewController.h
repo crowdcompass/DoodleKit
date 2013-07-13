@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GameKit/GameKit.h>
 
-@interface GTViewController : UIViewController
+@interface GTViewController : UIViewController <GKMatchDelegate, GKMatchmakerViewControllerDelegate>
 
 - (void)startSearching;
 

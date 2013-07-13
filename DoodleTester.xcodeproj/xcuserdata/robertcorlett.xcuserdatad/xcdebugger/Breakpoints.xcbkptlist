@@ -7,13 +7,52 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DoodleTester/GTAppDelegate.m"
-         timestampString = "395383704.02931"
+         filePath = "DoodleTester/GTViewController.m"
+         timestampString = "395431049.8137"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "26"
-         endingLineNumber = "26"
-         landmarkName = "-application:didFinishLaunchingWithOptions:"
+         startingLineNumber = "169"
+         endingLineNumber = "169"
+         landmarkName = "-match:shouldReinvitePlayer:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DoodleTester/GTViewController.m"
+         timestampString = "395431049.8137"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "164"
+         endingLineNumber = "164"
+         landmarkName = "-match:didFailWithError:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DoodleTester/GTViewController.m"
+         timestampString = "395431049.8137"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "159"
+         endingLineNumber = "159"
+         landmarkName = "-match:player:didChangeState:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DoodleTester/GTViewController.m"
+         timestampString = "395431049.8137"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "153"
+         endingLineNumber = "153"
+         landmarkName = "-match:didReceiveData:fromPlayer:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

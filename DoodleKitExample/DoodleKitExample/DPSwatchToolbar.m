@@ -196,6 +196,10 @@
         if (_delegate && [_delegate respondsToSelector:@selector(doodlerDidSelectEraser)]) {
             [_delegate doodlerDidSelectEraser];
         }
+    } else {
+        if (_delegate && [_delegate respondsToSelector:@selector(doodlerDidChangeToSwatch:)]) {
+            [_delegate doodlerDidChangeToSwatch:newSwatch];
+        }
     }
     
 }

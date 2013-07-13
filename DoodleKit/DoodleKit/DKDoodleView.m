@@ -7,7 +7,6 @@
 //
 
 #import "DKDoodleView.h"
-#import "ACEDrawingTools.h"
 
 #define kDefaultLineColor       [UIColor blackColor]
 #define kDefaultLineWidth       10.0f;
@@ -106,50 +105,7 @@
 
 - (id<ACEDrawingTool>)toolWithCurrentSettings
 {
-    switch (self.drawTool) {
-        case ACEDrawingToolTypePen:
-        {
-            return ACE_AUTORELEASE([ACEDrawingPenTool new]);
-        }
-            
-        case ACEDrawingToolTypeLine:
-        {
-            return ACE_AUTORELEASE([ACEDrawingLineTool new]);
-        }
-            
-        case ACEDrawingToolTypeRectagleStroke:
-        {
-            ACEDrawingRectangleTool *tool = ACE_AUTORELEASE([ACEDrawingRectangleTool new]);
-            tool.fill = NO;
-            return tool;
-        }
-            
-        case ACEDrawingToolTypeRectagleFill:
-        {
-            ACEDrawingRectangleTool *tool = ACE_AUTORELEASE([ACEDrawingRectangleTool new]);
-            tool.fill = YES;
-            return tool;
-        }
-            
-        case ACEDrawingToolTypeEllipseStroke:
-        {
-            ACEDrawingEllipseTool *tool = ACE_AUTORELEASE([ACEDrawingEllipseTool new]);
-            tool.fill = NO;
-            return tool;
-        }
-            
-        case ACEDrawingToolTypeEllipseFill:
-        {
-            ACEDrawingEllipseTool *tool = ACE_AUTORELEASE([ACEDrawingEllipseTool new]);
-            tool.fill = YES;
-            return tool;
-        }
-            
-        case ACEDrawingToolTypeEraser:
-        {
-            return ACE_AUTORELEASE([ACEDrawingEraserTool new]);
-        }
-    }
+    return ACE_AUTORELEASE([ACEDrawingPenTool new]);
 }
 
 

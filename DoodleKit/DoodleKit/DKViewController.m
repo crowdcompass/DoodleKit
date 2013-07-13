@@ -7,8 +7,11 @@
 //
 
 #import "DKViewController.h"
+#import "DKDoodleView.h"
 
-@interface DKViewController ()
+#import <QuartzCore/QuartzCore.h>
+
+@interface DKViewController ()<DKDoodleViewDelegate>
 
 @end
 
@@ -18,6 +21,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    // set the delegate
+    self.drawingView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning

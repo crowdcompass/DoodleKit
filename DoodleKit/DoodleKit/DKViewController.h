@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class DKDoodleView;
+
 @interface DKViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet DKDoodleView *drawingView;
 
 @end

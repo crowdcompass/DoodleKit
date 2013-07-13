@@ -7,22 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum {
-    ACEDrawingToolTypePen,
-    ACEDrawingToolTypeLine,
-    ACEDrawingToolTypeRectagleStroke,
-    ACEDrawingToolTypeRectagleFill,
-    ACEDrawingToolTypeEllipseStroke,
-    ACEDrawingToolTypeEllipseFill,
-    ACEDrawingToolTypeEraser
-} ACEDrawingToolType;
+#import "ACEDrawingTools.h"
 
 @protocol DKDoodleViewDelegate, ACEDrawingTool;
 
 @interface DKDoodleView : UIView
 
-@property (nonatomic, assign) ACEDrawingToolType drawTool;
+@property (nonatomic, assign) ACEDrawingPenTool *drawTool;
 @property (nonatomic, assign) id<DKDoodleViewDelegate> delegate;
 
 // public properties

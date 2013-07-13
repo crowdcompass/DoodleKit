@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <GameKit/GameKit.h>
 
-@interface GTViewController : UIViewController <GKMatchDelegate, GKMatchmakerViewControllerDelegate>
+#import "GTHostNegotiator.h"
+@interface GTViewController : UIViewController <GKMatchmakerViewControllerDelegate, GTHostNegotiatorDelegate, GKMatchDelegate>
 
 - (void)startSearching;
 

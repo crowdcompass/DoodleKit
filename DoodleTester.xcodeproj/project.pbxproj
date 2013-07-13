@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FA2F1461791F6C200C006E5 /* GTHostNegotiator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2F1451791F6C200C006E5 /* GTHostNegotiator.m */; };
 		C9AA923E17910A0D0049B606 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AA923D17910A0D0049B606 /* UIKit.framework */; };
 		C9AA924017910A0D0049B606 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AA923F17910A0D0049B606 /* Foundation.framework */; };
 		C9AA924217910A0D0049B606 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AA924117910A0D0049B606 /* CoreGraphics.framework */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3FA2F1441791F6C200C006E5 /* GTHostNegotiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTHostNegotiator.h; sourceTree = "<group>"; };
+		3FA2F1451791F6C200C006E5 /* GTHostNegotiator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTHostNegotiator.m; sourceTree = "<group>"; };
 		C9AA923A17910A0D0049B606 /* DoodleTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoodleTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AA923D17910A0D0049B606 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C9AA923F17910A0D0049B606 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -124,6 +127,8 @@
 				C9AA924417910A0D0049B606 /* Supporting Files */,
 				C9AA927217910ADF0049B606 /* GTViewController.h */,
 				C9AA927317910ADF0049B606 /* GTViewController.m */,
+				3FA2F1441791F6C200C006E5 /* GTHostNegotiator.h */,
+				3FA2F1451791F6C200C006E5 /* GTHostNegotiator.m */,
 			);
 			path = DoodleTester;
 			sourceTree = "<group>";
@@ -274,6 +279,7 @@
 				C9AA924A17910A0D0049B606 /* main.m in Sources */,
 				C9AA924E17910A0D0049B606 /* GTAppDelegate.m in Sources */,
 				C9AA927417910ADF0049B606 /* GTViewController.m in Sources */,
+				3FA2F1461791F6C200C006E5 /* GTHostNegotiator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

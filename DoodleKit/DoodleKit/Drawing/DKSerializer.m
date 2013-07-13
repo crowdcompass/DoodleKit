@@ -42,10 +42,21 @@
 }
 
 - (void)finishUsingTool {
-    __block DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
+    DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
     strokeDefinition.toolType = _toolType;
     strokeDefinition.initialPoint = _initialPoint;
     strokeDefinition.dataPoints = [self dataPoints];
+    
+    NSCoder *aCoder = [[NSCoder alloc] init];
+    NSMutableData *strokeDef = [NSMutableData data];
+    
+    NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:strokeDef];
+    [strokeDefinition encodeWithCoder:coder];
+    [coder finishEncoding];
+
+    NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:strokeDef];
+    __block DKDrawingStrokeDefinition *strokeDefinitionAgain = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];
+    
     
     _toolType = DKDoodleToolTypeNone;
     _initialPoint = CGPointMake(0.f, 0.f);
@@ -55,8 +66,8 @@
     // Send to delegate
     __weak DKSerializer *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf.delegate startDrawingWithTool:strokeDefinition.toolType atPoint:strokeDefinition.initialPoint];
-        for (NSObject *dataPoint in strokeDefinition.dataPoints) {
+        [weakSelf.delegate startDrawingWithTool:strokeDefinitionAgain.toolType atPoint:strokeDefinitionAgain.initialPoint];
+        for (NSObject *dataPoint in strokeDefinitionAgain.dataPoints) {
             [weakSelf.delegate drawDKPointData:dataPoint];
         }
         [weakSelf.delegate finishDrawing];

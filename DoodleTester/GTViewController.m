@@ -25,6 +25,7 @@ static NSInteger const StartGameFlag = 1 << 3;
 @property (nonatomic) NSMutableSet *confirmedPlayers;
 
 @property (nonatomic) UILabel *startGameLabel;
+@property (nonatomic) UILabel *iAmHostLabel;
 @end
 
 @implementation GTViewController
@@ -56,15 +57,26 @@ static NSInteger const StartGameFlag = 1 << 3;
     [button sizeToFit];
     [self.view addSubview:button];
 
-    UILabel *startGameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    startGameLabel.text = @"LETS GET THIS PARTY STARTED";
-    startGameLabel.backgroundColor = [UIColor clearColor];
-    startGameLabel.textColor = [UIColor blackColor];
-    [startGameLabel sizeToFit];
+    UILabel *startGameLabel = [self labelWithText:@"LETS GET THIS PARTY STARTED"];
     startGameLabel.center = CGPointMake(100.f, 100.f);
     [self.view addSubview:startGameLabel];
     self.startGameLabel = startGameLabel;
     [self.startGameLabel setHidden:YES];
+
+    UILabel *iAmHostLabel = [self labelWithText:@"I THINK I AM THE HOST"];
+    iAmHostLabel.center = CGPointMake(250.f, 250.f);
+    [self.view addSubview:iAmHostLabel];
+    self.iAmHostLabel = iAmHostLabel;
+    self.iAmHostLabel.hidden = YES;
+}
+
+- (UILabel *)labelWithText:(NSString *)text {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.text = text;
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor blackColor];
+    [label sizeToFit];
+    return label;
 }
 
 - (void)didTouchButton {
@@ -300,6 +312,7 @@ static NSInteger const StartGameFlag = 1 << 3;
 }
 
 - (void)becomeHost {
+    self.iAmHostLabel.hidden = NO;
     self.isHost = YES;
 
     NSData *payload = [self payloadForDictionary:@{ @"message-id": @"become-host" } withFlag:HostClaimFlag];

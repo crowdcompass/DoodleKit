@@ -21,9 +21,15 @@
     [self.window makeKeyAndVisible];
     self.window.rootViewController = [[GTViewController alloc] init];
     
-    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    __weak GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     [localPlayer setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
-        [self.window.rootViewController presentViewController:viewController animated:YES completion:nil];
+        NSLog(@"%@", error);
+        if (viewController) {
+            [self.window.rootViewController presentViewController:viewController animated:YES completion:nil];
+        }
+        if (localPlayer.authenticated) {
+            [((GTViewController *)self.window.rootViewController) startSearching];
+        }
     }];
 
     

@@ -448,6 +448,7 @@
 				C9AA926E17910A0D0049B606 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9AA926F17910A0D0049B606 /* Build configuration list for PBXNativeTarget "DoodleTesterTests" */ = {
 			isa = XCConfigurationList;
@@ -456,6 +457,7 @@
 				C9AA927117910A0D0049B606 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

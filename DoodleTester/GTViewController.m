@@ -48,7 +48,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+}
+
+- (void)startSearching
+{
     [[GKMatchmaker sharedMatchmaker] startBrowsingForNearbyPlayersWithReachableHandler:^(NSString *playerID, BOOL reachable) {
         if (reachable) {
             [self.playersToInvite addObject:playerID];

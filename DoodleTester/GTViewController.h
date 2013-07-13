@@ -10,4 +10,6 @@
 
 @interface GTViewController : UIViewController
 
+- (void)startSearching;
+
 @end

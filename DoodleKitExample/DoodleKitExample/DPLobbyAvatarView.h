@@ -12,9 +12,12 @@
 
 @interface DPLobbyAvatarView : UIView
 
-@property (nonatomic, strong, readonly) UIImageView *avatarImage;
+@property (nonatomic, strong, readonly) UIImageView *avatarView;
+@property (nonatomic, strong, readonly) UILabel *avatarLabel;
 
-- (id)initWithPlayer:(DPPlayer *)player;
+@property (nonatomic, assign, getter = isLoaded) BOOL loaded;
+
 - (id)initWithPlayerNumber:(NSNumber *)number;
+- (id)initWithPlayer:(DPPlayer *)player;
 
 @end

@@ -12,6 +12,5 @@
 
 @interface DPLobbyAvatarsContainerView : UIView
 
-- (id)initWithFirstPlayer:(DPPlayer *)firstPlayer;
 
 @end

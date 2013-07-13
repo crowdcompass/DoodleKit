@@ -8,23 +8,44 @@
 
 #import "DKAppDelegate.h"
 #import "DKBoardController.h"
+
+#import "DPLobbyController.h"
+
 #import "DPSwatchToolbar.h"
 #import "UIControl+BlocksKit.h"
 
 
 @implementation DKAppDelegate
 
+void uncaughtExceptionHandler(NSException *exception) {
+    NSLog(@"CRASH: %@", exception);
+    NSLog(@"Stack Trace: %@,", [exception callStackSymbols]);
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[DKBoardController alloc] init];
 
+/*
+    self.window.rootViewController = [[DKBoardController alloc] init];
     [self.window makeKeyAndVisible];
 //    //TEST CODE
 //    self.window.backgroundColor = [UIColor grayColor];
 //    [self testToolbar];
+*/
+
+    DPLobbyController *lobbyController = [[DPLobbyController alloc] initWithPlayer:nil];
+    self.window.rootViewController = lobbyController;
+    [self.window makeKeyAndVisible];
+    /*
+    //TEST CODE
+    self.window.backgroundColor = [UIColor grayColor];
+    [self testToolbar];
+     */
+
     return YES;
 }
 

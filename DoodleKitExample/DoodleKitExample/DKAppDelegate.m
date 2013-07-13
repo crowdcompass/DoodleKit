@@ -7,6 +7,10 @@
 //
 
 #import "DKAppDelegate.h"
+#import "SSPieProgressView.h"
+#import "NSTimer+BlocksKit.h"
+
+#define kDrawingTimeInSeconds 30.0
 
 @implementation DKAppDelegate
 
@@ -16,6 +20,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    [self testPieProgress];
     return YES;
 }
 
@@ -44,6 +49,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)testPieProgress {
+    SSPieProgressView *progressView = [[SSPieProgressView alloc] initWithFrame:CGRectMake(95.0f, 245.0f, 130.0f, 130.0f)];
+    __block NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 block:^(NSTimeInterval time){
+        progressView.progress = progressView.progress + (1.0/(kDrawingTimeInSeconds*30.0));
+        if (progressView.progress == 1.0f) {
+            [timer invalidate];
+        }
+        
+        } repeats:YES];
+    [self.window addSubview:progressView];
 }
 
 @end

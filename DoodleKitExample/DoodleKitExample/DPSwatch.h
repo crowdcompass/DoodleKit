@@ -11,9 +11,11 @@
 @interface DPSwatch : UIButton
 
 @property (nonatomic, strong) UIColor *swatchColor;
+@property (nonatomic, strong) UIColor *selectedColor;
 @property (nonatomic, strong) UIColor *borderColor;
 
 - (id)initWithColor:(UIColor *)swatchColor;
 - (id)initWithColor:(UIColor *)swatchColor andBorderColor:(UIColor *)borderColor;
+- (id)initWithColor:(UIColor *)swatchColor borderColor:(UIColor *)borderColor andSelectedColor:(UIColor *)selectedColor;
 
 @end

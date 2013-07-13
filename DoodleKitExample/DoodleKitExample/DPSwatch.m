@@ -28,13 +28,19 @@
 }
 
 - (id)initWithColor:(UIColor *)swatchColor andBorderColor:(UIColor *)borderColor {
+    return [self initWithColor:swatchColor borderColor:borderColor andSelectedColor:[UIColor whiteColor]];
+}
+
+- (id)initWithColor:(UIColor *)swatchColor borderColor:(UIColor *)borderColor andSelectedColor:(UIColor *)selectedColor {
     self = [self initWithFrame:CGRectMake(0.0, 0.0, kDefaultSwatchSize, kDefaultSwatchSize)];
     if (self) {
         _swatchColor = swatchColor;
         _borderColor = borderColor;
+        _selectedColor = selectedColor;
     }
     return self;
 }
+
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
@@ -49,7 +55,7 @@
     }
     
     if (self.selected) {
-        [[UIColor whiteColor] set];
+        [_selectedColor set];
         CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
         
         CGRect selectedRect = CGRectMake(roundf(center.x - kSwatchSelectedSize/2.0),

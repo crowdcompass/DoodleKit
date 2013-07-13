@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "SSPieProgressView.h"
+#import "DPSwatch.h"
 
 @protocol DPSwatchToolbarDelegate <NSObject>
 
 - (void)toolbarCountdownDidFinish;
+- (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch;
+- (void)doodlerDidSelectEraser;
+- (void)doodlerDidSelectTrash;
 
 @end
 

@@ -27,6 +27,7 @@
 		061314F517910AED006742EA /* DKDoodleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F417910AED006742EA /* DKDoodleView.m */; };
 		061314F817910D9F006742EA /* DKSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F717910D9F006742EA /* DKSerializer.m */; };
 		061314F917911C0D006742EA /* ACEDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314ED17910A5C006742EA /* ACEDrawingTools.m */; };
+		061314FB17914273006742EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061314FA17914273006742EA /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		061314F417910AED006742EA /* DKDoodleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDoodleView.m; sourceTree = "<group>"; };
 		061314F617910D9F006742EA /* DKSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSerializer.h; sourceTree = "<group>"; };
 		061314F717910D9F006742EA /* DKSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSerializer.m; sourceTree = "<group>"; };
+		061314FA17914273006742EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				061314FB17914273006742EA /* QuartzCore.framework in Frameworks */,
 				061314AE1791078F006742EA /* UIKit.framework in Frameworks */,
 				061314B01791078F006742EA /* Foundation.framework in Frameworks */,
 				061314B21791078F006742EA /* CoreGraphics.framework in Frameworks */,
@@ -117,9 +120,10 @@
 		061314AC1791078F006742EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				061314AD1791078F006742EA /* UIKit.framework */,
 				061314AF1791078F006742EA /* Foundation.framework */,
+				061314AD1791078F006742EA /* UIKit.framework */,
 				061314B11791078F006742EA /* CoreGraphics.framework */,
+				061314FA17914273006742EA /* QuartzCore.framework */,
 				061314D41791078F006742EA /* SenTestingKit.framework */,
 			);
 			name = Frameworks;

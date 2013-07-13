@@ -24,10 +24,9 @@
 		061314D71791078F006742EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061314AF1791078F006742EA /* Foundation.framework */; };
 		061314DF1791078F006742EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 061314DD1791078F006742EA /* InfoPlist.strings */; };
 		061314E21791078F006742EA /* DoodleKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314E11791078F006742EA /* DoodleKitTests.m */; };
-		061314F017910A5C006742EA /* ACEDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314ED17910A5C006742EA /* ACEDrawingTools.m */; };
-		061314F117910A5C006742EA /* ACEDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314EF17910A5C006742EA /* ACEDrawingView.m */; };
 		061314F517910AED006742EA /* DKDoodleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F417910AED006742EA /* DKDoodleView.m */; };
 		061314F817910D9F006742EA /* DKSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F717910D9F006742EA /* DKSerializer.m */; };
+		061314F917911C0D006742EA /* ACEDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314ED17910A5C006742EA /* ACEDrawingTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +65,6 @@
 		061314E11791078F006742EA /* DoodleKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoodleKitTests.m; sourceTree = "<group>"; };
 		061314EC17910A5C006742EA /* ACEDrawingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEDrawingTools.h; sourceTree = "<group>"; };
 		061314ED17910A5C006742EA /* ACEDrawingTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEDrawingTools.m; sourceTree = "<group>"; };
-		061314EE17910A5C006742EA /* ACEDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEDrawingView.h; sourceTree = "<group>"; };
-		061314EF17910A5C006742EA /* ACEDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEDrawingView.m; sourceTree = "<group>"; };
 		061314F317910AED006742EA /* DKDoodleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDoodleView.h; sourceTree = "<group>"; };
 		061314F417910AED006742EA /* DKDoodleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDoodleView.m; sourceTree = "<group>"; };
 		061314F617910D9F006742EA /* DKSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSerializer.h; sourceTree = "<group>"; };
@@ -193,8 +190,6 @@
 			children = (
 				061314EC17910A5C006742EA /* ACEDrawingTools.h */,
 				061314ED17910A5C006742EA /* ACEDrawingTools.m */,
-				061314EE17910A5C006742EA /* ACEDrawingView.h */,
-				061314EF17910A5C006742EA /* ACEDrawingView.m */,
 			);
 			name = ACEDrawingView;
 			sourceTree = "<group>";
@@ -316,6 +311,7 @@
 				061314C71791078F006742EA /* DKViewController.m in Sources */,
 				061314F517910AED006742EA /* DKDoodleView.m in Sources */,
 				061314F817910D9F006742EA /* DKSerializer.m in Sources */,
+				061314F917911C0D006742EA /* ACEDrawingTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,8 +320,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				061314E21791078F006742EA /* DoodleKitTests.m in Sources */,
-				061314F017910A5C006742EA /* ACEDrawingTools.m in Sources */,
-				061314F117910A5C006742EA /* ACEDrawingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +502,7 @@
 				061314E71791078F006742EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		061314E81791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKitTests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +511,7 @@
 				061314EA1791078F006742EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

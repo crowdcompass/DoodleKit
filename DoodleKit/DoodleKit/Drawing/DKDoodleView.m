@@ -84,7 +84,7 @@
 #pragma mark - Drawing
 
 - (void)drawUsingToolType:(DKDoodleToolType)toolType withPoints:(NSArray *)points {
-    if (toolType == DKDOodleToolTypeRectangle) {
+    if (toolType == DKDoodleToolTypeRectangle) {
         
         // make sure we have enough points
         if ([points count] < 2) {
@@ -158,7 +158,7 @@
             tool = ACE_AUTORELEASE([ACEDrawingPenTool new]);
             break;
             
-        case DKDOodleToolTypeRectangle:
+        case DKDoodleToolTypeRectangle:
             tool = ACE_AUTORELEASE([ACEDrawingRectangleTool new]);
             ((ACEDrawingRectangleTool *)tool).fill = YES;
             break;
@@ -205,7 +205,7 @@
         }
             break;
             
-        case DKDOodleToolTypeRectangle:
+        case DKDoodleToolTypeRectangle:
         {
             DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithTopLeftPoint:previousPoint1 andBottomRightPoint:currentPoint];
             [self.serializer addDKPointData:rectPoint];

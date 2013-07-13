@@ -12,7 +12,7 @@
 enum _DKDoodleToolType {
     DKDoodleToolTypeNone = 0,
     DKDoodleToolTypePen,
-    DKDOodleToolTypeRectangle,
+    DKDoodleToolTypeRectangle,
 };
 typedef NSUInteger DKDoodleToolType;
 

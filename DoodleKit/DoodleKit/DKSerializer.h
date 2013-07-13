@@ -23,7 +23,17 @@ struct DKPenPoint {
     CGPoint currentPoint;
 };
 
+@protocol DKSerializerDelegate <NSObject>
+
+- (void)startDrawingWithTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint;
+- (void)drawDKPointData:(NSValue *)pointData;
+- (void)finishDrawing;
+
+@end
+
 @interface DKSerializer : NSObject
+
+@property (nonatomic, weak) id<DKSerializerDelegate> delegate;
 
 @property (nonatomic, assign, readonly) DKDoodleToolType toolType;
 @property (nonatomic, assign, readonly) CGPoint initialPoint;

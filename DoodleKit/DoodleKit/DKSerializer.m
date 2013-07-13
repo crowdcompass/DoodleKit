@@ -24,12 +24,27 @@
 
 - (void)startUsingTool:(DKDoodleToolType)toolType {
     _toolType = toolType;
+    _dataPoints = [NSMutableArray array];
 }
 
 - (void)setInitialPoint:(CGPoint)point {
-    
+    _initialPoint = point;
 }
-- (void)addDKPointData:(NSValue *)pointData;
-- (void)finishUsingTool;
+
+- (void)addDKPointData:(NSValue *)pointData {
+    [_dataPoints addObject:pointData];
+}
+
+- (void)finishUsingTool {
+    _toolType = DKDoodleToolTypeNone;
+    _initialPoint = CGPointMake(0.f, 0.f);
+    
+    __weak DKSerializer *weakSelf = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, NULL), ^{
+        [weakSelf.delegate startDrawingWithTool:_toolType atPoint:_initialPoint];
+        
+    });
+}
 
 @end

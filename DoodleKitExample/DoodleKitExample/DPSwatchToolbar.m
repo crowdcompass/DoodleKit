@@ -103,6 +103,7 @@
     }
     
     [self addSubview:_progressView];
+    [_progressView reset];
     [self addSubview:_trash];
     [self addSubview:swatch1];
 }
@@ -140,8 +141,8 @@
         _trash.transform = CGAffineTransformMakeScale(1.1, 1.1);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:kShrinkAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            _progressView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            _trash.transform = CGAffineTransformMakeScale(1.0, 1.0);
+            [_progressView reset];
+            _trash.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
             
         }];

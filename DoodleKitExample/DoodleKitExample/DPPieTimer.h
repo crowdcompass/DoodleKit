@@ -22,4 +22,7 @@
 - (void)start;
 - (void)stop;
 
+// reset is just UI
+- (void)reset;
+
 @end

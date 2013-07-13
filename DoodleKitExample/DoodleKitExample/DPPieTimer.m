@@ -34,7 +34,7 @@ enum DPPieProgressViewState {
 - (void)warmUp;
 - (void)didWarmUp;
 - (void)startCountdown;
-- (void)reset;
+
 
 @end
 
@@ -46,7 +46,12 @@ enum DPPieProgressViewState {
 	
 	self.progress = 0.0f;
 	self.pieBorderWidth = 2.0f;
-	[self reset];
+	self.pieBorderColor = kPieRedColor;
+	self.pieFillColor = self.pieBorderColor;
+    self.warmingUpState = PieReady;
+    self.pieBackgroundColor = kPieRedColor;
+    [self.countdownTimer invalidate];
+    self.countdownTimer = nil;
 }
 
 - (UIColor *)defaultPieColor {
@@ -54,12 +59,7 @@ enum DPPieProgressViewState {
 }
 
 - (void)reset {
-    self.pieBorderColor = kPieRedColor;
-	self.pieFillColor = self.pieBorderColor;
-    self.warmingUpState = PieReady;
-    self.pieBackgroundColor = kPieRedColor;
-    [self.countdownTimer invalidate];
-    self.countdownTimer = nil;
+    [self _initialize];
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.transform = CGAffineTransformMakeScale(kTimerShrinkSize, kTimerShrinkSize);
     } completion:^(BOOL finished) {}];
@@ -108,7 +108,7 @@ enum DPPieProgressViewState {
                         self.transform = CGAffineTransformMakeScale(kTimerGrowSize, kTimerGrowSize);
                     } completion:^(BOOL finished) {
                         [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                            self.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                            self.transform = CGAffineTransformIdentity;
                         } completion:^(BOOL finished) {
                             [self didWarmUp];
                         }];

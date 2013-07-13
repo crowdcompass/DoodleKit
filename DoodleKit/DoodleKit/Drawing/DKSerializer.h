@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+#import "GTMatchMessenger.h"
 #import "DKDrawingTools.h"
+
+@class GTMatchMessenger;
 
 @protocol DKSerializerDelegate <NSObject>
 
@@ -26,11 +29,15 @@
 @property (nonatomic, assign, readonly) DKDoodleToolType toolType;
 @property (nonatomic, assign, readonly) CGPoint initialPoint;
 @property (nonatomic, assign, readonly) NSArray *dataPoints;
+@property (nonatomic, weak) GTMatchMessenger *messenger;
 
 - (void)startUsingTool:(DKDoodleToolType)toolType;
 - (void)setInitialPoint:(CGPoint)point;
 - (void)addDKPointData:(NSObject<NSCoding> *)pointData;
 - (void)finishUsingTool;
 - (BOOL)isProcessingToolSession;
+
+- (void)didReceiveDoodleData:(NSData *)strokeDef;
+
 
 @end

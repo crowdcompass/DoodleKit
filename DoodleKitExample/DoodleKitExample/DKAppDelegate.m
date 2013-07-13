@@ -14,6 +14,8 @@
 #import "DPSwatchToolbar.h"
 #import "UIControl+BlocksKit.h"
 
+#import <GameKit/GameKit.h>
+
 
 @implementation DKAppDelegate
 
@@ -28,6 +30,17 @@ void uncaughtExceptionHandler(NSException *exception) {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+
+    __weak GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    [localPlayer setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
+        if (viewController) {
+            [self.window.rootViewController presentViewController:viewController animated:YES completion:nil];
+        }
+        if (localPlayer.authenticated) {
+            NSLog(@"AUTHENTICATED");
+        }
+    }];
+
 
 /*
     self.window.rootViewController = [[DKBoardController alloc] init];

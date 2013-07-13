@@ -47,13 +47,17 @@
     strokeDefinition.initialPoint = _initialPoint;
     strokeDefinition.dataPoints = [self dataPoints];
     
-    NSCoder *aCoder = [[NSCoder alloc] init];
     NSMutableData *strokeDef = [NSMutableData data];
     
     NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:strokeDef];
     [strokeDefinition encodeWithCoder:coder];
     [coder finishEncoding];
 
+    [self.messenger sendDoodleDataToAllPlayers:strokeDef];
+}
+
+- (void)didReceiveDoodleData:(NSData *)strokeDef
+{
     NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:strokeDef];
     __block DKDrawingStrokeDefinition *strokeDefinitionAgain = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];
     

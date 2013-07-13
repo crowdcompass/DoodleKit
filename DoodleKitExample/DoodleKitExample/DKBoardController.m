@@ -59,12 +59,14 @@
 
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch
 {
+    self.drawingView.lineWidth = 10.0f;
     self.drawingView.lineColor = swatch.swatchColor;
 }
 
 - (void)doodlerDidSelectEraser
 {
-    
+    self.drawingView.lineWidth = 30.0f;
+    self.drawingView.lineColor = [UIColor whiteColor];
 }
 
 - (void)doodlerDidSelectTrash

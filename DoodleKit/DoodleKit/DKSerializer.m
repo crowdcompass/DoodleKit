@@ -36,14 +36,49 @@
 }
 
 - (void)finishUsingTool {
+    __block DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
+    strokeDefinition.toolType = _toolType;
+    strokeDefinition.initialPoint = _initialPoint;
+    strokeDefinition.dataPoints = [self dataPoints];
+    
     _toolType = DKDoodleToolTypeNone;
     _initialPoint = CGPointMake(0.f, 0.f);
 
-    [self.delegate startDrawingWithTool:_toolType atPoint:_initialPoint];
-    for (NSValue *dataPoint in _dataPoints) {
-        [self.delegate drawDKPointData:dataPoint];
+#warning Send the Data to GKGameKit
+    
+    // Send to delegate
+    __weak DKSerializer *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.delegate startDrawingWithTool:strokeDefinition.toolType atPoint:strokeDefinition.initialPoint];
+        for (NSValue *dataPoint in strokeDefinition.dataPoints) {
+            [weakSelf.delegate drawDKPointData:dataPoint];
+        }
+        [weakSelf.delegate finishDrawing];
+    });
+
+}
+
+@end
+
+@implementation DKDrawingStrokeDefinition
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    if (self) {
+        _toolType = [aDecoder decodeIntegerForKey:@"toolType"];
+        _initialPoint = [aDecoder decodeCGPointForKey:@"initialPoint"];
+        _dataPoints = [aDecoder decodeObjectForKey:@"dataPoints"];
     }
-    [self.delegate finishDrawing];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeInteger:_toolType forKey:@"toolType"];
+    [aCoder encodeCGPoint:_initialPoint forKey:@"initialPoint"];
+    [aCoder encodeObject:_dataPoints forKey:@"dataPoints"];
 }
 
 @end

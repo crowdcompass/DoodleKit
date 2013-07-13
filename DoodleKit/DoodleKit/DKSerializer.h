@@ -12,16 +12,30 @@
 // Move these into a separate file
 enum _DKDoodleToolType {
     DKDoodleToolTypeNone = 0,
-    DKDoodleToolTypePen = 0,
+    DKDoodleToolTypePen,
 };
 typedef NSUInteger DKDoodleToolType;
 
-//NSValue *anObj = [NSValue value:&struct withObjCType:@encode(aStruct)];
+// DKDoodleToolType toolType = DKDoodleToolTypePen;
+//
+// NSValue *anObj = [NSValue value:&toolType withObjCType:@encode(DKDoodleToolType)];
+//
+// DKDoodleToolType bToolType;
+// [anObj getValue:&bToolType];
+
 struct DKPenPoint {
     CGPoint previousPreviousPoint;
     CGPoint previousPoint;
     CGPoint currentPoint;
 };
+
+@interface DKDrawingStrokeDefinition : NSObject < NSCoding >
+
+@property (nonatomic, assign) DKDoodleToolType toolType;
+@property (nonatomic, assign) CGPoint initialPoint;
+@property (nonatomic, retain) NSArray *dataPoints;
+
+@end
 
 @protocol DKSerializerDelegate <NSObject>
 

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "DoodleKit"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary  	 = 'Collaborative Doodling Framework using GameKit'
   s.homepage     = "https://github.com/crowdcompass/DoodleKit"
   s.license      = 'MIT'

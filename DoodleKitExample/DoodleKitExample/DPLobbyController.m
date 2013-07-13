@@ -52,7 +52,7 @@
 
 - (void)startPressed {
     DKBoardController *boardController = [[DKBoardController alloc] init];
-    [self presentViewController:boardController animated:YES completion:nil];
+    [self presentViewController:boardController animated:NO completion:nil];
 }
 
 @end

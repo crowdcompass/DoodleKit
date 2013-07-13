@@ -1,0 +1,5 @@
+#include "Pods-DoodleKit.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/DoodleKit" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/DoodleKit"
+OTHER_LDFLAGS = -ObjC ${PODS_DOODLEKIT_OTHER_LDFLAGS}
+PODS_ROOT = ${SRCROOT}

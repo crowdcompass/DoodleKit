@@ -2,14 +2,12 @@
 //  DKDoodleView.m
 //  DoodleKit
 //
-//  Created on 7/12/13.
+//  Created by Kerney, Benjamin on 7/12/13.
 //  Copyright (c) 2013 DaveVan. All rights reserved.
 //
 
 #import "DKDoodleView.h"
 #import "DKSerializer.h"
-
-#import <QuartzCore/QuartzCore.h>
 
 #define kDefaultLineColor       [UIColor blackColor]
 #define kDefaultLineWidth       10.0f;
@@ -68,9 +66,6 @@
     
     self.serializer = [[DKSerializer alloc] init];
     self.serializer.delegate = self;
-    
-    CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(flushDrawing)];
-    [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 
@@ -85,12 +80,6 @@
     [self.image drawInRect:self.bounds];
     [self.currentTool draw];
 #endif
-}
-
-- (void)flushDrawing
-{
-    [self.serializer finishUsingTool];
-    [self.serializer startUsingTool:DKDoodleToolTypePen];
 }
 
 - (void)updateCacheImage:(BOOL)redraw
@@ -161,6 +150,9 @@
     // make sure a point is recorded
     [self touchesMoved:touches withEvent:event];
     
+    // update the image
+    [self updateCacheImage:NO];
+
     [self.serializer finishUsingTool];
 
 }

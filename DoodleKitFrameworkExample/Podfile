@@ -1,0 +1,2 @@
+platform :ios, '6.0'
+pod 'DoodleKit', git: 'https://github.com/crowdcompass/DoodleKit.git', branch: 'framework'

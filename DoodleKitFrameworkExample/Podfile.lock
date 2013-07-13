@@ -1,0 +1,15 @@
+PODS:
+  - DoodleKit (0.0.4)
+
+DEPENDENCIES:
+  - DoodleKit (from `https://github.com/crowdcompass/DoodleKit.git`, branch `framework`)
+
+EXTERNAL SOURCES:
+  DoodleKit:
+    :branch: framework
+    :git: https://github.com/crowdcompass/DoodleKit.git
+
+SPEC CHECKSUMS:
+  DoodleKit: c985244f26ffbe43f43271aa61423a59f61ef4f9
+
+COCOAPODS: 0.22.2

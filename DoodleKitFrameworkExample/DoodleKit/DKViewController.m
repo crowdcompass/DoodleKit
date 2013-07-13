@@ -7,7 +7,7 @@
 //
 
 #import "DKViewController.h"
-#import "DKDoodleView.h"
+#import <DoodleKit/DKDoodleView.h>
 
 #import <QuartzCore/QuartzCore.h>
 

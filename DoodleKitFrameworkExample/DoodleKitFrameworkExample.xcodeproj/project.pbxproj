@@ -24,10 +24,8 @@
 		061314D71791078F006742EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061314AF1791078F006742EA /* Foundation.framework */; };
 		061314DF1791078F006742EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 061314DD1791078F006742EA /* InfoPlist.strings */; };
 		061314E21791078F006742EA /* DoodleKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314E11791078F006742EA /* DoodleKitTests.m */; };
-		061314F517910AED006742EA /* DKDoodleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F417910AED006742EA /* DKDoodleView.m */; };
-		061314F817910D9F006742EA /* DKSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F717910D9F006742EA /* DKSerializer.m */; };
-		061314F917911C0D006742EA /* ACEDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314ED17910A5C006742EA /* ACEDrawingTools.m */; };
 		061314FB17914273006742EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061314FA17914273006742EA /* QuartzCore.framework */; };
+		793AB26DCECB4D319033CB84 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5223D66CAEB4AA4AC039BB7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,13 +62,9 @@
 		061314DE1791078F006742EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		061314E01791078F006742EA /* DoodleKitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoodleKitTests.h; sourceTree = "<group>"; };
 		061314E11791078F006742EA /* DoodleKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoodleKitTests.m; sourceTree = "<group>"; };
-		061314EC17910A5C006742EA /* ACEDrawingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEDrawingTools.h; sourceTree = "<group>"; };
-		061314ED17910A5C006742EA /* ACEDrawingTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEDrawingTools.m; sourceTree = "<group>"; };
-		061314F317910AED006742EA /* DKDoodleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDoodleView.h; sourceTree = "<group>"; };
-		061314F417910AED006742EA /* DKDoodleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDoodleView.m; sourceTree = "<group>"; };
-		061314F617910D9F006742EA /* DKSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSerializer.h; sourceTree = "<group>"; };
-		061314F717910D9F006742EA /* DKSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSerializer.m; sourceTree = "<group>"; };
 		061314FA17914273006742EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ADEDAFF5CF774720B6C1E8D8 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E5223D66CAEB4AA4AC039BB7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +76,7 @@
 				061314AE1791078F006742EA /* UIKit.framework in Frameworks */,
 				061314B01791078F006742EA /* Foundation.framework in Frameworks */,
 				061314B21791078F006742EA /* CoreGraphics.framework in Frameworks */,
+				793AB26DCECB4D319033CB84 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +100,7 @@
 				061314DA1791078F006742EA /* DoodleKitTests */,
 				061314AC1791078F006742EA /* Frameworks */,
 				061314AB1791078F006742EA /* Products */,
+				ADEDAFF5CF774720B6C1E8D8 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +121,7 @@
 				061314B11791078F006742EA /* CoreGraphics.framework */,
 				061314FA17914273006742EA /* QuartzCore.framework */,
 				061314D41791078F006742EA /* SenTestingKit.framework */,
+				E5223D66CAEB4AA4AC039BB7 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -132,7 +129,6 @@
 		061314B31791078F006742EA /* DoodleKit */ = {
 			isa = PBXGroup;
 			children = (
-				061314EB17910802006742EA /* DKLib */,
 				061314BC1791078F006742EA /* DKAppDelegate.h */,
 				061314BD1791078F006742EA /* DKAppDelegate.m */,
 				061314C51791078F006742EA /* DKViewController.h */,
@@ -177,27 +173,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		061314EB17910802006742EA /* DKLib */ = {
-			isa = PBXGroup;
-			children = (
-				061314F217910A74006742EA /* ACEDrawingView */,
-				061314F317910AED006742EA /* DKDoodleView.h */,
-				061314F417910AED006742EA /* DKDoodleView.m */,
-				061314F617910D9F006742EA /* DKSerializer.h */,
-				061314F717910D9F006742EA /* DKSerializer.m */,
-			);
-			name = DKLib;
-			sourceTree = "<group>";
-		};
-		061314F217910A74006742EA /* ACEDrawingView */ = {
-			isa = PBXGroup;
-			children = (
-				061314EC17910A5C006742EA /* ACEDrawingTools.h */,
-				061314ED17910A5C006742EA /* ACEDrawingTools.m */,
-			);
-			name = ACEDrawingView;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -205,9 +180,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 061314E51791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKitFrameworkExample" */;
 			buildPhases = (
+				8BE3676D57CD411485423001 /* Check Pods Manifest.lock */,
 				061314A61791078F006742EA /* Sources */,
 				061314A71791078F006742EA /* Frameworks */,
 				061314A81791078F006742EA /* Resources */,
+				25BAFBDF037F4A72B5935D2D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -303,6 +280,36 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		25BAFBDF037F4A72B5935D2D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8BE3676D57CD411485423001 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -313,9 +320,6 @@
 				061314BA1791078F006742EA /* main.m in Sources */,
 				061314BE1791078F006742EA /* DKAppDelegate.m in Sources */,
 				061314C71791078F006742EA /* DKViewController.m in Sources */,
-				061314F517910AED006742EA /* DKDoodleView.m in Sources */,
-				061314F817910D9F006742EA /* DKSerializer.m in Sources */,
-				061314F917911C0D006742EA /* ACEDrawingTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +437,7 @@
 		};
 		061314E61791078F006742EA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADEDAFF5CF774720B6C1E8D8 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoodleKit/DoodleKitFrameworkExample-Prefix.pch";
@@ -444,6 +449,7 @@
 		};
 		061314E71791078F006742EA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADEDAFF5CF774720B6C1E8D8 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoodleKit/DoodleKitFrameworkExample-Prefix.pch";

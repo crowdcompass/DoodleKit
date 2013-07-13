@@ -58,7 +58,7 @@
 
 - (void)configure
 {
-    _toolType = DKDOodleToolTypeRectangle;
+    _toolType = DKDoodleToolTypePen;
     
     // init the private arrays
     self.pathArray = [NSMutableArray array];

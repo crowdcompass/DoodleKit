@@ -28,6 +28,7 @@
 		7856E7C81791BAFE001161CF /* DPLobbyAvatarsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C71791BAFE001161CF /* DPLobbyAvatarsContainerView.m */; };
 		7856E7CB1791BB48001161CF /* DKLobbyAvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7CA1791BB48001161CF /* DKLobbyAvatarView.m */; };
 		7856E7CE1791BE99001161CF /* DPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7CD1791BE99001161CF /* DPPlayer.m */; };
+		7856E7CF1791C95C001161CF /* SSDrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6985D417910996009542EE /* SSDrawingUtilities.m */; };
 		78ACAC631791022700C8F296 /* btn_start_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 78ACAC511791022700C8F296 /* btn_start_press.png */; };
 		78ACAC641791022700C8F296 /* btn_start_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78ACAC521791022700C8F296 /* btn_start_press@2x.png */; };
 		78ACAC651791022700C8F296 /* btn_start.png in Resources */ = {isa = PBXBuildFile; fileRef = 78ACAC531791022700C8F296 /* btn_start.png */; };
@@ -378,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7856E7CF1791C95C001161CF /* SSDrawingUtilities.m in Sources */,
 				7840AA371790FF77005B1A2B /* main.m in Sources */,
 				7840AA3B1790FF77005B1A2B /* DKAppDelegate.m in Sources */,
 				5A6985D11791096B009542EE /* SSPieProgressView.m in Sources */,

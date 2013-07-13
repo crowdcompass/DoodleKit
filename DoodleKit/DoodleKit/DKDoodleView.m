@@ -65,6 +65,7 @@
     self.backgroundColor = [UIColor clearColor];
     
     self.serializer = [[DKSerializer alloc] init];
+    self.serializer.delegate = self;
 }
 
 
@@ -140,6 +141,8 @@
     penPoint.previousPoint = previousPoint1;
     penPoint.previousPreviousPoint = previousPoint2;
     penPoint.currentPoint = currentPoint;
+    
+    [self.serializer addDKPointData:[NSValue value:&penPoint withObjCType:@encode(DKPenPoint)]];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -233,14 +236,19 @@
     self.currentTool.lineWidth = self.lineWidth;
     self.currentTool.lineColor = self.lineColor;
     self.currentTool.lineAlpha = self.lineAlpha;
-    [self.currentTool setInitialPoint:currentPoint];
+    [self.currentTool setInitialPoint:initialPoint];
 
 }
 
 - (void)drawDKPointData:(NSValue *)pointData
-{   
+{
+    DKPenPoint penPoint;
+    [pointData getValue:&penPoint];
+    
     if ([self.currentTool isKindOfClass:[ACEDrawingPenTool class]]) {
-        CGRect bounds = [(ACEDrawingPenTool*)self.currentTool addPathPreviousPreviousPoint:previousPoint2 withPreviousPoint:previousPoint1 withCurrentPoint:currentPoint];
+        CGRect bounds = [(ACEDrawingPenTool*)self.currentTool addPathPreviousPreviousPoint:penPoint.previousPreviousPoint
+                                                                         withPreviousPoint:penPoint.previousPoint
+                                                                          withCurrentPoint:penPoint.currentPoint];
         
         CGRect drawBox = bounds;
         drawBox.origin.x -= self.lineWidth * 2.0;
@@ -257,6 +265,9 @@
 
 - (void)finishDrawing
 {
+    // update the image
+    [self updateCacheImage:NO];
+
     self.currentTool = nil;
 }
 

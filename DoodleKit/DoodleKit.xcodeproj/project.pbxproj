@@ -24,6 +24,9 @@
 		061314D71791078F006742EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061314AF1791078F006742EA /* Foundation.framework */; };
 		061314DF1791078F006742EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 061314DD1791078F006742EA /* InfoPlist.strings */; };
 		061314E21791078F006742EA /* DoodleKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314E11791078F006742EA /* DoodleKitTests.m */; };
+		061314F017910A5C006742EA /* ACEDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314ED17910A5C006742EA /* ACEDrawingTools.m */; };
+		061314F117910A5C006742EA /* ACEDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314EF17910A5C006742EA /* ACEDrawingView.m */; };
+		061314F517910AED006742EA /* DKDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 061314F417910AED006742EA /* DKDrawingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,12 @@
 		061314DE1791078F006742EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		061314E01791078F006742EA /* DoodleKitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoodleKitTests.h; sourceTree = "<group>"; };
 		061314E11791078F006742EA /* DoodleKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoodleKitTests.m; sourceTree = "<group>"; };
+		061314EC17910A5C006742EA /* ACEDrawingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEDrawingTools.h; sourceTree = "<group>"; };
+		061314ED17910A5C006742EA /* ACEDrawingTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEDrawingTools.m; sourceTree = "<group>"; };
+		061314EE17910A5C006742EA /* ACEDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEDrawingView.h; sourceTree = "<group>"; };
+		061314EF17910A5C006742EA /* ACEDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEDrawingView.m; sourceTree = "<group>"; };
+		061314F317910AED006742EA /* DKDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDrawingView.h; sourceTree = "<group>"; };
+		061314F417910AED006742EA /* DKDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDrawingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +128,7 @@
 		061314B31791078F006742EA /* DoodleKit */ = {
 			isa = PBXGroup;
 			children = (
+				061314EB17910802006742EA /* DKLib */,
 				061314BC1791078F006742EA /* DKAppDelegate.h */,
 				061314BD1791078F006742EA /* DKAppDelegate.m */,
 				061314C51791078F006742EA /* DKViewController.h */,
@@ -161,6 +171,27 @@
 				061314DD1791078F006742EA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		061314EB17910802006742EA /* DKLib */ = {
+			isa = PBXGroup;
+			children = (
+				061314F217910A74006742EA /* ACEDrawingView */,
+				061314F317910AED006742EA /* DKDrawingView.h */,
+				061314F417910AED006742EA /* DKDrawingView.m */,
+			);
+			name = DKLib;
+			sourceTree = "<group>";
+		};
+		061314F217910A74006742EA /* ACEDrawingView */ = {
+			isa = PBXGroup;
+			children = (
+				061314EC17910A5C006742EA /* ACEDrawingTools.h */,
+				061314ED17910A5C006742EA /* ACEDrawingTools.m */,
+				061314EE17910A5C006742EA /* ACEDrawingView.h */,
+				061314EF17910A5C006742EA /* ACEDrawingView.m */,
+			);
+			name = ACEDrawingView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +309,7 @@
 				061314BA1791078F006742EA /* main.m in Sources */,
 				061314BE1791078F006742EA /* DKAppDelegate.m in Sources */,
 				061314C71791078F006742EA /* DKViewController.m in Sources */,
+				061314F517910AED006742EA /* DKDrawingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +318,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				061314E21791078F006742EA /* DoodleKitTests.m in Sources */,
+				061314F017910A5C006742EA /* ACEDrawingTools.m in Sources */,
+				061314F117910A5C006742EA /* ACEDrawingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

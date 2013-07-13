@@ -46,6 +46,7 @@
     self.toolbar = aToolbar;
     self.toolbar.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.1f];
     self.toolbar.frame = CGRectMake(0.0, -self.toolbar.bounds.size.height, self.toolbar.bounds.size.width, self.toolbar.bounds.size.height);
+    self.toolbar.delegate = self;
     [self.view addSubview:self.toolbar];
     [self.toolbar showToolbar];
     [self.toolbar startCountdown];
@@ -58,7 +59,7 @@
 
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch
 {
-    
+    self.drawingView.lineColor = swatch.swatchColor;
 }
 
 - (void)doodlerDidSelectEraser

@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class DKDoodleView;
+@class DPSwatchToolbar;
 
 @interface DKBoardController : UIViewController
 
+@property (weak, nonatomic) DPSwatchToolbar *toolbar;
 @property (weak, nonatomic) DKDoodleView *drawingView;
 
 @end

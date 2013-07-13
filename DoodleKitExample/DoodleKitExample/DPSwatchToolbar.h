@@ -27,6 +27,9 @@
 
 - (void)showToolbar;
 - (void)startCountdown;
+//test
+- (void)animateSwatchesIn;
+- (void)animateTimerAndTrashIn;
 
 
 @end

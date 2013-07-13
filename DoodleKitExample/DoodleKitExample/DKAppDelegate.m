@@ -8,6 +8,7 @@
 
 #import "DKAppDelegate.h"
 #import "DPSwatchToolbar.h"
+#import "UIControl+BlocksKit.h"
 
 @implementation DKAppDelegate
 
@@ -72,6 +73,19 @@
     toolbar.frame = CGRectMake(0.0, 20.0, toolbar.bounds.size.width, toolbar.bounds.size.height);
     [self.window addSubview:toolbar];
     [toolbar startCountdown];
+    
+    UIButton *testButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [testButton setTitle:@"animated" forState:UIControlStateNormal];
+//    [testButton addTarget:toolbar action:@selector(animateSwatchesIn) forControlEvents:UIControlEventTouchUpInside];
+    [testButton addEventHandler:^(id sender) {
+        [toolbar showToolbar];
+    } forControlEvents:UIControlEventTouchUpInside];
+    testButton.center = CGPointMake(200.0, 400.0);
+    testButton.backgroundColor = [UIColor blueColor];
+    [testButton sizeToFit];
+    [self.window addSubview:testButton];
+    
+    
 }
 
 @end

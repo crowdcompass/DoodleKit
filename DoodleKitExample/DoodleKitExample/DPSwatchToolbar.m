@@ -9,11 +9,15 @@
 #import "DPSwatchToolbar.h"
 #import "NSTimer+BlocksKit.h"
 #import "SSDrawingUtilities.h"
+#import "NSArray+BlocksKit.h"
 
 #define kToolbarDefaultHeight 44.0
 #define kCountdownTimeInSeconds 30.0
 #define kToolbarDefaultTopPadding 5.0
 #define kToolbarEraserIndex 6
+
+#define kGrowAnimationDuration 0.5
+#define kShrinkAnimationDuration 0.1
 
 @interface DPSwatchToolbar ()
 
@@ -21,7 +25,8 @@
 @property (nonatomic) NSUInteger selectedSwatchIndex;
 
 - (void)setupToolbar;
-- (void)animateSwatchesIn;
+//- (void)animateSwatchesIn;
+//- (void)animateTimerAndTrashIn
 - (void)swatchSelected:(id)swatch;
 - (void)didSelectEraser;
 - (void)didTrash;
@@ -103,11 +108,57 @@
 }
 
 - (void)animateSwatchesIn {
-    
+    //broadcast change
+    [_swatches apply:^(id swatch) {
+        ((DPSwatch *)swatch).transform = CGAffineTransformMakeScale(0.01, 0.01);
+    }];
+    //loop change
+    __block float delay = 0.01;
+    [_swatches each:^(id swatch) {
+        DPSwatch *theSwatch = ((DPSwatch *)swatch);
+        [UIView animateWithDuration:kGrowAnimationDuration delay:delay options:UIViewAnimationOptionCurveEaseOut animations:^{
+            theSwatch.transform = CGAffineTransformMakeScale(1.1, 1.1);
+            delay += 0.03;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:kShrinkAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                theSwatch.transform = CGAffineTransformMakeScale(1.0, 1.0);
+            } completion:^(BOOL finished) {
+                
+            }];
+        }];
+    }];
 }
 
-- (void)showToolbar {
+- (void)animateTimerAndTrashIn {
+    //ready
+    _progressView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    _trash.transform = CGAffineTransformMakeScale(0.01, 0.01);
     
+    //go
+    [UIView animateWithDuration:kGrowAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _progressView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        _trash.transform = CGAffineTransformMakeScale(1.1, 1.1);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:kShrinkAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            _progressView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+            _trash.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
+}
+
+/**
+ The toolbar animates in by moving down 100% of it's height
+ */
+- (void)showToolbar {
+    [UIView animateWithDuration:0.8 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.transform = CGAffineTransformMakeTranslation(0.0, CGRectGetHeight(self.bounds));
+        [self animateTimerAndTrashIn];
+        [self animateSwatchesIn];
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 

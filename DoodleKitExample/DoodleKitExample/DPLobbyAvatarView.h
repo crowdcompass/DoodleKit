@@ -10,7 +10,7 @@
 
 @class DPPlayer;
 
-@interface DKLobbyAvatarView : UIView
+@interface DPLobbyAvatarView : UIView
 
 @property (nonatomic, strong, readonly) UIImageView *avatarImage;
 

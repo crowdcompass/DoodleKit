@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Alexander Belliotti. All rights reserved.
 //
 
-#import "DKLobbyAvatarView.h"
+#import "DPLobbyAvatarView.h"
 
 #import "DPPlayer.h"
 
-@implementation DKLobbyAvatarView
+@implementation DPLobbyAvatarView
 
 - (id)init {
     self = [super initWithFrame:CGRectMake(0.f, 0.f, 120.f, 180.f)];

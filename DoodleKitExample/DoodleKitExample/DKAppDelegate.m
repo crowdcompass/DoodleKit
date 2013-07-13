@@ -7,8 +7,10 @@
 //
 
 #import "DKAppDelegate.h"
+#import "DKBoardController.h"
 #import "DPSwatchToolbar.h"
 #import "UIControl+BlocksKit.h"
+
 
 @implementation DKAppDelegate
 
@@ -17,10 +19,12 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [[DKBoardController alloc] init];
+
     [self.window makeKeyAndVisible];
-    //TEST CODE
-    self.window.backgroundColor = [UIColor grayColor];
-    [self testToolbar];
+//    //TEST CODE
+//    self.window.backgroundColor = [UIColor grayColor];
+//    [self testToolbar];
     return YES;
 }
 

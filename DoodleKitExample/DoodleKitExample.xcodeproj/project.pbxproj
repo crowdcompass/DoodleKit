@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06F3CF571791DF6300E27A07 /* DKBoardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06F3CF561791DF6300E27A07 /* DKBoardController.m */; };
 		5A6985D11791096B009542EE /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6985D01791096B009542EE /* SSPieProgressView.m */; };
 		5ACB97301791253A00EC86EF /* DPSwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACB972F1791253A00EC86EF /* DPSwatch.m */; };
 		5ACB97331791310B00EC86EF /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACB97311791310B00EC86EF /* trash.png */; };
@@ -51,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06F3CF551791DF6300E27A07 /* DKBoardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKBoardController.h; sourceTree = "<group>"; };
+		06F3CF561791DF6300E27A07 /* DKBoardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKBoardController.m; sourceTree = "<group>"; };
 		18D87A63EBAB4176AF5C7047 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		5A6985CF1791096B009542EE /* SSPieProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPieProgressView.h; sourceTree = "<group>"; };
 		5A6985D01791096B009542EE /* SSPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPieProgressView.m; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 			children = (
 				7840AA391790FF77005B1A2B /* DKAppDelegate.h */,
 				7840AA3A1790FF77005B1A2B /* DKAppDelegate.m */,
+				06F3CF551791DF6300E27A07 /* DKBoardController.h */,
+				06F3CF561791DF6300E27A07 /* DKBoardController.m */,
 				7856E7C01791B9D4001161CF /* DPLobbyController.h */,
 				7856E7C11791B9D4001161CF /* DPLobbyController.m */,
 				7856E7CC1791BE99001161CF /* DPPlayer.h */,
@@ -390,6 +395,7 @@
 				7856E7C81791BAFE001161CF /* DPLobbyAvatarsContainerView.m in Sources */,
 				7856E7CB1791BB48001161CF /* DPLobbyAvatarView.m in Sources */,
 				7856E7CE1791BE99001161CF /* DPPlayer.m in Sources */,
+				06F3CF571791DF6300E27A07 /* DKBoardController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

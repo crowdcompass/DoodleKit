@@ -6,11 +6,11 @@ PODS:
 
 DEPENDENCIES:
   - BlocksKit (~> 1.8.2)
-  - DoodleKit (from `https://github.com/crowdcompass/DoodleKit.git`)
+  - DoodleKit (from `../`)
 
 EXTERNAL SOURCES:
   DoodleKit:
-    :git: https://github.com/crowdcompass/DoodleKit.git
+    :path: ../
 
 SPEC CHECKSUMS:
   BlocksKit: 7396526b0816734103f6133fbb1a520c8b04e80c

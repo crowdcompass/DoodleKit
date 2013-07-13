@@ -10,13 +10,14 @@
 #import <GameKit/GameKit.h>
 
 #import "GTHostNegotiator.h"
-
+#import "GTMatchMessenger.h"
 
 @interface GTViewController ()
 @property (nonatomic) NSMutableSet *playersToInvite;
 @property (nonatomic) GKMatch *match;
 @property (nonatomic) NSInteger playerCount;
 @property (nonatomic) GTHostNegotiator *negotiator;
+@property (nonatomic) GTMatchMessenger *messenger;
 
 @property (nonatomic) UILabel *startGameLabel;
 @property (nonatomic) UILabel *iAmHostLabel;
@@ -90,15 +91,19 @@
 }
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)match {
-
+    NSLog(@"%@", match.playerIDs);
     self.match = match;
     self.match.delegate = self;
     if (match.expectedPlayerCount == 0) {
         [self dismissViewControllerAnimated:YES completion:nil];
 
+        GTMatchMessenger *messenger = [[GTMatchMessenger alloc] initWithMatch:self.match];
+        self.messenger = messenger;
+        
         GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
         negotiator.delegate = self;
         negotiator.match = self.match;
+        negotiator.messenger = self.messenger;
         //self.match.delegate = negotiator;
 
         self.negotiator = negotiator;
@@ -120,7 +125,7 @@
 
 // The player state changed (eg. connected or disconnected)
 - (void)match:(GKMatch *)match player:(NSString *)playerID didChangeState:(GKPlayerConnectionState)state {
-    
+    NSLog(@"%@ %d", playerID, state);
 }
 
 // The match was unable to be established with any players due to an error.
@@ -138,6 +143,7 @@
 
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
+    NSLog(@"I AM RECEIVING DATA");
     [self.negotiator match:match didReceiveData:data fromPlayer:playerID];
 }
 

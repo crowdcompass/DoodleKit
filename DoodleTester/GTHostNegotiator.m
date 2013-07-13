@@ -16,7 +16,6 @@ static NSInteger const StartGameFlag = 1 << 3;
 @interface GTHostNegotiator ()
 @property (nonatomic) NSMutableArray *deviceIDs;
 @property (nonatomic) BOOL isHost;
-@property (nonatomic) NSString *hostPlayerID;
 @property (nonatomic) NSMutableSet *confirmedPlayers;
 
 @end
@@ -97,21 +96,7 @@ static NSInteger const StartGameFlag = 1 << 3;
 
 - (void)sendHostTest:(NSString *)deviceID {
     NSData *payload = [self payloadForDictionary:@{ @"DeviceID": deviceID } withFlag:HostTestFlag];
-    [self sendDataToAllPlayers:payload];
-}
-
-- (void)sendDataToAllPlayers:(NSData *)data {
-    NSLog(@"Sending data to all players");
-    NSError *error;
-    [self.match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
-    if (error) { assert(0); }
-}
-
-- (void)sendDataToHost:(NSData *)data {
-    NSLog(@"Sending data to host");
-    NSError *error;
-    [self.match sendData:data toPlayers:@[ self.hostPlayerID ] withDataMode:GKMatchSendDataReliable error:&error];
-    if (error) { assert(0); }
+    [self.messenger sendDataToAllPlayers:payload];
 }
 
 - (void)receivedHostTestDictionary:(NSDictionary *)dictionary {
@@ -132,12 +117,12 @@ static NSInteger const StartGameFlag = 1 << 3;
 
 - (void)sendHostConfirmation {
     NSData *payload = [self payloadForDictionary:@{ @"message-id": @"you are the host" } withFlag:HostConfirmFlag];
-    [self sendDataToHost:payload];
+    [self.messenger sendDataToHost:payload];
 }
 
 - (void)sendStartGame {
     NSData *payload = [self payloadForDictionary:@{ @"message-id": @"start game" } withFlag:StartGameFlag];
-    [self sendDataToAllPlayers:payload];
+    [self.messenger sendDataToAllPlayers:payload];
 
     [self.delegate didStartGame];
 }
@@ -149,17 +134,16 @@ static NSInteger const StartGameFlag = 1 << 3;
     }
 }
 
-
 - (void)becomeHost {
     [self.delegate didBecomeHost];
     self.isHost = YES;
 
     NSData *payload = [self payloadForDictionary:@{ @"message-id": @"become-host" } withFlag:HostClaimFlag];
-    [self sendDataToAllPlayers:payload];
+    [self.messenger sendDataToAllPlayers:payload];
 }
 
 - (void)receivedHostClaimDictionary:(NSDictionary *)dictionary fromPlayer:(NSString *)playerID {
-    self.hostPlayerID = playerID;
+    self.messenger.hostPlayerID = playerID;
     [self sendHostConfirmation];
 }
 

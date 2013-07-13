@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
 
+#import "GTMatchMessenger.h"
+
 
 @protocol GTHostNegotiatorDelegate <NSObject>
 
@@ -29,4 +31,5 @@
 
 @property (nonatomic, weak) id<GTHostNegotiatorDelegate> delegate;
 @property (nonatomic, weak) GKMatch *match;
+@property (nonatomic, weak) GTMatchMessenger *messenger;
 @end

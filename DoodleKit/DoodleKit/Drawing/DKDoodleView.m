@@ -96,8 +96,10 @@
 
 - (void)flushDrawing
 {
-    [self.serializer finishUsingTool];
-    [self.serializer startUsingTool:_toolType];
+    if (_toolType == DKDoodleToolTypePen) {
+        [self.serializer finishUsingTool];
+        [self.serializer startUsingTool:_toolType];
+    }
 }
 
 - (void)updateCacheImage:(BOOL)redraw

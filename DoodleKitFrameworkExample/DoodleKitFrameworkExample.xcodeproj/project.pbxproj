@@ -41,14 +41,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		061314AA1791078F006742EA /* DoodleKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoodleKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		061314AA1791078F006742EA /* DoodleKitFrameworkExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoodleKitFrameworkExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		061314AD1791078F006742EA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		061314AF1791078F006742EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		061314B11791078F006742EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		061314B51791078F006742EA /* DoodleKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DoodleKit-Info.plist"; sourceTree = "<group>"; };
+		061314B51791078F006742EA /* DoodleKitFrameworkExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DoodleKitFrameworkExample-Info.plist"; sourceTree = "<group>"; };
 		061314B71791078F006742EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		061314B91791078F006742EA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		061314BB1791078F006742EA /* DoodleKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DoodleKit-Prefix.pch"; sourceTree = "<group>"; };
+		061314BB1791078F006742EA /* DoodleKitFrameworkExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DoodleKitFrameworkExample-Prefix.pch"; sourceTree = "<group>"; };
 		061314BC1791078F006742EA /* DKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DKAppDelegate.h; sourceTree = "<group>"; };
 		061314BD1791078F006742EA /* DKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DKAppDelegate.m; sourceTree = "<group>"; };
 		061314BF1791078F006742EA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -58,9 +58,9 @@
 		061314C61791078F006742EA /* DKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DKViewController.m; sourceTree = "<group>"; };
 		061314C91791078F006742EA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DKViewController_iPhone.xib; sourceTree = "<group>"; };
 		061314CC1791078F006742EA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DKViewController_iPad.xib; sourceTree = "<group>"; };
-		061314D31791078F006742EA /* DoodleKitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoodleKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		061314D31791078F006742EA /* DoodleKitFrameworkExampleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoodleKitFrameworkExampleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		061314D41791078F006742EA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		061314DC1791078F006742EA /* DoodleKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DoodleKitTests-Info.plist"; sourceTree = "<group>"; };
+		061314DC1791078F006742EA /* DoodleKitFrameworkExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DoodleKitFrameworkExampleTests-Info.plist"; sourceTree = "<group>"; };
 		061314DE1791078F006742EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		061314E01791078F006742EA /* DoodleKitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoodleKitTests.h; sourceTree = "<group>"; };
 		061314E11791078F006742EA /* DoodleKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoodleKitTests.m; sourceTree = "<group>"; };
@@ -111,8 +111,8 @@
 		061314AB1791078F006742EA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				061314AA1791078F006742EA /* DoodleKit.app */,
-				061314D31791078F006742EA /* DoodleKitTests.octest */,
+				061314AA1791078F006742EA /* DoodleKitFrameworkExample.app */,
+				061314D31791078F006742EA /* DoodleKitFrameworkExampleTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -147,10 +147,10 @@
 		061314B41791078F006742EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				061314B51791078F006742EA /* DoodleKit-Info.plist */,
+				061314B51791078F006742EA /* DoodleKitFrameworkExample-Info.plist */,
 				061314B61791078F006742EA /* InfoPlist.strings */,
 				061314B91791078F006742EA /* main.m */,
-				061314BB1791078F006742EA /* DoodleKit-Prefix.pch */,
+				061314BB1791078F006742EA /* DoodleKitFrameworkExample-Prefix.pch */,
 				061314BF1791078F006742EA /* Default.png */,
 				061314C11791078F006742EA /* Default@2x.png */,
 				061314C31791078F006742EA /* Default-568h@2x.png */,
@@ -171,7 +171,7 @@
 		061314DB1791078F006742EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				061314DC1791078F006742EA /* DoodleKitTests-Info.plist */,
+				061314DC1791078F006742EA /* DoodleKitFrameworkExampleTests-Info.plist */,
 				061314DD1791078F006742EA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -201,9 +201,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		061314A91791078F006742EA /* DoodleKit */ = {
+		061314A91791078F006742EA /* DoodleKitFrameworkExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 061314E51791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKit" */;
+			buildConfigurationList = 061314E51791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKitFrameworkExample" */;
 			buildPhases = (
 				061314A61791078F006742EA /* Sources */,
 				061314A71791078F006742EA /* Frameworks */,
@@ -213,14 +213,14 @@
 			);
 			dependencies = (
 			);
-			name = DoodleKit;
+			name = DoodleKitFrameworkExample;
 			productName = DoodleKit;
-			productReference = 061314AA1791078F006742EA /* DoodleKit.app */;
+			productReference = 061314AA1791078F006742EA /* DoodleKitFrameworkExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		061314D21791078F006742EA /* DoodleKitTests */ = {
+		061314D21791078F006742EA /* DoodleKitFrameworkExampleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 061314E81791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKitTests" */;
+			buildConfigurationList = 061314E81791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKitFrameworkExampleTests" */;
 			buildPhases = (
 				061314CE1791078F006742EA /* Sources */,
 				061314CF1791078F006742EA /* Frameworks */,
@@ -232,9 +232,9 @@
 			dependencies = (
 				061314D91791078F006742EA /* PBXTargetDependency */,
 			);
-			name = DoodleKitTests;
+			name = DoodleKitFrameworkExampleTests;
 			productName = DoodleKitTests;
-			productReference = 061314D31791078F006742EA /* DoodleKitTests.octest */;
+			productReference = 061314D31791078F006742EA /* DoodleKitFrameworkExampleTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -247,7 +247,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = DaveVan;
 			};
-			buildConfigurationList = 061314A51791078F006742EA /* Build configuration list for PBXProject "DoodleKit" */;
+			buildConfigurationList = 061314A51791078F006742EA /* Build configuration list for PBXProject "DoodleKitFrameworkExample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -259,8 +259,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				061314A91791078F006742EA /* DoodleKit */,
-				061314D21791078F006742EA /* DoodleKitTests */,
+				061314A91791078F006742EA /* DoodleKitFrameworkExample */,
+				061314D21791078F006742EA /* DoodleKitFrameworkExampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -332,7 +332,7 @@
 /* Begin PBXTargetDependency section */
 		061314D91791078F006742EA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 061314A91791078F006742EA /* DoodleKit */;
+			target = 061314A91791078F006742EA /* DoodleKitFrameworkExample */;
 			targetProxy = 061314D81791078F006742EA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -435,9 +435,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DoodleKit/DoodleKit-Prefix.pch";
-				INFOPLIST_FILE = "DoodleKit/DoodleKit-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "DoodleKit/DoodleKitFrameworkExample-Prefix.pch";
+				INFOPLIST_FILE = "DoodleKit/DoodleKitFrameworkExample-Info.plist";
+				PRODUCT_NAME = DoodleKitFrameworkExample;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -446,9 +446,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DoodleKit/DoodleKit-Prefix.pch";
-				INFOPLIST_FILE = "DoodleKit/DoodleKit-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "DoodleKit/DoodleKitFrameworkExample-Prefix.pch";
+				INFOPLIST_FILE = "DoodleKit/DoodleKitFrameworkExample-Info.plist";
+				PRODUCT_NAME = DoodleKitFrameworkExample;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -463,8 +463,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoodleKit/DoodleKit-Prefix.pch";
-				INFOPLIST_FILE = "DoodleKitTests/DoodleKitTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "DoodleKitTests/DoodleKitFrameworkExampleTests-Info.plist";
+				PRODUCT_NAME = DoodleKitFrameworkExampleTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -480,8 +480,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoodleKit/DoodleKit-Prefix.pch";
-				INFOPLIST_FILE = "DoodleKitTests/DoodleKitTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "DoodleKitTests/DoodleKitFrameworkExampleTests-Info.plist";
+				PRODUCT_NAME = DoodleKitFrameworkExampleTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -490,7 +490,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		061314A51791078F006742EA /* Build configuration list for PBXProject "DoodleKit" */ = {
+		061314A51791078F006742EA /* Build configuration list for PBXProject "DoodleKitFrameworkExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				061314E31791078F006742EA /* Debug */,
@@ -499,7 +499,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		061314E51791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKit" */ = {
+		061314E51791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKitFrameworkExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				061314E61791078F006742EA /* Debug */,
@@ -508,7 +508,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		061314E81791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKitTests" */ = {
+		061314E81791078F006742EA /* Build configuration list for PBXNativeTarget "DoodleKitFrameworkExampleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				061314E91791078F006742EA /* Debug */,

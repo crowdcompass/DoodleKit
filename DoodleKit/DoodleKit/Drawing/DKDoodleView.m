@@ -334,7 +334,7 @@
 
     id<ACEDrawingTool> currentTool = [self toolWithCurrentSettingsAndType:strokeDefinition.toolType];
     currentTool.lineWidth = strokeDefinition.penWidth;
-    currentTool.lineColor = self.lineColor; // BUG: using artists color
+    currentTool.lineColor = strokeDefinition.penColor;
     currentTool.lineAlpha = strokeDefinition.penAlpha;
     [currentTool setInitialPoint:strokeDefinition.initialPoint];
     

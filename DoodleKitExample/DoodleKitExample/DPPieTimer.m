@@ -50,6 +50,7 @@ enum DPPieProgressViewState {
 	self.pieFillColor = self.pieBorderColor;
     self.warmingUpState = PieReady;
     self.pieBackgroundColor = kPieRedColor;
+    self.countdownDuration = kCountdownTimeInSeconds;
     [self.countdownTimer invalidate];
     self.countdownTimer = nil;
 }
@@ -121,12 +122,15 @@ enum DPPieProgressViewState {
 
 - (void)didWarmUp {
     NSLog(@"current transform x %f y %f", self.transform.a, self.transform.d);
+    if (_delegate && [_delegate respondsToSelector:@selector(pieTimerWarmupReady)]) {
+        [_delegate pieTimerWarmupReady];
+    }
     [self startCountdown];
 }
 
 - (void)startCountdown {
      _countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 block:^(NSTimeInterval time) {
-        self.progress = self.progress + (1.0/(kCountdownTimeInSeconds*60.0));
+        self.progress = self.progress + (1.0/(_countdownDuration*60.0));
         if (self.progress == 1.0f) {
             [_countdownTimer invalidate];
             _countdownTimer = nil;

@@ -12,10 +12,12 @@
 
 @protocol DPSwatchToolbarDelegate <NSObject>
 
+- (void)toolbarWarmupDidFinish;
 - (void)toolbarCountdownDidFinish;
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch;
 - (void)doodlerDidSelectEraser;
 - (void)doodlerDidSelectTrash;
+- (void)doodlerDidChangeDuration;
 
 @end
 

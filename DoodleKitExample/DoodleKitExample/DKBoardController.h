@@ -18,4 +18,7 @@
 @property (weak, nonatomic) DPSwatchToolbar *toolbar;
 @property (weak, nonatomic) DKDoodleView *drawingView;
 
+@property (nonatomic) GKMatch *match;
+
+
 @end

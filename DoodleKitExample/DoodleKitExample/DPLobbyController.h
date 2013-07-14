@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DPConnectManager.h"
 
 @class DPPlayer;
 @class DPLobbyView;
 
-@interface DPLobbyController : UIViewController
+@interface DPLobbyController : UIViewController <DPConnectManagerDelegate>
 
 @property (nonatomic, weak) DPLobbyView *lobbyView;
 

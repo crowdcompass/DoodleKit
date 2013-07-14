@@ -35,7 +35,6 @@ void toggleImageTile(UIView *tile) {
 @property (nonatomic, strong) DPImageBoardTiler *tiler;
 
 @property (nonatomic) NSInteger playerCount;
-@property (nonatomic) GKMatch *match;
 
 @property (nonatomic) GTHostNegotiator *negotiator;
 @end
@@ -70,6 +69,22 @@ void toggleImageTile(UIView *tile) {
     [_tiler tile];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    self.match.delegate = self;
+    //if (_match.expectedPlayerCount == 0) {
+        GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+        messenger.match = self.match;
+        
+        GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
+        negotiator.delegate = self;
+        negotiator.match = self.match;
+        //self.match.delegate = negotiator;
+        
+        self.negotiator = negotiator;
+        [self.negotiator start];
+        
+    //}
+}
 - (BOOL)shouldAutorotate {
     return NO;
 }
@@ -184,12 +199,10 @@ void toggleImageTile(UIView *tile) {
 {
     DPSwatchToolbar *aToolbar = [[DPSwatchToolbar alloc] init];
     self.toolbar = aToolbar;
-    self.toolbar.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.1f];
     self.toolbar.frame = CGRectMake(0.0, -self.toolbar.bounds.size.height, self.toolbar.bounds.size.width, self.toolbar.bounds.size.height);
     self.toolbar.delegate = self;
     [self.view addSubview:self.toolbar];
     [self.toolbar showToolbar];
-    [self.toolbar startCountdown];
 }
 
 - (void)toolbarCountdownDidFinish

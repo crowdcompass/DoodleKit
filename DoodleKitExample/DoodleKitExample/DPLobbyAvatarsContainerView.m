@@ -61,6 +61,11 @@
     player4.frame = CGRectSetX(player4.frame, self.frame.origin.x + self.frame.size.width - leftRightMargin - 120.f);
 }
 
+- (DPLobbyAvatarView *)avatarForPlayerNumber:(NSUInteger)playerIndex {
+    if (self.avatarViews.count < playerIndex) return nil;
+    return self.avatarViews[playerIndex - 1];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

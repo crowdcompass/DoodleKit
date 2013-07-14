@@ -10,7 +10,10 @@
 
 @class DPPlayer;
 
+@class DPLobbyAvatarView;
+
 @interface DPLobbyAvatarsContainerView : UIView
 
+- (DPLobbyAvatarView *)avatarForPlayerNumber:(NSUInteger)playerIndex;
 
 @end

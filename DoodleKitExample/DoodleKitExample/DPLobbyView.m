@@ -9,6 +9,7 @@
 #import "DPLobbyView.h"
 
 #import "DPLobbyAvatarsContainerView.h"
+#import "DPLobbyAvatarView.h"
 #import "DPStartDoodleButton.h"
 
 #import "SSDrawingUtilities.h"
@@ -40,7 +41,7 @@ const CGFloat kPartyButtonYLandscape = 580.f;
         
         BOOL isPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
         
-        _partyView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doodleParty"]];
+        _partyView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doodleparty"]];
         _partyView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
         _partyView.center = self.center;
         CGFloat partyViewY = isPortrait ? kPartyViewYPortrait : kPartyViewYLandscape;
@@ -78,6 +79,11 @@ const CGFloat kPartyButtonYLandscape = 580.f;
     CGFloat buttonY = isPortrait ? kPartyButtonYPortrait : kPartyButtonYLandscape;
     self.button.frame = CGRectSetY(self.button.frame, buttonY);
     self.button.center = CGPointMake(width / 2.f, self.button.center.y);
+}
+
+- (void)setPlayerName:(NSString *)name forPlayerIndex:(NSUInteger)playerIndex {
+    DPLobbyAvatarView *view = [self.avatarsView avatarForPlayerNumber:playerIndex];
+    [view setName:name];
 }
 
 /*

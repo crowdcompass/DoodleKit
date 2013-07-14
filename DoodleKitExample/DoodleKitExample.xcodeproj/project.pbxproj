@@ -25,6 +25,7 @@
 		7840AA411790FF77005B1A2B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7840AA401790FF77005B1A2B /* Default-568h@2x.png */; };
 		7840AA481790FF8F005B1A2B /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA471790FF8F005B1A2B /* GameKit.framework */; };
 		7840AA4A1790FF9B005B1A2B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA491790FF9B005B1A2B /* QuartzCore.framework */; };
+		7843DB2B179210770033E335 /* DPImageBoardTiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7843DB2A179210770033E335 /* DPImageBoardTiler.m */; };
 		7856E7C21791B9D4001161CF /* DPLobbyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C11791B9D4001161CF /* DPLobbyController.m */; };
 		7856E7C51791BAAC001161CF /* DPLobbyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C41791BAAC001161CF /* DPLobbyView.m */; };
 		7856E7C81791BAFE001161CF /* DPLobbyAvatarsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C71791BAFE001161CF /* DPLobbyAvatarsContainerView.m */; };
@@ -95,6 +96,9 @@
 		7840AA401790FF77005B1A2B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7840AA471790FF8F005B1A2B /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		7840AA491790FF9B005B1A2B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7843DB29179210770033E335 /* DPImageBoardTiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPImageBoardTiler.h; sourceTree = "<group>"; };
+		7843DB2A179210770033E335 /* DPImageBoardTiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPImageBoardTiler.m; sourceTree = "<group>"; };
+		7843DB2C179215D70033E335 /* DPImageBoardDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPImageBoardDataSource.h; sourceTree = "<group>"; };
 		7856E7C01791B9D4001161CF /* DPLobbyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLobbyController.h; sourceTree = "<group>"; };
 		7856E7C11791B9D4001161CF /* DPLobbyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLobbyController.m; sourceTree = "<group>"; };
 		7856E7C31791BAAC001161CF /* DPLobbyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLobbyView.h; sourceTree = "<group>"; };
@@ -236,10 +240,13 @@
 				7856E7C11791B9D4001161CF /* DPLobbyController.m */,
 				7856E7CC1791BE99001161CF /* DPPlayer.h */,
 				7856E7CD1791BE99001161CF /* DPPlayer.m */,
+				7843DB29179210770033E335 /* DPImageBoardTiler.h */,
+				7843DB2A179210770033E335 /* DPImageBoardTiler.m */,
 				5A6985CE1791094D009542EE /* Views */,
 				5ACB972D1791245900EC86EF /* Controls */,
 				5A6985D217910973009542EE /* Utilities */,
 				7840AA311790FF77005B1A2B /* Supporting Files */,
+				7843DB2C179215D70033E335 /* DPImageBoardDataSource.h */,
 			);
 			path = DoodleKitExample;
 			sourceTree = "<group>";
@@ -457,6 +464,7 @@
 				06F3CF571791DF6300E27A07 /* DKBoardController.m in Sources */,
 				5ACB973A1791D55E00EC86EF /* DPPieTimer.m in Sources */,
 				7856E7D21791FA5A001161CF /* DPStartDoodleButton.m in Sources */,
+				7843DB2B179210770033E335 /* DPImageBoardTiler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

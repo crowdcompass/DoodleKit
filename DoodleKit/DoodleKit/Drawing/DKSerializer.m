@@ -12,8 +12,6 @@
 
 
 @interface DKSerializer () {
-    DKDoodleToolType _toolType;
-    CGPoint _initialPoint;
     NSMutableArray *_dataPoints;
     DKDrawingStrokeDefinition *_strokeDefinition;
 }
@@ -30,18 +28,30 @@
     return self;
 }
 
-- (DKDoodleToolType)toolType { return _toolType; }
-- (CGPoint)initialPoint { return _initialPoint; }
-- (NSArray *)dataPoints { return [NSArray arrayWithArray:_dataPoints]; }
+- (DKDoodleToolType)toolType {
+    if (_strokeDefinition) {
+        return _strokeDefinition.toolType;
+    }
+    
+    return DKDoodleToolTypeNone;
+}
+
+- (CGPoint)initialPoint {
+    if (_strokeDefinition) {
+        return _strokeDefinition.initialPoint;
+    }
+    
+    return CGPointMake(0.f, 0.f);
+}
+
+
 - (BOOL)isProcessingToolSession {
-    return _toolType != DKDoodleToolTypeNone;
+    return !!_strokeDefinition;
 }
 
 - (void)startStrokeWithDefinition:(DKDrawingStrokeDefinition *)strokeDefinition
 {
     _strokeDefinition = strokeDefinition;
-    _initialPoint = _strokeDefinition.initialPoint;
-    _toolType = _strokeDefinition.toolType;
     _dataPoints = [NSMutableArray array];
 
 }
@@ -52,13 +62,17 @@
 
 - (void)finishUsingTool {
     // add the data points
-    _strokeDefinition.dataPoints = _dataPoints;
+    _strokeDefinition.dataPoints = [NSArray arrayWithArray:_dataPoints];
     
     NSMutableData *strokeDef = [NSMutableData data];
     
     NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:strokeDef];
     [_strokeDefinition encodeWithCoder:coder];
     [coder finishEncoding];
+    
+    _strokeDefinition = nil;
+    _dataPoints = nil;
+    
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
     [messenger sendDataToAllPlayers:strokeDef withFlag:DoodleFlag];
 }
@@ -68,9 +82,6 @@
     NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     __block DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];
 
-    _toolType = DKDoodleToolTypeNone;
-    _initialPoint = CGPointMake(0.f, 0.f);
-    
     // Send to delegate
     __weak DKSerializer *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{

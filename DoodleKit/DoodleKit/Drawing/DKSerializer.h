@@ -31,10 +31,7 @@
 @property (nonatomic, assign, readonly) UIColor *penColor;
 @property (nonatomic, assign, readonly) CGFloat penWidth;
 @property (nonatomic, assign, readonly) CGFloat penAlpha;
-@property (nonatomic, assign, readonly) NSArray *dataPoints;
 
-//- (void)startUsingTool:(DKDoodleToolType)toolType;
-//- (void)setInitialPoint:(CGPoint)point;
 - (void)startStrokeWithDefinition:(DKDrawingStrokeDefinition *)strokeDefinition;
 - (void)addDKPointData:(NSObject<NSCoding> *)pointData;
 - (void)finishUsingTool;

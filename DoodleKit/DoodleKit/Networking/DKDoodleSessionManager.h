@@ -39,6 +39,9 @@
 
 - (void)startAuthenticatingLocalPlayer;
 
+#warning temp
+- (void)sendDataToAllPlayers:(NSData *)data;
+
 
 @end
 

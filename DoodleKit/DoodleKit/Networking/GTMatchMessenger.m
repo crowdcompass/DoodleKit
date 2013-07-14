@@ -9,6 +9,7 @@
 #import "GTMatchMessenger.h"
 
 #import "GTHostNegotiator.h"
+#import "DKDoodleSessionManager.h"
 
 NSInteger const InternalFlag = 1;
 NSInteger const DoodleFlag = 2;
@@ -64,12 +65,16 @@ static GTMatchMessenger *shared = nil;
 
     data = [self payloadForData:data withFlag:flag];
     if (flag == DoodleFlag) {
-        [self match:self.match didReceiveData:data fromPlayer:nil];
+
+        [self match:nil didReceiveData:data fromPlayer:nil];
     }
 
     NSLog(@"Sending data to all players");
     NSError *error;
-    [self.match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
+
+    DKDoodleSessionManager *sessionManager = [DKDoodleSessionManager sharedManager];
+    [sessionManager sendDataToAllPlayers:data];
+//    [self.match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
     if (error) { assert(0); }
 }
 
@@ -80,7 +85,8 @@ static GTMatchMessenger *shared = nil;
 
     NSLog(@"Sending data to all players");
     NSError *error;
-    [self.match sendData:data toPlayers:@[ self.hostPlayerID ] withDataMode:GKMatchSendDataReliable error:&error];
+
+    assert(0);
     if (error) { assert(0); }
 }
 

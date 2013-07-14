@@ -37,6 +37,7 @@ static NSInteger const StartGameFlag = 1 << 3;
 }
 
 - (void)start {
+    return;
     NSString *myIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     [self.deviceIDs addObject:myIdentifier];
     [self sendHostTest:myIdentifier];

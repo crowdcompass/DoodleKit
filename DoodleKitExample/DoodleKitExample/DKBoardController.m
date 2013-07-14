@@ -61,7 +61,6 @@
     self.match.delegate = self;
     //if (_match.expectedPlayerCount == 0) {
         GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
-        messenger.match = self.match;
         
         messenger.serializer = self.drawingView.serializer;
         
@@ -105,7 +104,6 @@
         [self dismissViewControllerAnimated:YES completion:nil];
 
         GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
-        messenger.match = self.match;
         
         messenger.serializer = self.drawingView.serializer;
 

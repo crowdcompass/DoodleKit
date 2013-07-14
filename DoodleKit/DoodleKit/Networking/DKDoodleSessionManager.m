@@ -8,6 +8,8 @@
 
 #import "DKDoodleSessionManager.h"
 
+#import "GTMatchMessenger.h"
+
 enum DKDoodleMessageType {
     DKDoodleMessageTypeDeclareHost = 0,
     DKDoodleMessageTypeSubmitToHost,
@@ -29,15 +31,21 @@ static DKDoodleSessionManager *sharedInstance;
 @property (nonatomic, strong) GKSession *session;
 @property (nonatomic, copy) NSString *hostID;
 @property (nonatomic, strong) NSMutableSet *peerIDs;
-
+@property (nonatomic) BOOL gameHasStarted;
 @property (nonatomic, strong) NSMutableSet *commitedClients;
 @end
 
 @implementation DKDoodleSessionManager
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
-    NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    [self receiveDictionary:dictionary fromPeer:peer];
+    if (!self.gameHasStarted) {
+        NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        [self receiveDictionary:dictionary fromPeer:peer];
+    }
+    else {
+        GTMatchMessenger *oldMessenger = [GTMatchMessenger sharedMessenger];
+        [oldMessenger match:nil didReceiveData:data fromPlayer:peer];
+    }
 }
 
 - (void)receiveDictionary:(NSDictionary *)dictionary fromPeer:(NSString *)peer {
@@ -83,6 +91,7 @@ static DKDoodleSessionManager *sharedInstance;
 
 - (void)handleStartGame {
     NSLog(@"LETS START THE GAME!");
+    self.gameHasStarted = YES;
     [self.delegate didStartGame];
 }
 
@@ -183,6 +192,15 @@ static DKDoodleSessionManager *sharedInstance;
 }
 
 - (void)session:(GKSession *)session didFailWithError:(NSError *)error {
+}
+
+
+////// temp
+- (void)sendDataToAllPlayers:(NSData *)data {
+    NSError *error;
+    NSArray *peers = [self.session peersWithConnectionState:GKPeerStateConnected];
+    [self.session sendData:data toPeers:peers withDataMode:GKSendDataReliable error:&error];
+    assert (!error);
 }
 
 

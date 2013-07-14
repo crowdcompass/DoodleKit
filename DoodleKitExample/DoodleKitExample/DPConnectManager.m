@@ -115,7 +115,7 @@ static const int MAX_PLAYERS = 3;
             [self fetchDataForPlayer:playerID];
 
             //check if we are aware of all potential players
-            if (_playersToInvite.count == MAX_PLAYERS) {
+            if (_playersToInvite.count == (MIN_PLAYERS - 1)) {
                 NSLog(@"startSearching: BOOYAH all players found, stopping the search!");
                 [[GKMatchmaker sharedMatchmaker] stopBrowsingForNearbyPlayers];
                 [self createMatch];

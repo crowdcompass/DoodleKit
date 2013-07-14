@@ -8,6 +8,8 @@
 
 #import "GTMatchMessenger.h"
 
+#import "GTHostNegotiator.h"
+
 
 @interface GTMatchMessenger ()
 @property (nonatomic) NSMutableDictionary *channelLookup;
@@ -85,11 +87,8 @@ static GTMatchMessenger *shared = nil;
     NSInteger flag = [self flagFromPayload:data];
     data = [self dataFromPayload:data];
 
-    if (flag == InternalFlag) {
-        [self.negotiator match:match didReceiveData:data fromPlayer:playerID];
-    } else if (flag == DoodleFlag) {
-        [self.serializer didReceiveDoodleData:data];
-    }
+    NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
+    [receiver match:match didReceiveData:data fromPlayer:playerID];
 }
 
 @end

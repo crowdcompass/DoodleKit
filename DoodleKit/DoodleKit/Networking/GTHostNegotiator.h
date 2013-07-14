@@ -10,7 +10,6 @@
 #import <GameKit/GameKit.h>
 
 #import "GTMatchMessenger.h"
-
 @class GTMatchMessenger;
 
 @protocol GTHostNegotiatorDelegate <NSObject>
@@ -24,11 +23,9 @@
 
 
 
-
-@interface GTHostNegotiator : NSObject
+@interface GTHostNegotiator : NSObject <GTMatchMessengerReceiver>
 
 - (void)start;
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 
 @property (nonatomic, weak) id<GTHostNegotiatorDelegate> delegate;
 @property (nonatomic, weak) GKMatch *match;

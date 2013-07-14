@@ -22,7 +22,7 @@
 
 @end
 
-@interface DKSerializer : NSObject
+@interface DKSerializer : NSObject <GTMatchMessengerReceiver>
 
 @property (nonatomic, weak) id<DKSerializerDelegate> delegate;
 
@@ -39,8 +39,5 @@
 - (void)addDKPointData:(NSObject<NSCoding> *)pointData;
 - (void)finishUsingTool;
 - (BOOL)isProcessingToolSession;
-
-- (void)didReceiveDoodleData:(NSData *)strokeDef;
-
 
 @end

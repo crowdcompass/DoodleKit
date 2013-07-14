@@ -70,9 +70,9 @@
     [messenger sendDataToAllPlayers:strokeDef withFlag:DoodleFlag];
 }
 
-- (void)didReceiveDoodleData:(NSData *)strokeDef
+- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 {
-    NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:strokeDef];
+    NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     __block DKDrawingStrokeDefinition *strokeDefinitionAgain = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];
     
     _toolType = DKDoodleToolTypeNone;

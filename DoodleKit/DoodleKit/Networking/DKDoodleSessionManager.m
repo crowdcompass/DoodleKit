@@ -108,6 +108,7 @@ static DKDoodleSessionManager *sharedInstance;
     if (self) {
         self.peerIDs = [NSMutableSet set];
         self.commitedClients = [NSMutableSet set];
+        self.doodleArtistPeers = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -211,9 +212,11 @@ static DKDoodleSessionManager *sharedInstance;
 
 - (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error {
     
-    DKDoodleArtist *doodleArtist = [_doodleArtistPeers objectForKey:peerID];
-    if (doodleArtist) {
-        [_delegate artistDidDisconnect:doodleArtist];
+    if (![peerID isEqualToString:_doodleArtist.peerID]) {
+        DKDoodleArtist *doodleArtist = [_doodleArtistPeers objectForKey:peerID];
+        if (doodleArtist) {
+            [_delegate artistDidDisconnect:doodleArtist];
+        }
     }
 }
 

@@ -125,7 +125,7 @@ NSString* textForUnloadedLabel(NSUInteger playerNumber) {
 }
 
 - (void)setName:(NSString *)name {
-    self.avatarView.image = imageForPlayerNumber(self.index.unsignedIntegerValue, YES);
+    self.avatarView.image = imageForPlayerNumber(self.index.unsignedIntegerValue, !!name);
     self.avatarLabel.font = fontForLabel(YES);
     self.avatarLabel.text = name ? name : textForUnloadedLabel(self.index.unsignedIntegerValue);
     [self.avatarLabel sizeToFit];

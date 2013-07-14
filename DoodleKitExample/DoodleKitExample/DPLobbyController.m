@@ -88,28 +88,34 @@
 
 - (void)didAuthenticateLocalPlayer:(DKDoodleArtist *)doodleArtist {
     self.doodleArtist = doodleArtist;
-    [self.lobbyView setPlayerName:doodleArtist.displayName forPlayerIndex:1];
-    //[player loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
-    //    [self.lobbyView setPlayerAvatar:photo forPlayerIndex:1];
-    //    NSLog(@"Got Photo");
-    //}];
+    [_doodleArtists addObject:doodleArtist];
     
-    //self.
-    //playe
+    [self updatePlayerAvatars];
 }
 
-- (void)artistDidConnect:(DKDoodleArtist *)doodleArtist {
-    [self.doodleArtists addObject:doodleArtist];
+- (void)artistDidConnect:(DKDoodleArtist *)aDoodleArtist {
     
+    __block NSUInteger lastIdx = NSNotFound;
+    [_doodleArtists enumerateObjectsUsingBlock:^(DKDoodleArtist *doodleArtist, NSUInteger idx, BOOL *stop) {
+        if ([doodleArtist.peerID isEqualToString:aDoodleArtist.peerID]) {
+            lastIdx = idx;
+            *stop = YES;
+        }
+    }];
+    
+    if (lastIdx == NSNotFound) {
+        [self.doodleArtists addObject:aDoodleArtist];
+    }
+
     [_doodleArtists sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [((DKDoodleArtist *)obj1).peerID compare:((DKDoodleArtist *)obj2).peerID];
     }];
     
     [self updatePlayerAvatars];
-    
 }
 
 - (void)artistDidDisconnect:(DKDoodleArtist *)aDoodleArtist {
+
     __block NSUInteger lastIdx = NSNotFound;
     [_doodleArtists enumerateObjectsUsingBlock:^(DKDoodleArtist *doodleArtist, NSUInteger idx, BOOL *stop) {
         if ([doodleArtist.peerID isEqualToString:aDoodleArtist.peerID]) {
@@ -121,28 +127,19 @@
     if (lastIdx != NSNotFound) {
         [_doodleArtists removeObjectAtIndex:lastIdx];
     }
-    
+
     [self updatePlayerAvatars];
 }
 
 - (void)updatePlayerAvatars {
 
-    __block NSUInteger lastIdx;
     [_doodleArtists enumerateObjectsUsingBlock:^(DKDoodleArtist *doodleArtist, NSUInteger idx, BOOL *stop) {
         [self.lobbyView setPlayerName:doodleArtist.displayName forPlayerIndex:idx +1];
-        //[player loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
-        //    [self.lobbyView setPlayerAvatar:photo forPlayerIndex:1];
-        //    NSLog(@"Got Photo");
-        //}];
-        
-        if (idx >= 4) {
-            lastIdx = idx;
-            *stop = YES;
-        }
     }];
     
-    for (; lastIdx < 4; lastIdx++) {
-        [self.lobbyView setPlayerName:nil forPlayerIndex:(lastIdx + 1)];
+    NSUInteger idx;
+    for (idx = [_doodleArtists count]; idx < 4; idx++) {
+        [self.lobbyView setPlayerName:nil forPlayerIndex:(idx + 1)];
     }
 
 }

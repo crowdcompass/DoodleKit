@@ -29,7 +29,6 @@
 @property (nonatomic, assign, readonly) DKDoodleToolType toolType;
 @property (nonatomic, assign, readonly) CGPoint initialPoint;
 @property (nonatomic, assign, readonly) NSArray *dataPoints;
-@property (nonatomic, weak) GTMatchMessenger *messenger;
 
 - (void)startUsingTool:(DKDoodleToolType)toolType;
 - (void)setInitialPoint:(CGPoint)point;

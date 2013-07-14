@@ -81,13 +81,11 @@
         GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
         messenger.match = self.match;
         
-        self.drawingView.serializer.messenger = messenger;
         messenger.serializer = self.drawingView.serializer;
 
         GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
         negotiator.delegate = self;
         negotiator.match = self.match;
-        negotiator.messenger = messenger;
         //self.match.delegate = negotiator;
 
         messenger.negotiator = negotiator;

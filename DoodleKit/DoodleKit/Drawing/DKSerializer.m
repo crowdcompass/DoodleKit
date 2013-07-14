@@ -52,8 +52,8 @@
     NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:strokeDef];
     [strokeDefinition encodeWithCoder:coder];
     [coder finishEncoding];
-
-    [self.messenger sendDoodleDataToAllPlayers:strokeDef];
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    [messenger sendDoodleDataToAllPlayers:strokeDef];
 }
 
 - (void)didReceiveDoodleData:(NSData *)strokeDef
@@ -61,11 +61,8 @@
     NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:strokeDef];
     __block DKDrawingStrokeDefinition *strokeDefinitionAgain = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];
     
-    
     _toolType = DKDoodleToolTypeNone;
     _initialPoint = CGPointMake(0.f, 0.f);
-
-#warning Send the Data to GKGameKit
     
     // Send to delegate
     __weak DKSerializer *weakSelf = self;

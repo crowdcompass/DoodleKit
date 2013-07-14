@@ -92,7 +92,8 @@ static NSInteger const StartGameFlag = 1 << 3;
 
 - (void)sendHostTest:(NSString *)deviceID {
     NSData *payload = [self payloadForDictionary:@{ @"State": @"HostTest", @"DeviceID": deviceID } withFlag:HostTestFlag];
-    [self.messenger sendInternalDataToAllPlayers:payload];
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    [messenger sendInternalDataToAllPlayers:payload];
 }
 
 - (void)receivedHostTestDictionary:(NSDictionary *)dictionary {
@@ -113,12 +114,14 @@ static NSInteger const StartGameFlag = 1 << 3;
 
 - (void)sendHostConfirmation {
     NSData *payload = [self payloadForDictionary:@{ @"State": @"HostConfirm" } withFlag:HostConfirmFlag];
-    [self.messenger sendInternalDataToHost:payload];
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    [messenger sendInternalDataToHost:payload];
 }
 
 - (void)sendStartGame {
     NSData *payload = [self payloadForDictionary:@{ @"State": @"StartGame" } withFlag:StartGameFlag];
-    [self.messenger sendInternalDataToAllPlayers:payload];
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    [messenger sendInternalDataToAllPlayers:payload];
 
     [self.delegate didStartGame];
 }
@@ -135,11 +138,13 @@ static NSInteger const StartGameFlag = 1 << 3;
     self.isHost = YES;
 
     NSData *payload = [self payloadForDictionary:@{ @"State": @"HostClaim" } withFlag:HostClaimFlag];
-    [self.messenger sendInternalDataToAllPlayers:payload];
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    [messenger sendInternalDataToAllPlayers:payload];
 }
 
 - (void)receivedHostClaimDictionary:(NSDictionary *)dictionary fromPlayer:(NSString *)playerID {
-    self.messenger.hostPlayerID = playerID;
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    messenger.hostPlayerID = playerID;
     [self sendHostConfirmation];
 }
 

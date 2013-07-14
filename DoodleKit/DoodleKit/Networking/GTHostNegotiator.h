@@ -32,5 +32,5 @@
 
 @property (nonatomic, weak) id<GTHostNegotiatorDelegate> delegate;
 @property (nonatomic, weak) GKMatch *match;
-@property (nonatomic, weak) GTMatchMessenger *messenger;
+
 @end

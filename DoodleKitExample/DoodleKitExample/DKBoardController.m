@@ -35,7 +35,6 @@ void toggleImageTile(UIView *tile) {
 @property (nonatomic, strong) DPImageBoardTiler *tiler;
 
 @property (nonatomic) NSInteger playerCount;
-@property (nonatomic) GKMatch *match;
 
 @property (nonatomic) GTHostNegotiator *negotiator;
 @end
@@ -70,6 +69,26 @@ void toggleImageTile(UIView *tile) {
     [_tiler tile];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    self.match.delegate = self;
+    //if (_match.expectedPlayerCount == 0) {
+        GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+        messenger.match = self.match;
+        
+        messenger.serializer = self.drawingView.serializer;
+        
+        GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
+        negotiator.delegate = self;
+        negotiator.match = self.match;
+        //self.match.delegate = negotiator;
+        
+        messenger.negotiator = negotiator;
+        
+        self.negotiator = negotiator;
+        [self.negotiator start];
+        
+    //}
+}
 - (BOOL)shouldAutorotate {
     return NO;
 }

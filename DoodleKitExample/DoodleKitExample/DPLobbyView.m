@@ -41,7 +41,7 @@ const CGFloat kPartyButtonYLandscape = 580.f;
         
         BOOL isPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
         
-        _partyView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doodleParty"]];
+        _partyView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doodleparty"]];
         _partyView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
         _partyView.center = self.center;
         CGFloat partyViewY = isPortrait ? kPartyViewYPortrait : kPartyViewYLandscape;

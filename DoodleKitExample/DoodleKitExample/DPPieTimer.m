@@ -136,7 +136,7 @@ enum DPPieProgressViewState {
          double timeElapsed = currentTime - _startTime;
          float percentage = ((timeElapsed) / self.countdownDuration);
          self.progress = percentage;
-         NSLog(@"Percentage %f, time elapsed: %f, total time: %f", percentage, timeElapsed, self.countdownDuration);
+
          if (self.progress >= 1.0f) {
              [_countdownTimer invalidate];
              _countdownTimer = nil;

@@ -74,7 +74,7 @@ static GTMatchMessenger *shared = nil;
         [self match:nil didReceiveData:data fromPlayer:nil];
     }
 
-    NSLog(@"Sending data to all players");
+    //NSLog(@"Sending data to all players");
     NSError *error;
 
     DKDoodleSessionManager *sessionManager = [DKDoodleSessionManager sharedManager];

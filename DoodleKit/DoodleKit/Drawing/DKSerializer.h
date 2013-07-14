@@ -16,9 +16,9 @@
 
 @protocol DKSerializerDelegate <NSObject>
 
-- (void)startDrawingDoodleData:(NSString *)dataUid withTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint;
-- (void)drawDoodleData:(NSString *)dataUid withDKPointData:(NSObject *)pointData;
-- (void)finishDrawingDoodleData:(NSString *)dataUid;
+- (void)startDrawingDoodleStroke:(DKDrawingStrokeDefinition *)strokeDefinition;
+- (void)drawDoodleStroke:(DKDrawingStrokeDefinition *)strokeDefinition withDKPointData:(NSObject *)pointData;
+- (void)finishDrawingDoodleStroke:(DKDrawingStrokeDefinition *)strokeDefinition;
 
 @end
 
@@ -28,10 +28,14 @@
 
 @property (nonatomic, assign, readonly) DKDoodleToolType toolType;
 @property (nonatomic, assign, readonly) CGPoint initialPoint;
+@property (nonatomic, assign, readonly) UIColor *penColor;
+@property (nonatomic, assign, readonly) CGFloat penWidth;
+@property (nonatomic, assign, readonly) CGFloat penAlpha;
 @property (nonatomic, assign, readonly) NSArray *dataPoints;
 
-- (void)startUsingTool:(DKDoodleToolType)toolType;
-- (void)setInitialPoint:(CGPoint)point;
+//- (void)startUsingTool:(DKDoodleToolType)toolType;
+//- (void)setInitialPoint:(CGPoint)point;
+- (void)startStrokeWithDefinition:(DKDrawingStrokeDefinition *)strokeDefinition;
 - (void)addDKPointData:(NSObject<NSCoding> *)pointData;
 - (void)finishUsingTool;
 - (BOOL)isProcessingToolSession;

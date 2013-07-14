@@ -15,6 +15,7 @@
     DKDoodleToolType _toolType;
     CGPoint _initialPoint;
     NSMutableArray *_dataPoints;
+    DKDrawingStrokeDefinition *_strokeDefinition;
 }
 
 @end
@@ -28,13 +29,13 @@
     return _toolType != DKDoodleToolTypeNone;
 }
 
-- (void)startUsingTool:(DKDoodleToolType)toolType {
-    _toolType = toolType;
+- (void)startStrokeWithDefinition:(DKDrawingStrokeDefinition *)strokeDefinition
+{
+    _strokeDefinition = strokeDefinition;
+    _initialPoint = _strokeDefinition.initialPoint;
+    _toolType = _strokeDefinition.toolType;
     _dataPoints = [NSMutableArray array];
-}
 
-- (void)setInitialPoint:(CGPoint)point {
-    _initialPoint = point;
 }
 
 - (void)addDKPointData:(NSObject<NSCoding> *)pointData {
@@ -42,15 +43,20 @@
 }
 
 - (void)finishUsingTool {
-    DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
-    strokeDefinition.toolType = _toolType;
-    strokeDefinition.initialPoint = _initialPoint;
-    strokeDefinition.dataPoints = [self dataPoints];
+//    DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
+//    strokeDefinition.toolType = _toolType;
+//    strokeDefinition.initialPoint = _initialPoint;
+//    strokeDefinition.penColor = _penColor;
+//    strokeDefinition.penWidth = _penWidth;
+//    strokeDefinition.penWidth = _penAlpha;
+//    strokeDefinition.dataPoints = [self dataPoints];
+    
+    _strokeDefinition.dataPoints = _dataPoints;
     
     NSMutableData *strokeDef = [NSMutableData data];
     
     NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:strokeDef];
-    [strokeDefinition encodeWithCoder:coder];
+    [_strokeDefinition encodeWithCoder:coder];
     [coder finishEncoding];
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
     [messenger sendDoodleDataToAllPlayers:strokeDef];
@@ -68,11 +74,11 @@
     __weak DKSerializer *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         //NSLog(@"Drawing Doodle Data with %@ touches", @([strokeDefinitionAgain.dataPoints count]));
-        [weakSelf.delegate startDrawingDoodleData:strokeDefinitionAgain.uid withTool:strokeDefinitionAgain.toolType atPoint:strokeDefinitionAgain.initialPoint];
+        [weakSelf.delegate startDrawingDoodleStroke:strokeDefinitionAgain];
         for (NSObject *dataPoint in strokeDefinitionAgain.dataPoints) {
-            [weakSelf.delegate drawDoodleData:strokeDefinitionAgain.uid withDKPointData:dataPoint];
+            [weakSelf.delegate drawDoodleStroke:strokeDefinitionAgain withDKPointData:dataPoint];
         }
-        [weakSelf.delegate finishDrawingDoodleData:strokeDefinitionAgain.uid];
+        [weakSelf.delegate finishDrawingDoodleStroke:strokeDefinitionAgain];
     });
 
 }

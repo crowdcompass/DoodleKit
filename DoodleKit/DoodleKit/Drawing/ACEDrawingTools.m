@@ -88,7 +88,7 @@ CGPoint midPoint(CGPoint p1, CGPoint p2)
 - (void)dealloc
 {
     CGPathRelease(path);
-    self.lineColor = nil;
+//    self.lineColor = nil;
     #if !ACE_HAS_ARC
     [super dealloc];
     #endif

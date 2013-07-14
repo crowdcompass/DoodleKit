@@ -21,6 +21,9 @@ typedef NSUInteger DKDoodleToolType;
 @property (nonatomic, readonly) NSString *uid;
 @property (nonatomic, assign) DKDoodleToolType toolType;
 @property (nonatomic, assign) CGPoint initialPoint;
+@property (nonatomic, assign) UIColor *penColor;
+@property (nonatomic, assign) CGFloat penWidth;
+@property (nonatomic, assign) CGFloat penAlpha;
 @property (nonatomic, retain) NSArray *dataPoints;
 
 @end

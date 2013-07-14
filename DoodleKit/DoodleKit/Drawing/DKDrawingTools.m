@@ -26,6 +26,9 @@
         _uid = [aDecoder decodeObjectForKey:@"uid"];
         _toolType = [aDecoder decodeIntegerForKey:@"toolType"];
         _initialPoint = [aDecoder decodeCGPointForKey:@"initialPoint"];
+        _penColor = [aDecoder decodeObjectForKey:@"penColor"];
+        _penWidth = [aDecoder decodeFloatForKey:@"penWidth"];
+        _penAlpha = [aDecoder decodeFloatForKey:@"penAlpha"];
         _dataPoints = [aDecoder decodeObjectForKey:@"dataPoints"];
     }
     
@@ -37,6 +40,9 @@
     [aCoder encodeObject:_uid forKey:@"uid"];
     [aCoder encodeInteger:_toolType forKey:@"toolType"];
     [aCoder encodeCGPoint:_initialPoint forKey:@"initialPoint"];
+    [aCoder encodeObject:_penColor forKey:@"penColor"];
+    [aCoder encodeFloat:_penWidth forKey:@"penWidth"];
+    [aCoder encodeFloat:_penAlpha forKey:@"penAlpha"];
     [aCoder encodeObject:_dataPoints forKey:@"dataPoints"];
 }
 

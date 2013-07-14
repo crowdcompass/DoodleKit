@@ -99,8 +99,13 @@
         }
         
         // Serialize
-        [self.serializer startUsingTool:_toolType];
-        [self.serializer setInitialPoint:[(NSValue *)[points objectAtIndex:0] CGPointValue]];
+        DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
+        strokeDefinition.penColor = self.lineColor;
+        strokeDefinition.penWidth = self.lineWidth;
+        strokeDefinition.penAlpha = self.lineAlpha;
+        strokeDefinition.toolType = _toolType;
+        strokeDefinition.initialPoint = [(NSValue *)[points objectAtIndex:0] CGPointValue];
+        [self.serializer startStrokeWithDefinition:strokeDefinition];
         
         DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithTopLeftPoint:[(NSValue *)[points objectAtIndex:0] CGPointValue] andBottomRightPoint:[(NSValue *)[points lastObject] CGPointValue]];
         [self.serializer addDKPointData:rectPoint];
@@ -131,7 +136,13 @@
 {
     if ([self.serializer isProcessingToolSession] && self.serializer.toolType == DKDoodleToolTypePen) {
         [self.serializer finishUsingTool];
-        [self.serializer startUsingTool:_toolType];
+        // Serialize
+        DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
+        strokeDefinition.penColor = self.lineColor;
+        strokeDefinition.penWidth = self.lineWidth;
+        strokeDefinition.penAlpha = self.lineAlpha;
+        strokeDefinition.toolType = _toolType;
+        [self.serializer startStrokeWithDefinition:strokeDefinition];
     }
 }
 
@@ -195,8 +206,13 @@
     currentPoint = [touch locationInView:self];
     
     // Serialize
-    [self.serializer startUsingTool:_toolType];
-    [self.serializer setInitialPoint:currentPoint];
+    DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
+    strokeDefinition.penColor = self.lineColor;
+    strokeDefinition.penWidth = self.lineWidth;
+    strokeDefinition.penAlpha = self.lineAlpha;
+    strokeDefinition.toolType = _toolType;
+    strokeDefinition.initialPoint = currentPoint;
+    [self.serializer startStrokeWithDefinition:strokeDefinition];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -313,20 +329,20 @@
 
 #pragma mark - DKSerializerDelegate methods
 
-- (void)startDrawingDoodleData:(NSString *)dataUid withTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint {
+- (void)startDrawingDoodleStroke:(DKDrawingStrokeDefinition *)strokeDefinition {
     // init the bezier path
 
-    id<ACEDrawingTool> currentTool = [self toolWithCurrentSettingsAndType:toolType];
-    currentTool.lineWidth = self.lineWidth;
-    currentTool.lineColor = self.lineColor;
-    currentTool.lineAlpha = self.lineAlpha;
-    [currentTool setInitialPoint:initialPoint];
+    id<ACEDrawingTool> currentTool = [self toolWithCurrentSettingsAndType:strokeDefinition.toolType];
+    currentTool.lineWidth = strokeDefinition.penWidth;
+    currentTool.lineColor = self.lineColor; // BUG: using artists color
+    currentTool.lineAlpha = strokeDefinition.penAlpha;
+    [currentTool setInitialPoint:strokeDefinition.initialPoint];
     
-    [_currentTools setObject:currentTool forKey:dataUid];
+    [_currentTools setObject:currentTool forKey:strokeDefinition.uid];
 }
 
-- (void)drawDoodleData:(NSString *)dataUid withDKPointData:(NSObject *)pointData {
-    id<ACEDrawingTool> currentTool =  [_currentTools objectForKey:dataUid];
+- (void)drawDoodleStroke:(DKDrawingStrokeDefinition *)strokeDefinition withDKPointData:(NSObject *)pointData {
+    id<ACEDrawingTool> currentTool =  [_currentTools objectForKey:strokeDefinition.uid];
     
     if (!currentTool) {
         NSLog(@"Houston, we have a problem");
@@ -341,10 +357,10 @@
                                                                           withCurrentPoint:penPoint.currentPoint];
         
         CGRect drawBox = bounds;
-        drawBox.origin.x -= self.lineWidth * 2.0;
-        drawBox.origin.y -= self.lineWidth * 2.0;
-        drawBox.size.width += self.lineWidth * 4.0;
-        drawBox.size.height += self.lineWidth * 4.0;
+        drawBox.origin.x -= strokeDefinition.penWidth * 2.0;
+        drawBox.origin.y -= strokeDefinition.penWidth * 2.0;
+        drawBox.size.width += strokeDefinition.penWidth * 4.0;
+        drawBox.size.height += strokeDefinition.penWidth * 4.0;
         
         [self setNeedsDisplayInRect:drawBox];
     } else {
@@ -354,8 +370,8 @@
     }
 }
 
-- (void)finishDrawingDoodleData:(NSString *)dataUid {
-    if (![_currentTools objectForKey:dataUid]) {
+- (void)finishDrawingDoodleStroke:(DKDrawingStrokeDefinition *)strokeDefinition {
+    if (![_currentTools objectForKey:strokeDefinition.uid]) {
         NSLog(@"Houston, we have a problem");
         return;
     }
@@ -363,7 +379,7 @@
     // update the image
     [self updateCacheImage:NO];
 
-    [_currentTools removeObjectForKey:dataUid];
+    [_currentTools removeObjectForKey:strokeDefinition.uid];
 }
 
 @end

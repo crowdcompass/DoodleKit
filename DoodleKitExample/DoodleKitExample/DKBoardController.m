@@ -14,6 +14,22 @@
 #import "DPSwatchToolbar.h"
 #import "GTMatchMessenger.h"
 
+void toggleImageTile(UIView *tile) {
+    if (tile.alpha >= .9f) {
+        //fade out
+        [UIView animateWithDuration:.12
+                         animations:^{
+                             tile.alpha = 0.02f;
+                         }];
+    } else {
+        //fade in
+        [UIView animateWithDuration:.12
+                         animations:^{
+                             tile.alpha = .98f;
+                         }];
+    }
+}
+
 @interface DKBoardController ()<DKDoodleViewDelegate, DPSwatchToolbarDelegate, DPImageBoardTilerDelegate>
 
 @property (nonatomic, strong) DPImageBoardTiler *tiler;
@@ -45,8 +61,12 @@
     //TODO: random from a bunch of images, maybe image picker?
     UIImage *toTile = [UIImage imageNamed:@"doodle01"];
     _tiler = [[DPImageBoardTiler alloc] initWithImage:toTile delegate:self];
+    
+    //add clear UIViews to prevent touches
+    [self addTouchBlockers];
+    
     //TODO: hook up a real user index;
-    _tiler.userIndex = 1;
+    _tiler.userIndex = 3;
     [_tiler tile];
 }
 
@@ -140,14 +160,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)addDoodleView
-{
+- (void)addDoodleView {
+    //TOFIX: crazy shiz
     DKDoodleView *doodleView = [[DKDoodleView alloc] initWithFrame:CGRectMake(100.f, self.toolbar.bounds.size.height, self.view.bounds.size.width - 100.f, self.view.bounds.size.height)];
+    //DKDoodleView *doodleView = [[DKDoodleView alloc] initWithFrame:CGRectMake(0.0, self.toolbar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
     self.drawingView = doodleView;
     self.drawingView.delegate = self;
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.drawingView];
+}
+
+//hacky, easier than handling at framework level for now though
+- (void)addTouchBlockers {
+    for (NSUInteger i = 1; i <= 4; i++) {
+        if (i == self.tiler.userIndex) continue;
+        
+        UIView *touchBlocker = [[UIView alloc] initWithFrame:[self.tiler frameForIndex:i]];
+        touchBlocker.userInteractionEnabled = NO;
+        touchBlocker.backgroundColor = [UIColor clearColor];
+        
+        [self.view addSubview:touchBlocker];
+    }
 }
 
 - (void)addToolbar
@@ -193,13 +228,20 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = images[indexKey];
             UIImageView *tileView = [[UIImageView alloc] initWithImage:image];
+            tileView.userInteractionEnabled = YES;
+            
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tileTapRecognized:)];
+            [tileView addGestureRecognizer:tapRecognizer];
+            
             tileView.frame = [tiler frameForIndex:indexKey.unsignedIntegerValue];
-            NSLog(@"ADDING TILE %@", tileView.description);
             [selfRef.view addSubview:tileView];
         });
     }
 }
 
+- (void)tileTapRecognized:(UITapGestureRecognizer *)recognizer {
+    toggleImageTile(recognizer.view);
+}
 - (void)didStartGame {
     NSLog(@"didStartGame");
 }

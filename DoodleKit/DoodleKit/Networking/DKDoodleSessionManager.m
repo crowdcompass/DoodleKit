@@ -13,11 +13,11 @@ enum DKDoodleMessageType {
     DKDoodleMessageTypeSubmitToHost,
     DKDoodleMessageTypeStartGame,
     };
-typedef NSUInteger DKDoodleMessageTyep;
+typedef NSUInteger DKDoodleMessageType;
 
 #define kDoodleMessageIDKey     @"id"
 
-static NSInteger const playerCount = 3;
+static NSInteger const playerCount = 2;
 
 static DKDoodleSessionManager *sharedInstance;
 
@@ -30,9 +30,22 @@ static DKDoodleSessionManager *sharedInstance;
 @implementation DKDoodleSessionManager
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
-    NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    [self receiveDictionary:dictionary fromPeer:peer];
 }
 
+- (void)receiveDictionary:(NSDictionary *)dictionary fromPeer:(NSString *)peer {
+    DKDoodleMessageType messageType = dictionary[kDoodleMessageIDKey];
+    NSLog(@"%d", messageType);
+    NSLog(@"%@", dictionary);
+}
+
+- (void)sendDictionary:(NSDictionary *)dictionary toPeers:(NSArray *)peers {
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
+    NSError *error;
+    [self.session sendData:data toPeers:peers withDataMode:GKSendDataReliable error:&error];
+    assert(!error);
+}
 
 + (instancetype)sharedManager {
     static dispatch_once_t onceToken;
@@ -51,7 +64,7 @@ static DKDoodleSessionManager *sharedInstance;
 }
 
 - (void)start {
-    GKSession *session = [[GKSession alloc] initWithSessionID:@"CJH"
+    GKSession *session = [[GKSession alloc] initWithSessionID:@"com.crowdcompass.DoodleParty"
                                                   displayName:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
                                                   sessionMode:GKSessionModePeer];
 
@@ -81,9 +94,7 @@ static DKDoodleSessionManager *sharedInstance;
 - (void)createMatch {
     NSArray *peers = [self.session peersWithConnectionState:GKPeerStateConnected];
     if (peers.count == playerCount - 1) {
-        NSError *error;
-        [self.session sendData:[@"Hello, World" dataUsingEncoding:NSUTF8StringEncoding] toPeers:peers withDataMode:GKSendDataReliable error:&error];
-        assert(!error);
+        [self sendDictionary:@{ kDoodleMessageIDKey: @(DKDoodleMessageTypeDeclareHost) } toPeers:peers];
     }
 }
 

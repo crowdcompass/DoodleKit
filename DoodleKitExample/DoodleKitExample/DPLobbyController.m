@@ -11,10 +11,15 @@
 #import "DPLobbyView.h"
 #import "DPStartDoodleButton.h"
 
+
 @interface DPLobbyController ()
+
+@property (nonatomic, strong) DPConnectManager *connectManager;
 
 //target/action
 - (void)startPressed;
+
+
 
 @end
 
@@ -23,7 +28,8 @@
 - (id)initWithPlayer:(DPPlayer *)player {
     self = [super init];
     if (self) {
-        
+        self.connectManager = [DPConnectManager sharedConnectManager];
+        self.connectManager.delegate = self;
     }
     
     return self;
@@ -39,6 +45,9 @@
     self.lobbyView = lobbyView;
     
     [self.lobbyView.button addTarget:self action:@selector(startPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Start filling the lobby
+    [_connectManager startAuthenticatingLocalPlayer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,8 +60,33 @@
 #pragma mark Target/action
 
 - (void)startPressed {
-    DKBoardController *boardController = [[DKBoardController alloc] init];
-    [self presentViewController:boardController animated:NO completion:nil];
+    [_connectManager createMatch];
+//    DKBoardController *boardController = [[DKBoardController alloc] init];
+//    [self presentViewController:boardController animated:NO completion:nil];
+    
 }
+
+
+//////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark DPConnectManagerDelegate
+
+- (void)didAuthenticateLocalPlayer:(GKLocalPlayer *)player {
+    
+}
+
+- (void)didUpdatePlayers:(NSArray *)players {
+    NSLog(@"Lobby: We have new players %@", players);
+}
+
+- (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
+    
+}
+
+- (void)didUpdatePlayer:(NSString *)playerID withState:(GKPlayerConnectionState)state {
+    
+}
+
+
 
 @end

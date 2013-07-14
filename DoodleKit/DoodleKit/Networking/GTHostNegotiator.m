@@ -80,26 +80,15 @@ static NSInteger const StartGameFlag = 1 << 3;
     }
 }
 
-
-- (NSInteger)flagFromPayload:(NSData *)payload {
-    NSInteger flag;
-    [payload getBytes:&flag length:sizeof(NSInteger)];
-    return flag;
-}
-
 - (NSDictionary *)dictionaryFromPayload:(NSData *)payload {
-    NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:
-                                [payload subdataWithRange:NSMakeRange(sizeof(NSInteger), [payload length] - sizeof(NSInteger))]];
+    NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:payload];
     return dictionary;
 }
 
 - (NSData *)payloadForDictionary:(NSDictionary *)dictionary withFlag:(NSInteger)flag {
-    NSMutableData *prelude = [NSMutableData dataWithBytes:&flag length:sizeof(NSInteger)];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    [prelude appendData:data];
-    return prelude;
+    return data;
 }
-
 
 - (void)sendHostTest:(NSString *)deviceID {
     NSData *payload = [self payloadForDictionary:@{ @"State": @"HostTest", @"DeviceID": deviceID } withFlag:HostTestFlag];

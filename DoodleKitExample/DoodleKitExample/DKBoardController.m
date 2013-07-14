@@ -174,7 +174,7 @@
 
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch
 {
-    self.drawingView.lineWidth = 10.0f;
+    self.drawingView.lineWidth = 6.0f;
     self.drawingView.lineColor = swatch.swatchColor;
 }
 

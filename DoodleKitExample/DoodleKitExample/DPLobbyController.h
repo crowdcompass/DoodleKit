@@ -10,6 +10,8 @@
 
 #import <DoodleKit/DKDoodleSessionManager.h>
 
+#define DEBUG_BOARD         0
+
 @class DPPlayer;
 @class DPLobbyView;
 

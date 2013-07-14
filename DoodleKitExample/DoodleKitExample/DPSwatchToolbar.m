@@ -18,7 +18,9 @@
 #define kGrowAnimationDuration 0.5
 #define kShrinkAnimationDuration 0.1
 
-@interface DPSwatchToolbar ()
+@interface DPSwatchToolbar () {
+    BOOL _shown;
+}
 
 @property (nonatomic, strong) UIButton *trash;
 @property (nonatomic) NSUInteger selectedSwatchIndex;
@@ -46,9 +48,25 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _shown = NO;
         [self setupToolbar];
     }
     return self;
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    if (_shown) {
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        UIColor *color = [UIColor colorWithRed:197.f/255.f green:226.f/255.f blue:253.f/255.f alpha:1.f];
+        CGContextSetStrokeColorWithColor(ctx, color.CGColor);
+        CGContextSetLineWidth(ctx, 2.f);
+        CGContextMoveToPoint(ctx, 0.f, 43.f);
+        CGContextAddLineToPoint(ctx, self.frame.size.width, 43.f);
+        
+        CGContextStrokePath(ctx);
+    }
 }
 
 /**
@@ -278,7 +296,8 @@
 //        [self animateTimerAndTrashIn];
 //        [self animateSwatchesIn];
     } completion:^(BOOL finished) {
-        
+        _shown = YES;
+        [self setNeedsDisplayInRect:CGRectMake(0.f, self.frame.size.height - 2.1f, self.frame.size.width, 2.1f)];
     }];
 }
 

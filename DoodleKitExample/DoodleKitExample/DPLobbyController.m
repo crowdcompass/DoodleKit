@@ -11,6 +11,8 @@
 #import "DPLobbyView.h"
 #import "DPStartDoodleButton.h"
 
+#import <NSArray+BlocksKit.h>
+
 
 @interface DPLobbyController ()
 
@@ -94,14 +96,14 @@
     __block NSUInteger lastIdx;
     [_allPlayers enumerateObjectsUsingBlock:^(GKPlayer *player, NSUInteger idx, BOOL *stop) {
         [self.lobbyView setPlayerName:player.alias forPlayerIndex:(idx + 1)];
-        if (idx +1 > 4) {
+        if ((idx + 1) > 4) {
             lastIdx = idx;
             *stop = YES;
         }
     }];
     
-    for (; lastIdx < 5; lastIdx++) {
-        [self.lobbyView setPlayerName:@"." forPlayerIndex:lastIdx];
+    for (; lastIdx < 4; lastIdx++) {
+        [self.lobbyView setPlayerName:@"." forPlayerIndex:(lastIdx + 1)];
     }
     
 #warning Modify this to set players required to 4

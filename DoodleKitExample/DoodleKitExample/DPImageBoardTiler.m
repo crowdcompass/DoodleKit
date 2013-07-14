@@ -62,7 +62,9 @@
     @autoreleasepool {
         CGFloat scale = [[UIScreen mainScreen] scale];
         CGRect scaledRect = CGRectMake(rect.origin.x * scale, rect.origin.y * scale, rect.size.width * scale, rect.size.height * scale);
-        selfRef.tiledImages[@(index)] = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(self.originalImage.CGImage, scaledRect)];
+        CGImageRef cgImage = CGImageCreateWithImageInRect(self.originalImage.CGImage, scaledRect);
+        selfRef.tiledImages[@(index)] = [UIImage imageWithCGImage:cgImage];
+        CFRelease(cgImage);
         @synchronized(selfRef.tiledImages) {
             if (selfRef.tiledImages.count == 3u) {
                 done = YES;

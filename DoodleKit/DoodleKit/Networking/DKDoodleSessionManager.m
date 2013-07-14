@@ -68,7 +68,7 @@ static DKDoodleSessionManager *sharedInstance;
 - (void)sendDictionary:(NSDictionary *)dictionary toPeers:(NSArray *)peers {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     NSError *error;
-    [self.session sendData:data toPeers:peers withDataMode:GKSendDataReliable error:&error];
+    [self.session sendData:data toPeers:peers withDataMode:GKSendDataUnreliable error:&error];
     assert(!error);
 }
 
@@ -228,7 +228,7 @@ static DKDoodleSessionManager *sharedInstance;
 - (void)sendDataToAllPlayers:(NSData *)data {
     NSError *error;
     NSArray *peers = [self.session peersWithConnectionState:GKPeerStateConnected];
-    [self.session sendData:data toPeers:peers withDataMode:GKSendDataReliable error:&error];
+    [self.session sendData:data toPeers:peers withDataMode:GKSendDataUnreliable error:&error];
     assert (!error);
 }
 

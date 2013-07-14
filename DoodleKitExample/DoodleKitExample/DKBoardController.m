@@ -96,7 +96,7 @@ void toggleImageTile(UIView *tile) {
     [button setTitle:@"Click Me" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(didTouchButton) forControlEvents:UIControlEventTouchUpInside];
     [button sizeToFit];
-    button.center = CGPointMake(50.f, 200.f);
+    button.center = CGPointMake(50.f, 610.f);
     [self.view addSubview:button];
 }
 

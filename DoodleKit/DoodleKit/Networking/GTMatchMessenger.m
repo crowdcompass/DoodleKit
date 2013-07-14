@@ -58,7 +58,7 @@ static GTMatchMessenger *shared = nil;
 }
 
 - (void)sendDataToAllPlayers:(NSData *)data withFlag:(NSInteger)flag {
-    assert(self.match);
+//    assert(self.match);
 
     data = [self payloadForData:data withFlag:flag];
     if (flag == DoodleFlag) {
@@ -72,7 +72,7 @@ static GTMatchMessenger *shared = nil;
 }
 
 - (void)sendDataToHost:(NSData *)data withFlag:(NSInteger)flag {
-    assert(self.match);
+//    assert(self.match);
 
     data = [self payloadForData:data withFlag:flag];
 

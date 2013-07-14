@@ -8,9 +8,15 @@
 
 #import "DPLobbyAvatarView.h"
 
+@interface DPLobbyAvatarView ()
+
+@property (nonatomic, strong) NSNumber *index;
+
+@end
+
 #import "DPPlayer.h"
 
-UIImage* imageForPlayerNumber(NSInteger playerIndex, BOOL loaded) {
+UIImage* imageForPlayerNumber(NSUInteger playerIndex, BOOL loaded) {
     NSString *imageName = nil;
     
     switch (playerIndex) {
@@ -50,7 +56,7 @@ UIFont* fontForLabel(BOOL isLoaded) {
     }
 }
 
-NSString* textForUnloadedLabel(NSInteger playerNumber) {
+NSString* textForUnloadedLabel(NSUInteger playerNumber) {
     if (playerNumber == 1) return @"Bieber";
     
     NSString *dotStr = @"";
@@ -85,9 +91,10 @@ NSString* textForUnloadedLabel(NSInteger playerNumber) {
 - (id)initWithPlayerNumber:(NSNumber *)number {
     self = [self init];
     if (self) {
+        _index = number;
         _loaded = number.integerValue < 3;
-        _avatarView.image = imageForPlayerNumber(number.integerValue, _loaded);
-        _avatarLabel.text = textForUnloadedLabel(number.integerValue);
+        _avatarView.image = imageForPlayerNumber(number.unsignedIntegerValue, _loaded);
+        _avatarLabel.text = textForUnloadedLabel(number.unsignedIntegerValue);
         [_avatarLabel sizeToFit];
     }
     
@@ -98,6 +105,7 @@ NSString* textForUnloadedLabel(NSInteger playerNumber) {
 - (id)initWithPlayer:(DPPlayer *)player {
     self = [self init];
     if (self) {
+        _index = player.playerNumber;
     }
     
     return self;
@@ -105,6 +113,13 @@ NSString* textForUnloadedLabel(NSInteger playerNumber) {
 
 - (void)layoutSubviews {
     _avatarLabel.center = CGPointMake(60.f, _avatarLabel.center.y);
+}
+
+- (void)setName:(NSString *)name {
+    self.avatarView.image = imageForPlayerNumber(self.index.unsignedIntegerValue, YES);
+    self.avatarLabel.font = fontForLabel(YES);
+    self.avatarLabel.text = name;
+    [self.avatarLabel sizeToFit];
 }
 
 

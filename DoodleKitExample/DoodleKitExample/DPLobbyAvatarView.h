@@ -20,4 +20,7 @@
 - (id)initWithPlayerNumber:(NSNumber *)number;
 - (id)initWithPlayer:(DPPlayer *)player;
 
+- (void)setName:(NSString *)name;
+//TODO: set name and image
+
 @end

@@ -42,16 +42,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self addGameCenterButton];
     [self addToolbar];
-    [self addDoodleView];
+    
+    CGSize tileSize = CGSizeMake(768.f / 2.f, 960.f / 2.f);
+    
+    [self addDoodleViewWithActiveArea:CGRectMake(0.0f, 960.f / 2.f, tileSize.width, tileSize.height)];
     
     //TODO: random from a bunch of images, maybe image picker?
     UIImage *toTile = [UIImage imageNamed:@"doodle01"];
-    _tiler = [[DPImageBoardTiler alloc] initWithImage:toTile delegate:self];
-    
-    //add clear UIViews to prevent touches
-    [self addTouchBlockers];
+    _tiler = [[DPImageBoardTiler alloc] initWithImage:toTile tileSize:tileSize delegate:self];
     
     //TODO: hook up a real user index;
     _tiler.userIndex = 3;
@@ -85,27 +84,6 @@
 - (NSUInteger) supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
-}
-
-- (void)didTouchButton
-{
-    GKMatchRequest *request = [[GKMatchRequest alloc] init];
-    request.minPlayers = self.playerCount;
-    request.maxPlayers = self.playerCount;
-
-    GKMatchmakerViewController *viewController = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
-    viewController.matchmakerDelegate = self;
-    [self presentViewController:viewController animated:YES completion:nil];
-}
-
-- (void)addGameCenterButton
-{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button setTitle:@"Click Me" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(didTouchButton) forControlEvents:UIControlEventTouchUpInside];
-    [button sizeToFit];
-    button.center = CGPointMake(50.f, 610.f);
-    [self.view addSubview:button];
 }
 
 - (void)matchmakerViewControllerWasCancelled:(GKMatchmakerViewController *)viewController
@@ -168,29 +146,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)addDoodleView {
-    //TOFIX: crazy shiz
-    DKDoodleView *doodleView = [[DKDoodleView alloc] initWithFrame:CGRectMake(100.f, self.toolbar.bounds.size.height, self.view.bounds.size.width - 100.f, self.view.bounds.size.height)];
-    //DKDoodleView *doodleView = [[DKDoodleView alloc] initWithFrame:CGRectMake(0.0, self.toolbar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)];
+- (void)addDoodleViewWithActiveArea:(CGRect)activeArea {
+    DKDoodleView *doodleView = [[DKDoodleView alloc] initWithFrame:CGRectMake(0.0, self.toolbar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)];
     
     self.drawingView = doodleView;
     self.drawingView.delegate = self;
+    self.drawingView.activeArea = activeArea;
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.drawingView];
-}
-
-//hacky, easier than handling at framework level for now though
-- (void)addTouchBlockers {
-    for (NSUInteger i = 1; i <= 4; i++) {
-        if (i == self.tiler.userIndex) continue;
-        
-        UIView *touchBlocker = [[UIView alloc] initWithFrame:[self.tiler frameForIndex:i]];
-        touchBlocker.userInteractionEnabled = NO;
-        touchBlocker.backgroundColor = [UIColor clearColor];
-        
-        [self.view addSubview:touchBlocker];
-    }
 }
 
 - (void)addToolbar

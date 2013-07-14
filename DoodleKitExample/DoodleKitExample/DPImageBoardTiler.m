@@ -23,7 +23,7 @@
 
 #pragma mark - DPImageBoardTiler
 
-- (id)initWithImage:(UIImage *)image delegate:(id<DPImageBoardTilerDelegate>)delegate {
+- (id)initWithImage:(UIImage *)image tileSize:(CGSize)tileSize delegate:(id<DPImageBoardTilerDelegate>)delegate {
     if (!image) {
         [NSException raise:NSInternalInconsistencyException format:@"BAD THINGS"];
     }
@@ -31,7 +31,7 @@
     self = [super init];
     if (self) {
         _tiledImages = [NSMutableDictionary dictionaryWithCapacity:4];
-        _tileSize = CGSizeMake(768.f / 2.f, 960.f / 2.f);
+        _tileSize = tileSize;
         _originalImage = image;
         _userIndex = 0;
         _delegate = delegate;

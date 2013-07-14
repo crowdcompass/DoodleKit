@@ -26,6 +26,7 @@
     CGPoint currentPoint;
     CGPoint previousPoint1;
     CGPoint previousPoint2;
+    BOOL doHandleTouches;
 }
 
 @property (nonatomic, assign) ACEDrawingPenTool *drawTool;
@@ -75,6 +76,11 @@
     
     // set the transparent background
     self.backgroundColor = [UIColor clearColor];
+    
+    // set the active area (all by default)
+    self.activeArea = self.bounds;
+
+    doHandleTouches = YES;
     
     self.serializer = [[DKSerializer alloc] init];
     self.serializer.delegate = self;
@@ -199,62 +205,86 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // add the first touch
-    UITouch *touch = [touches anyObject];
-    
-    previousPoint1 = [touch previousLocationInView:self];
-    currentPoint = [touch locationInView:self];
-    
-    // Serialize
-    DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
-    strokeDefinition.penColor = self.lineColor;
-    strokeDefinition.penWidth = self.lineWidth;
-    strokeDefinition.penAlpha = self.lineAlpha;
-    strokeDefinition.toolType = _toolType;
-    strokeDefinition.initialPoint = currentPoint;
-    [self.serializer startStrokeWithDefinition:strokeDefinition];
+    if (doHandleTouches) {
+        // add the first touch
+        UITouch *touch = [touches anyObject];
+        
+        previousPoint1 = [touch previousLocationInView:self];
+        currentPoint = [touch locationInView:self];
+        
+        if (!CGRectContainsPoint(self.activeArea, currentPoint)) {
+            doHandleTouches = NO;
+        }
+        
+        if (doHandleTouches) {
+            DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
+            strokeDefinition.penColor = self.lineColor;
+            strokeDefinition.penWidth = self.lineWidth;
+            strokeDefinition.penAlpha = self.lineAlpha;
+            strokeDefinition.toolType = _toolType;
+            strokeDefinition.initialPoint = currentPoint;
+            [self.serializer startStrokeWithDefinition:strokeDefinition];
+        }
+    }
+
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // save all the touches in the path
-    UITouch *touch = [touches anyObject];
-    
-    previousPoint2 = previousPoint1;
-    previousPoint1 = [touch previousLocationInView:self];
-    currentPoint = [touch locationInView:self];
-    
-    switch (_toolType) {
-        case DKDoodleToolTypePen:
-        {
-            DKPenPoint *penPoint = [DKPenPoint penPointWithCurrentPoint:currentPoint
-                                                          previousPoint:previousPoint1
-                                                  previousPreviousPoint:previousPoint2];
-            
-            [self.serializer addDKPointData:penPoint];
-        }
-            break;
-            
-        case DKDoodleToolTypeRectangle:
-        {
-            DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithTopLeftPoint:previousPoint1 andBottomRightPoint:currentPoint];
-            [self.serializer addDKPointData:rectPoint];
+    if (doHandleTouches) {
+        // save all the touches in the path
+        UITouch *touch = [touches anyObject];
+        
+        previousPoint2 = previousPoint1;
+        previousPoint1 = [touch previousLocationInView:self];
+
+        if (!CGRectContainsPoint(self.activeArea, previousPoint1)) {
+            doHandleTouches = NO;
+            [self.serializer finishUsingTool];
         }
 
-            
-        default:
-            break;
+        currentPoint = [touch locationInView:self];
+        
+        if (!CGRectContainsPoint(self.activeArea, currentPoint)) {
+            doHandleTouches = NO;
+            [self.serializer finishUsingTool];
+        }
+        
+        if (doHandleTouches) {
+            switch (_toolType) {
+                case DKDoodleToolTypePen:
+                {
+                    DKPenPoint *penPoint = [DKPenPoint penPointWithCurrentPoint:currentPoint
+                                                                  previousPoint:previousPoint1
+                                                          previousPreviousPoint:previousPoint2];
+                    
+                    [self.serializer addDKPointData:penPoint];
+                }
+                    break;
+                    
+                case DKDoodleToolTypeRectangle:
+                {
+                    DKRectanglePoint *rectPoint = [DKRectanglePoint rectanglePointWithTopLeftPoint:previousPoint1 andBottomRightPoint:currentPoint];
+                    [self.serializer addDKPointData:rectPoint];
+                }
+
+                    
+                default:
+                    break;
+            }
+        }
     }
-    
-
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // make sure a point is recorded
-    [self touchesMoved:touches withEvent:event];
-
-    [self.serializer finishUsingTool];
+    if (doHandleTouches) {
+        // make sure a point is recorded
+        [self touchesMoved:touches withEvent:event];
+        [self.serializer finishUsingTool];
+    } else {
+        doHandleTouches = YES;
+    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event

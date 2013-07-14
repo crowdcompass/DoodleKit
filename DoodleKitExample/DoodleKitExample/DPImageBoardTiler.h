@@ -19,7 +19,7 @@
 
 @property (nonatomic, weak) id<DPImageBoardTilerDelegate> delegate;
 
-- (id)initWithImage:(UIImage *)image delegate:(id<DPImageBoardTilerDelegate>)delegate;
+- (id)initWithImage:(UIImage *)image tileSize:(CGSize)tileSize delegate:(id<DPImageBoardTilerDelegate>)delegate;
 
 - (void)tile;
 

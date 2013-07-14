@@ -19,7 +19,7 @@ typedef NSUInteger DKDoodleMessageType;
 
 #define kDoodleMessageIDKey     @"id"
 
-static NSInteger const playerCount = 2;
+static NSInteger const playerCount = 4;
 
 static DKDoodleSessionManager *sharedInstance;
 

@@ -55,8 +55,8 @@
     
     [self.lobbyView.button addTarget:self action:@selector(startPressed) forControlEvents:UIControlEventTouchUpInside];
 
-    [self.lobbyView.button setEnabled:NO];
-    
+//    [self.lobbyView.button setEnabled:NO];
+
     // Start filling the lobby
     //[_connectManager startAuthenticatingLocalPlayer];
 }
@@ -71,6 +71,8 @@
 #pragma mark Target/action
 
 - (void)startPressed {
+    [[DKDoodleSessionManager sharedManager] createMatch];
+    return;
 //    [_connectManager createMatch];
     DKBoardController *boardController = [[DKBoardController alloc] init];
     [self presentViewController:boardController animated:NO completion:nil];

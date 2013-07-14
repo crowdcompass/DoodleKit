@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DoodleKit.h"
+
 @interface DKAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

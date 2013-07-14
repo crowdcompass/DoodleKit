@@ -8,13 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol DKDoodleSessionManagerDelegate <NSObject>
+#import <GameKit/GameKit.h>
 
-// something
+@protocol DKDoodleSessionManagerDelegate <NSObject>
 
 @end
 
-@interface DKDoodleSessionManager : NSObject
+@interface DKDoodleSessionManager : NSObject  <GKSessionDelegate>
+
++ (instancetype)sharedManager;
+- (void)start;
+- (void)poll;
+- (void)createMatch;
 
 @property (nonatomic, weak) id<DKDoodleSessionManagerDelegate> delegate;
 

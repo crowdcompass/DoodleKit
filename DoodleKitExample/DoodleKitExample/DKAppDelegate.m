@@ -16,6 +16,9 @@
 
 #import <GameKit/GameKit.h>
 
+@interface  DKAppDelegate ()
+@property (nonatomic, strong) DKDoodleSessionManager *sessionManager;
+@end
 
 @implementation DKAppDelegate
 
@@ -42,6 +45,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     }];
 
 
+    self.sessionManager = [DKDoodleSessionManager sharedManager];
+    [self.sessionManager start];
 
 //    self.window.rootViewController = [[DKBoardController alloc] init];
 //    [self.window makeKeyAndVisible];

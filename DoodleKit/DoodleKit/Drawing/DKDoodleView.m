@@ -301,8 +301,8 @@
     UIColor *currentColor = self.lineColor;
     self.lineColor = [UIColor whiteColor];
     
-    CGPoint topLeft = CGPointMake(0, 0);
-    CGPoint bottomRight = CGPointMake(self.bounds.size.width, self.bounds.size.height);
+    CGPoint topLeft = CGPointMake(self.activeArea.origin.x, self.activeArea.origin.y);
+    CGPoint bottomRight = CGPointMake(self.activeArea.origin.x + self.activeArea.size.width, self.activeArea.origin.y + self.activeArea.size.height);
 
     NSArray *rectToClear = [NSArray arrayWithObjects:[NSValue valueWithCGPoint:topLeft], [NSValue valueWithCGPoint:bottomRight], nil];
     [self drawUsingToolType:DKDoodleToolTypeRectangle withPoints:rectToClear];

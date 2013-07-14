@@ -183,7 +183,7 @@
 
 - (void)doodlerDidSelectTrash
 {
-
+    [self.drawingView clear];
 }
 
 #pragma mark DPImageBoardTiler

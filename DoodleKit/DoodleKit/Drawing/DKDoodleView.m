@@ -109,7 +109,7 @@
         strokeDefinition.penColor = self.lineColor;
         strokeDefinition.penWidth = self.lineWidth;
         strokeDefinition.penAlpha = self.lineAlpha;
-        strokeDefinition.toolType = _toolType;
+        strokeDefinition.toolType = toolType;
         strokeDefinition.initialPoint = [(NSValue *)[points objectAtIndex:0] CGPointValue];
         [self.serializer startStrokeWithDefinition:strokeDefinition];
         
@@ -298,10 +298,16 @@
 
 - (void)clear
 {
-    [self.bufferArray removeAllObjects];
-    [self.pathArray removeAllObjects];
-    [self updateCacheImage:YES];
-    [self setNeedsDisplay];
+    UIColor *currentColor = self.lineColor;
+    self.lineColor = [UIColor whiteColor];
+    
+    CGPoint topLeft = CGPointMake(0, 0);
+    CGPoint bottomRight = CGPointMake(self.bounds.size.width, self.bounds.size.height);
+
+    NSArray *rectToClear = [NSArray arrayWithObjects:[NSValue valueWithCGPoint:topLeft], [NSValue valueWithCGPoint:bottomRight], nil];
+    [self drawUsingToolType:DKDoodleToolTypeRectangle withPoints:rectToClear];
+    
+    self.lineColor = currentColor;
 }
 
 

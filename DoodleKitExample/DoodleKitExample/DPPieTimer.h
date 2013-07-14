@@ -11,6 +11,7 @@
 @protocol DPPieTimerDelegate <NSObject>
 
 - (void)pieTimerDidExpire;
+- (void)pieTimerWarmupReady;
 
 @end
 
@@ -18,6 +19,7 @@
 
 @property BOOL needsWarmUp;
 @property (nonatomic, weak) id<DPPieTimerDelegate> delegate;
+@property float countdownDuration;
 
 - (void)start;
 - (void)stop;

@@ -60,9 +60,9 @@
 #pragma mark Target/action
 
 - (void)startPressed {
-    [_connectManager createMatch];
-//    DKBoardController *boardController = [[DKBoardController alloc] init];
-//    [self presentViewController:boardController animated:NO completion:nil];
+//    [_connectManager createMatch];
+    DKBoardController *boardController = [[DKBoardController alloc] init];
+    [self presentViewController:boardController animated:NO completion:nil];
     
 }
 

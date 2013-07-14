@@ -22,11 +22,21 @@
 
 @property (nonatomic, strong) UIButton *trash;
 @property (nonatomic) NSUInteger selectedSwatchIndex;
+@property (nonatomic, strong) UIButton *fifteenButton;
+@property (nonatomic, strong) UIButton *thirtyButton;
+@property (nonatomic, strong) UIButton *fortyFiveButton;
 
 - (void)setupToolbar;
+- (void)addSwatches;
+- (void)addTimerAndTrash;
+- (void)addDurationButtons;
+
+- (void)animateDurationButtonsIn;
+- (void)animateDurationButtonsOut;
 - (void)animateSwatchesIn;
 - (void)animateTimerAndTrashIn;
 - (void)swatchSelected:(id)swatch;
+- (void)didChangeDuration:(id)button;
 - (void)didTrash;
 
 @end
@@ -53,22 +63,60 @@
  */
 - (void)setupToolbar {
     [self sizeToFit];
-    
-    float toolbarWidth = CGRectGetWidth(self.bounds);
-    
     self.backgroundColor = [UIColor whiteColor];
+
+    [self addDurationButtons];
+    [self addSwatches];
+    [self addTimerAndTrash];
+}
+
+- (void)addDurationButtons {
+    self.fifteenButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_fifteenButton setImage:[UIImage imageNamed:@"btn_15"] forState:UIControlStateNormal];
+    [_fifteenButton setImage:[UIImage imageNamed:@"btn_15_press"] forState:UIControlStateHighlighted];
+    [_fifteenButton sizeToFit];
     
-    _progressView = [[DPPieTimer alloc] init];
-    CGRect progressRect = CGRectMake(12.0, kToolbarDefaultTopPadding, 33.0, 33.0);
-    _progressView.frame = progressRect;
-    _progressView.delegate = self;
+    self.thirtyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_thirtyButton setImage:[UIImage imageNamed:@"btn_30"] forState:UIControlStateNormal];
+    [_thirtyButton setImage:[UIImage imageNamed:@"btn_30_press"] forState:UIControlStateHighlighted];
+    [_thirtyButton sizeToFit];
     
-    _trash = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_trash setImage:[UIImage imageNamed:@"trash"] forState:UIControlStateNormal];
-    [_trash sizeToFit];
-    _trash.frame = CGRectMake(toolbarWidth - _trash.bounds.size.width - 12.0, kToolbarDefaultTopPadding,
-                              CGRectGetWidth(_trash.bounds), CGRectGetHeight(_trash.bounds));
-    [_trash addTarget:self action:@selector(didTrash) forControlEvents:UIControlEventTouchUpInside];
+    self.fortyFiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_fortyFiveButton setImage:[UIImage imageNamed:@"btn_45"] forState:UIControlStateNormal];
+    [_fortyFiveButton setImage:[UIImage imageNamed:@"btn_45_press"] forState:UIControlStateHighlighted];
+    [_fortyFiveButton sizeToFit];
+    
+    [_fifteenButton addTarget:self action:@selector(didChangeDuration:) forControlEvents:UIControlEventTouchUpInside];
+    [_thirtyButton addTarget:self action:@selector(didChangeDuration:) forControlEvents:UIControlEventTouchUpInside];
+    [_fortyFiveButton addTarget:self action:@selector(didChangeDuration:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _fifteenButton.hidden = YES;
+    _thirtyButton.hidden = YES;
+    _fortyFiveButton.hidden = YES;
+    
+    
+    //determine overall size of swatches, so we can center
+    float toolbarWidth = CGRectGetWidth(self.bounds);
+    float dx = roundf((toolbarWidth - (CGRectGetWidth(_fifteenButton.bounds) * 3 + (2.0 * 13.0))) / 2.0);
+    _fifteenButton.frame = CGRectMake(dx, kToolbarDefaultTopPadding,
+                                      CGRectGetWidth(_fifteenButton.bounds), CGRectGetHeight(_fifteenButton.bounds));
+    dx += (CGRectGetWidth(_fifteenButton.bounds) + 13.0);
+    _thirtyButton.frame = CGRectMake(dx, kToolbarDefaultTopPadding,
+                                     CGRectGetWidth(_thirtyButton.bounds), CGRectGetHeight(_thirtyButton.bounds));
+    dx += (CGRectGetWidth(_fifteenButton.bounds) + 13.0);
+    _fortyFiveButton.frame = CGRectMake(dx, kToolbarDefaultTopPadding,
+                                        CGRectGetWidth(_fortyFiveButton.bounds), CGRectGetHeight(_fortyFiveButton.bounds));
+
+    
+    
+    [self addSubview:_fifteenButton];
+    [self addSubview:_thirtyButton];
+    [self addSubview:_fortyFiveButton];
+    
+}
+
+- (void)addSwatches {
+    float toolbarWidth = CGRectGetWidth(self.bounds);
     
     DPSwatch *swatch1 = [[DPSwatch alloc] initWithColor:[UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1.0]];
     swatch1.selected = YES;
@@ -97,20 +145,89 @@
     
     for (DPSwatch *swatch in _swatches) {
         swatch.frame = CGRectMake(dx, kToolbarDefaultTopPadding, CGRectGetWidth(swatch.bounds), CGRectGetHeight(swatch.bounds));
+        swatch.hidden = YES;
         [self addSubview:swatch];
         dx += (CGRectGetWidth(swatch.bounds) + 13.0);
     }
+}
+
+//////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Present / Animate Views
+
+- (void)animateDurationButtonsIn {
+    //ready
+    _fifteenButton.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    _thirtyButton.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    _fortyFiveButton.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    
+    //go
+    [UIView animateWithDuration:kGrowAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _fifteenButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        _fifteenButton.hidden = NO;
+        _thirtyButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        _thirtyButton.hidden = NO;
+        _fortyFiveButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        _fortyFiveButton.hidden = NO;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:kShrinkAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            _fifteenButton.transform = CGAffineTransformIdentity;
+            _thirtyButton.transform = CGAffineTransformIdentity;
+            _fortyFiveButton.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
+}
+
+- (void)animateDurationButtonsOut {
+    [UIView animateWithDuration:kShrinkAnimationDuration animations:^{
+        _fifteenButton.alpha = 0.0;
+        _thirtyButton.alpha = 0.0;
+        _fortyFiveButton.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [_fifteenButton removeFromSuperview];
+        [_thirtyButton removeFromSuperview];
+        [_fortyFiveButton removeFromSuperview];
+        self.fifteenButton = nil;
+        self.thirtyButton = nil;
+        self.fortyFiveButton = nil;
+        // and now animate the rest in
+        [self animateSwatchesIn];
+        [self animateTimerAndTrashIn];
+    }];
+}
+
+- (void)addTimerAndTrash {
+    float toolbarWidth = CGRectGetWidth(self.bounds);
+    
+    _progressView = [[DPPieTimer alloc] init];
+    CGRect progressRect = CGRectMake(12.0, kToolbarDefaultTopPadding, 33.0, 33.0);
+    _progressView.frame = progressRect;
+    _progressView.delegate = self;
+    
+    _trash = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_trash setImage:[UIImage imageNamed:@"trash"] forState:UIControlStateNormal];
+    [_trash sizeToFit];
+    _trash.frame = CGRectMake(toolbarWidth - _trash.bounds.size.width - 12.0, kToolbarDefaultTopPadding,
+                              CGRectGetWidth(_trash.bounds), CGRectGetHeight(_trash.bounds));
+    [_trash addTarget:self action:@selector(didTrash) forControlEvents:UIControlEventTouchUpInside];
+    
+    //hide for now
+    _progressView.hidden = YES;
+    _trash.hidden = YES;
     
     [self addSubview:_progressView];
     [_progressView reset];
     [self addSubview:_trash];
-    [self addSubview:swatch1];
+
 }
 
 - (void)animateSwatchesIn {
     //broadcast change
     [_swatches apply:^(id swatch) {
         ((DPSwatch *)swatch).transform = CGAffineTransformMakeScale(0.01, 0.01);
+        ((DPSwatch *)swatch).hidden = NO;
     }];
     //loop change
     __block float delay = 0.01;
@@ -131,19 +248,22 @@
 
 - (void)animateTimerAndTrashIn {
     //ready
-    _progressView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    _progressView.transform = CGAffineTransformMakeScale(0.7, 0.7);
+    _progressView.alpha = 0.0;
     _trash.transform = CGAffineTransformMakeScale(0.01, 0.01);
     
     //go
     [UIView animateWithDuration:kGrowAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        _progressView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        _progressView.alpha = 1.0;
+        _progressView.hidden = NO;
         _trash.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        _trash.hidden = NO;
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:kShrinkAnimationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             [_progressView reset];
             _trash.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
-            
+            [self startCountdown];
         }];
     }];
 }
@@ -154,8 +274,9 @@
 - (void)showToolbar {
     [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.transform = CGAffineTransformMakeTranslation(0.0, CGRectGetHeight(self.bounds));
-        [self animateTimerAndTrashIn];
-        [self animateSwatchesIn];
+        [self animateDurationButtonsIn];
+//        [self animateTimerAndTrashIn];
+//        [self animateSwatchesIn];
     } completion:^(BOOL finished) {
         
     }];
@@ -168,6 +289,30 @@
 
 //////////////////////////////////////////////////////////////////////
 #pragma mark -
+#pragma mark Button Actions
+
+- (void)didChangeDuration:(id)button {
+    if ([button isEqual:_fifteenButton]) {
+        NSLog(@"duration changed to 15");
+        _progressView.countdownDuration = 15.0;
+    } else if ([button isEqual:_thirtyButton]) {
+        NSLog(@"duration changed to 30");
+        _progressView.countdownDuration = 30.0;
+    } else if ([button isEqual:_fortyFiveButton]) {
+        NSLog(@"duration changed to 45");
+        _progressView.countdownDuration = 45.0;
+    }
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(doodlerDidChangeDuration)]) {
+        [_delegate doodlerDidChangeDuration];
+    }
+    
+    [self animateDurationButtonsOut];
+}
+
+
+//////////////////////////////////////////////////////////////////////
+#pragma mark -
 #pragma mark PieTimerDelegate
 
 - (void)pieTimerDidExpire {
@@ -176,6 +321,11 @@
     }
 }
 
+- (void)pieTimerWarmupReady {
+    if (_delegate && [_delegate respondsToSelector:@selector(toolbarWarmupDidFinish)]) {
+        [_delegate toolbarWarmupDidFinish];
+    }
+}
 
 //////////////////////////////////////////////////////////////////////
 #pragma mark -

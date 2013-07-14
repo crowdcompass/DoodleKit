@@ -193,7 +193,6 @@ void toggleImageTile(UIView *tile) {
     self.toolbar.delegate = self;
     [self.view addSubview:self.toolbar];
     [self.toolbar showToolbar];
-    [self.toolbar startCountdown];
 }
 
 - (void)toolbarCountdownDidFinish

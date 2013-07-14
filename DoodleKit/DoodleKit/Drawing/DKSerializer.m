@@ -51,14 +51,7 @@
 }
 
 - (void)finishUsingTool {
-//    DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] init];
-//    strokeDefinition.toolType = _toolType;
-//    strokeDefinition.initialPoint = _initialPoint;
-//    strokeDefinition.penColor = _penColor;
-//    strokeDefinition.penWidth = _penWidth;
-//    strokeDefinition.penWidth = _penAlpha;
-//    strokeDefinition.dataPoints = [self dataPoints];
-    
+    // add the data points
     _strokeDefinition.dataPoints = _dataPoints;
     
     NSMutableData *strokeDef = [NSMutableData data];
@@ -73,8 +66,8 @@
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 {
     NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    __block DKDrawingStrokeDefinition *strokeDefinitionAgain = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];
-    
+    __block DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];
+
     _toolType = DKDoodleToolTypeNone;
     _initialPoint = CGPointMake(0.f, 0.f);
     
@@ -82,11 +75,11 @@
     __weak DKSerializer *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         //NSLog(@"Drawing Doodle Data with %@ touches", @([strokeDefinitionAgain.dataPoints count]));
-        [weakSelf.delegate startDrawingDoodleStroke:strokeDefinitionAgain];
-        for (NSObject *dataPoint in strokeDefinitionAgain.dataPoints) {
-            [weakSelf.delegate drawDoodleStroke:strokeDefinitionAgain withDKPointData:dataPoint];
+        [weakSelf.delegate startDrawingDoodleStroke:strokeDefinition];
+        for (NSObject *dataPoint in strokeDefinition.dataPoints) {
+            [weakSelf.delegate drawDoodleStroke:strokeDefinition withDKPointData:dataPoint];
         }
-        [weakSelf.delegate finishDrawingDoodleStroke:strokeDefinitionAgain];
+        [weakSelf.delegate finishDrawingDoodleStroke:strokeDefinition];
     });
 
 }

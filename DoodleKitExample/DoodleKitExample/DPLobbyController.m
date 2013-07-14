@@ -107,9 +107,9 @@
 #warning Modify this to set players required to 4
     [self.lobbyView.button setEnabled:([_allPlayers count] > 1)];
     
-    if (([_allPlayers count] > 1)) {
-        [self.connectManager createMatch];
-    }
+//    if (([_allPlayers count] > 1)) {
+//        [self.connectManager createMatch];
+//    }
 }
 
 - (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {

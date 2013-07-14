@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+#import "GTMatchMessenger.h"
 #import "DKDrawingTools.h"
+
+@class GTMatchMessenger;
 
 @protocol DKSerializerDelegate <NSObject>
 
@@ -32,5 +35,8 @@
 - (void)addDKPointData:(NSObject<NSCoding> *)pointData;
 - (void)finishUsingTool;
 - (BOOL)isProcessingToolSession;
+
+- (void)didReceiveDoodleData:(NSData *)strokeDef;
+
 
 @end

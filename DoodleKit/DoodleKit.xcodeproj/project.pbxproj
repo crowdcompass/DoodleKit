@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		068CBCAF1791E6950036DA79 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068CBCAE1791E6950036DA79 /* QuartzCore.framework */; };
+		3FA2F165179221A700C006E5 /* GTHostNegotiator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FA2F161179221A700C006E5 /* GTHostNegotiator.h */; };
+		3FA2F166179221A700C006E5 /* GTHostNegotiator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2F162179221A700C006E5 /* GTHostNegotiator.m */; };
+		3FA2F167179221A700C006E5 /* GTMatchMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FA2F163179221A700C006E5 /* GTMatchMessenger.h */; };
+		3FA2F168179221A700C006E5 /* GTMatchMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2F164179221A700C006E5 /* GTMatchMessenger.m */; };
 		8733161C17914129001DD588 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8733161B17914129001DD588 /* Foundation.framework */; };
 		8733162B1791412A001DD588 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8733162A1791412A001DD588 /* SenTestingKit.framework */; };
 		8733162D1791412A001DD588 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8733162C1791412A001DD588 /* UIKit.framework */; };
@@ -51,6 +55,10 @@
 
 /* Begin PBXFileReference section */
 		068CBCAE1791E6950036DA79 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3FA2F161179221A700C006E5 /* GTHostNegotiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTHostNegotiator.h; sourceTree = "<group>"; };
+		3FA2F162179221A700C006E5 /* GTHostNegotiator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTHostNegotiator.m; sourceTree = "<group>"; };
+		3FA2F163179221A700C006E5 /* GTMatchMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMatchMessenger.h; sourceTree = "<group>"; };
+		3FA2F164179221A700C006E5 /* GTMatchMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMatchMessenger.m; sourceTree = "<group>"; };
 		8733161817914129001DD588 /* libDoodleKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDoodleKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8733161B17914129001DD588 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8733161F17914129001DD588 /* DoodleKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DoodleKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -101,6 +109,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3FA2F160179221A700C006E5 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				3FA2F161179221A700C006E5 /* GTHostNegotiator.h */,
+				3FA2F162179221A700C006E5 /* GTHostNegotiator.m */,
+				3FA2F163179221A700C006E5 /* GTMatchMessenger.h */,
+				3FA2F164179221A700C006E5 /* GTMatchMessenger.m */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		8733160F17914129001DD588 = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +156,7 @@
 		8733161D17914129001DD588 /* DoodleKit */ = {
 			isa = PBXGroup;
 			children = (
+				3FA2F160179221A700C006E5 /* Networking */,
 				8733164D17914702001DD588 /* DoodleKit.h */,
 				8733164317914468001DD588 /* Drawing */,
 				8733161E17914129001DD588 /* Supporting Files */,
@@ -197,6 +217,8 @@
 				8733165217914831001DD588 /* DoodleKit.h in Headers */,
 				873316531791483B001DD588 /* DKSerializer.h in Headers */,
 				874621361791EB54009F9265 /* DKDrawingTools.h in Headers */,
+				3FA2F165179221A700C006E5 /* GTHostNegotiator.h in Headers */,
+				3FA2F167179221A700C006E5 /* GTMatchMessenger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +325,8 @@
 				8733164B17914468001DD588 /* DKDoodleView.m in Sources */,
 				8733164C17914468001DD588 /* DKSerializer.m in Sources */,
 				874621371791EB54009F9265 /* DKDrawingTools.m in Sources */,
+				3FA2F166179221A700C006E5 /* GTHostNegotiator.m in Sources */,
+				3FA2F168179221A700C006E5 /* GTMatchMessenger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

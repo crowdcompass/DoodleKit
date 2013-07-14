@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.author       = { 'Alex Belliotti' => 'alexbelliotti@gmail.com', "Dave Shanley" => "dshanley@crowdcompass.com", "Kevin Steigerwald" => 'ksteigerwald@crowdcompass.com', "Chris Hellmuth" => 'chellmuth@crowdcompass.com', "Robert Corlett" => 'rcorlett@crowdcompass.com', "Ben Cullen-Kerney" => 'bkerney@crowdcompass.com', "Ryan Crosby" => 'rcrosby@crowdcompass.com' }
   s.source       = { :git => 'https://github.com/crowdcompass/DoodleKit.git' }
-  s.source_files =  'DoodleKit/DoodleKit', 'DoodleKit/DoodleKit/Drawing'
+  s.source_files =  'DoodleKit/DoodleKit', 'DoodleKit/DoodleKit/Drawing', 'DoodleKit/DoodleKit/Networking'
   s.requires_arc = true
   s.public_header_files = 'DoodleKit/DoodleKit.h', 'DoodleKit/Drawing/DKDoodleView.h', 'DoodleKit/Drawing/DKSerializer.h'
 

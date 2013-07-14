@@ -10,3 +10,5 @@
 
 #import <DoodleKit/DKDoodleView.h>
 #import <DoodleKit/DKSerializer.h>
+#import <DoodleKit/GTHostNegotiator.h>
+#import <DoodleKit/GTMatchMessenger.h>

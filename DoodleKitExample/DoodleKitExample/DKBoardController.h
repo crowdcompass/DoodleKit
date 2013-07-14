@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GameKit/GameKit.h>
+#import <DoodleKit/DoodleKit.h>
 
 @class DKDoodleView;
 @class DPSwatchToolbar;
 
-@interface DKBoardController : UIViewController
+@interface DKBoardController : UIViewController <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GTHostNegotiatorDelegate>
 
 @property (weak, nonatomic) DPSwatchToolbar *toolbar;
 @property (weak, nonatomic) DKDoodleView *drawingView;

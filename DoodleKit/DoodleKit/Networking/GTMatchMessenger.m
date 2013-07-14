@@ -10,6 +10,8 @@
 
 #import "GTHostNegotiator.h"
 
+NSInteger const InternalFlag = 1;
+NSInteger const DoodleFlag = 2;
 
 @interface GTMatchMessenger ()
 @property (nonatomic) NSMutableDictionary *channelLookup;

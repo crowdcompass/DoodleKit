@@ -10,8 +10,8 @@
 
 #import <GameKit/GameKit.h>
 
-NSInteger const InternalFlag = 1 << 0;
-NSInteger const DoodleFlag = 1 << 1;
+extern NSInteger const InternalFlag;
+extern NSInteger const DoodleFlag;
 
 @class GTHostNegotiator;
 @class DKSerializer;

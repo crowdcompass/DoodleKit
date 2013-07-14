@@ -16,6 +16,9 @@
 
 @property (nonatomic, strong) DPConnectManager *connectManager;
 
+@property (nonatomic, strong) GKLocalPlayer *localPlayer;
+@property (nonatomic, strong) NSArray *allPlayers;
+
 //target/action
 - (void)startPressed;
 
@@ -30,6 +33,8 @@
     if (self) {
         self.connectManager = [DPConnectManager sharedConnectManager];
         self.connectManager.delegate = self;
+        
+        self.allPlayers = [NSArray array];
     }
     
     return self;
@@ -45,6 +50,8 @@
     self.lobbyView = lobbyView;
     
     [self.lobbyView.button addTarget:self action:@selector(startPressed) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.lobbyView.button setEnabled:NO];
     
     // Start filling the lobby
     [_connectManager startAuthenticatingLocalPlayer];
@@ -66,25 +73,46 @@
     
 }
 
-
 //////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark DPConnectManagerDelegate
 
 - (void)didAuthenticateLocalPlayer:(GKLocalPlayer *)player {
-    
+    self.localPlayer = player;
+    [self.lobbyView setPlayerName:player.alias forPlayerIndex:1];
+    //self.
+    //playe
 }
 
 - (void)didUpdatePlayers:(NSArray *)players {
     NSLog(@"Lobby: We have new players %@", players);
+    NSArray *tempArray = [players arrayByAddingObject:_localPlayer];
+
+    self.allPlayers = [tempArray sortedArrayUsingSelector:@selector(playerID)];
+    
+    __block NSUInteger lastIdx;
+    [_allPlayers enumerateObjectsUsingBlock:^(GKPlayer *player, NSUInteger idx, BOOL *stop) {
+        [self.lobbyView setPlayerName:player.alias forPlayerIndex:(idx + 1)];
+        if (idx +1 > 4) {
+            lastIdx = idx;
+            *stop = YES;
+        }
+    }];
+    
+    for (; lastIdx < 5; lastIdx++) {
+        [self.lobbyView setPlayerName:@"." forPlayerIndex:lastIdx];
+    }
+    
+#warning Modify this to set players required to 4
+    [self.lobbyView.button setEnabled:([_allPlayers count] > 1)];
 }
 
 - (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
-    
+    NSLog(@"didReceiveData from Player");
 }
 
 - (void)didUpdatePlayer:(NSString *)playerID withState:(GKPlayerConnectionState)state {
-    
+    NSLog(@"didUpdatePlayer");
 }
 
 

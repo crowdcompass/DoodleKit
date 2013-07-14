@@ -29,6 +29,8 @@
 		8733165917914944001DD588 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8733165817914944001DD588 /* UIKit.framework */; };
 		874621361791EB54009F9265 /* DKDrawingTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 874621341791EB54009F9265 /* DKDrawingTools.h */; };
 		874621371791EB54009F9265 /* DKDrawingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 874621351791EB54009F9265 /* DKDrawingTools.m */; };
+		8760460D1792CAF4003DFAD8 /* DKDoodleSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8760460B1792CAF4003DFAD8 /* DKDoodleSessionManager.h */; };
+		8760460E1792CAF4003DFAD8 /* DKDoodleSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8760460C1792CAF4003DFAD8 /* DKDoodleSessionManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		8733165817914944001DD588 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		874621341791EB54009F9265 /* DKDrawingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDrawingTools.h; sourceTree = "<group>"; };
 		874621351791EB54009F9265 /* DKDrawingTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDrawingTools.m; sourceTree = "<group>"; };
+		8760460B1792CAF4003DFAD8 /* DKDoodleSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDoodleSessionManager.h; sourceTree = "<group>"; };
+		8760460C1792CAF4003DFAD8 /* DKDoodleSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDoodleSessionManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,8 @@
 				3FA2F162179221A700C006E5 /* GTHostNegotiator.m */,
 				3FA2F163179221A700C006E5 /* GTMatchMessenger.h */,
 				3FA2F164179221A700C006E5 /* GTMatchMessenger.m */,
+				8760460B1792CAF4003DFAD8 /* DKDoodleSessionManager.h */,
+				8760460C1792CAF4003DFAD8 /* DKDoodleSessionManager.m */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -219,6 +225,7 @@
 				874621361791EB54009F9265 /* DKDrawingTools.h in Headers */,
 				3FA2F165179221A700C006E5 /* GTHostNegotiator.h in Headers */,
 				3FA2F167179221A700C006E5 /* GTMatchMessenger.h in Headers */,
+				8760460D1792CAF4003DFAD8 /* DKDoodleSessionManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +334,7 @@
 				874621371791EB54009F9265 /* DKDrawingTools.m in Sources */,
 				3FA2F166179221A700C006E5 /* GTHostNegotiator.m in Sources */,
 				3FA2F168179221A700C006E5 /* GTMatchMessenger.m in Sources */,
+				8760460E1792CAF4003DFAD8 /* DKDoodleSessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

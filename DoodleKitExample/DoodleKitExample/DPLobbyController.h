@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DPConnectManager.h"
+
+#import <DoodleKit/DKDoodleSessionManager.h>
 
 @class DPPlayer;
 @class DPLobbyView;
 
-@interface DPLobbyController : UIViewController <DPConnectManagerDelegate>
+@interface DPLobbyController : UIViewController <DKDoodleSessionManagerDelegate>
 
 @property (nonatomic, weak) DPLobbyView *lobbyView;
 

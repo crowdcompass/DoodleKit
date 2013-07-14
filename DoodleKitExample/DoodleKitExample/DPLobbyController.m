@@ -14,9 +14,10 @@
 #import <NSArray+BlocksKit.h>
 
 
+
 @interface DPLobbyController ()
 
-@property (nonatomic, strong) DPConnectManager *connectManager;
+@property (nonatomic, strong) DKDoodleSessionManager *doodleSessionManager;
 
 @property (nonatomic, strong) GKLocalPlayer *localPlayer;
 @property (nonatomic, strong) NSArray *allPlayers;
@@ -34,8 +35,8 @@
 - (id)initWithPlayer:(DPPlayer *)player {
     self = [super init];
     if (self) {
-        self.connectManager = [DPConnectManager sharedConnectManager];
-        self.connectManager.delegate = self;
+        self.doodleSessionManager = [[DKDoodleSessionManager alloc] init];
+        _doodleSessionManager.delegate = self;
         
         self.allPlayers = [NSArray array];
     }

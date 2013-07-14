@@ -21,10 +21,20 @@ UIImage* imageForPlayerNumber(NSUInteger playerIndex, BOOL loaded) {
     
     switch (playerIndex) {
         case 1:
-            imageName = @"player_blue";
+            if (loaded) {
+                imageName = @"player_blue";
+            }
+            else {
+                imageName = @"player_unloaded";
+            }
             break;
         case 2:
-            imageName = @"player_green";
+            if (loaded) {
+                imageName = @"player_green";
+            }
+            else {
+                imageName = @"player_unloaded";
+            }
             break;
         case 3:
             if (loaded) {
@@ -57,7 +67,6 @@ UIFont* fontForLabel(BOOL isLoaded) {
 }
 
 NSString* textForUnloadedLabel(NSUInteger playerNumber) {
-    if (playerNumber == 1) return @"Bieber";
     
     NSString *dotStr = @"";
     for (int i = 1; i <= playerNumber; i++) {
@@ -92,7 +101,7 @@ NSString* textForUnloadedLabel(NSUInteger playerNumber) {
     self = [self init];
     if (self) {
         _index = number;
-        _loaded = number.integerValue < 3;
+        _loaded = NO;
         _avatarView.image = imageForPlayerNumber(number.unsignedIntegerValue, _loaded);
         _avatarLabel.text = textForUnloadedLabel(number.unsignedIntegerValue);
         [_avatarLabel sizeToFit];

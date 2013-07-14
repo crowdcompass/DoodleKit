@@ -191,19 +191,17 @@
     [self addToolbar];
 }
 
-- (void)doodlerDidChangeDuration {
-    if (self.playingAgain == YES) {
-        [self.drawingView removeFromSuperview];
-        [self setBoard];
-        self.playingAgain = NO;
-    }
-}
-
 - (void)doodlerDidChangeDuration:(float)duration {
     NSLog(@"doodlerDidChangeDuration");
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
     
     [messenger sendDataToAllPlayers:[NSData dataWithBytes:&duration length:sizeof(float)] withFlag:DemoLogicFlag];
+    
+    if (self.playingAgain == YES) {
+        [self.drawingView removeFromSuperview];
+        [self setBoard];
+        self.playingAgain = NO;
+    }
 }
 
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch

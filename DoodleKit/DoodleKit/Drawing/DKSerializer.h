@@ -13,9 +13,9 @@
 
 @protocol DKSerializerDelegate <NSObject>
 
-- (void)startDrawingWithTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint;
-- (void)drawDKPointData:(NSObject *)pointData;
-- (void)finishDrawing;
+- (void)startDrawingDoodleData:(NSString *)dataUid withTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint;
+- (void)drawDoodleData:(NSString *)dataUid withDKPointData:(NSObject *)pointData;
+- (void)finishDrawingDoodleData:(NSString *)dataUid;
 
 @end
 

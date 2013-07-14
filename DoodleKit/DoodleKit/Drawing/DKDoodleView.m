@@ -14,8 +14,10 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define kDefaultLineColor       [UIColor blackColor]
-#define kDefaultLineWidth       10.0f;
+#define kDefaultLineWidth       10.0f
 #define kDefaultLineAlpha       1.0f
+
+#define kDefaultFrameSpliceRate 1
 
 // experimental code
 #define PARTIAL_REDRAW          0
@@ -30,8 +32,9 @@
 
 @property (nonatomic, strong) NSMutableArray *pathArray;
 @property (nonatomic, strong) NSMutableArray *bufferArray;
-@property (nonatomic, strong) id<ACEDrawingTool> currentTool;
 @property (nonatomic, strong) UIImage *image;
+
+@property (nonatomic, strong) NSMutableDictionary *currentTools;
 @end
 
 #pragma mark -
@@ -63,6 +66,7 @@
     // init the private arrays
     self.pathArray = [NSMutableArray array];
     self.bufferArray = [NSMutableArray array];
+    self.currentTools = [NSMutableDictionary dictionary];
     
     // set the default values for the public properties
     self.lineColor = kDefaultLineColor;
@@ -76,7 +80,10 @@
     self.serializer.delegate = self;
     
     CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(flushDrawing)];
+    [displayLink setFrameInterval:kDefaultFrameSpliceRate];
+    
     [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    
 
 }
 
@@ -112,7 +119,11 @@
     [self drawPath];
 #else
     [self.image drawInRect:self.bounds];
-    [self.currentTool draw];
+    
+    for (id<ACEDrawingTool> currentTool in [self.currentTools allValues]) {
+        [currentTool draw];
+    }
+    
 #endif
 }
 
@@ -141,7 +152,10 @@
     } else {
         // set the draw point
         [self.image drawAtPoint:CGPointZero];
-        [self.currentTool draw];
+        
+        for (id<ACEDrawingTool> currentTool in [self.currentTools allValues]) {
+            [currentTool draw];
+        }
     }
     
     // store the image
@@ -299,23 +313,30 @@
 
 #pragma mark - DKSerializerDelegate methods
 
-- (void)startDrawingWithTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint
-{
+- (void)startDrawingDoodleData:(NSString *)dataUid withTool:(DKDoodleToolType)toolType atPoint:(CGPoint)initialPoint {
     // init the bezier path
-    self.currentTool = [self toolWithCurrentSettingsAndType:toolType];
-    self.currentTool.lineWidth = self.lineWidth;
-    self.currentTool.lineColor = self.lineColor;
-    self.currentTool.lineAlpha = self.lineAlpha;
-    [self.currentTool setInitialPoint:initialPoint];
 
+    id<ACEDrawingTool> currentTool = [self toolWithCurrentSettingsAndType:toolType];
+    currentTool.lineWidth = self.lineWidth;
+    currentTool.lineColor = self.lineColor;
+    currentTool.lineAlpha = self.lineAlpha;
+    [currentTool setInitialPoint:initialPoint];
+    
+    [_currentTools setObject:currentTool forKey:dataUid];
 }
 
-- (void)drawDKPointData:(NSObject *)pointData
-{
-    if ([self.currentTool isKindOfClass:[ACEDrawingPenTool class]]) {
+- (void)drawDoodleData:(NSString *)dataUid withDKPointData:(NSObject *)pointData {
+    id<ACEDrawingTool> currentTool =  [_currentTools objectForKey:dataUid];
+    
+    if (!currentTool) {
+        NSLog(@"Houston, we have a problem");
+        return;
+    }
+
+    if ([currentTool isKindOfClass:[ACEDrawingPenTool class]]) {
         DKPenPoint *penPoint = (DKPenPoint *)pointData;
         
-        CGRect bounds = [(ACEDrawingPenTool*)self.currentTool addPathPreviousPreviousPoint:penPoint.previousPreviousPoint
+        CGRect bounds = [(ACEDrawingPenTool*)currentTool addPathPreviousPreviousPoint:penPoint.previousPreviousPoint
                                                                          withPreviousPoint:penPoint.previousPoint
                                                                           withCurrentPoint:penPoint.currentPoint];
         
@@ -328,17 +349,21 @@
         [self setNeedsDisplayInRect:drawBox];
     } else {
         DKRectanglePoint *rectPoint = (DKRectanglePoint *)pointData;
-        [self.currentTool moveFromPoint:rectPoint.topLeftPoint toPoint:rectPoint.bottomRightPoint];
+        [currentTool moveFromPoint:rectPoint.topLeftPoint toPoint:rectPoint.bottomRightPoint];
         [self setNeedsDisplay];
     }
 }
 
-- (void)finishDrawing
-{
+- (void)finishDrawingDoodleData:(NSString *)dataUid {
+    if (![_currentTools objectForKey:dataUid]) {
+        NSLog(@"Houston, we have a problem");
+        return;
+    }
+    
     // update the image
     [self updateCacheImage:NO];
 
-    self.currentTool = nil;
+    [_currentTools removeObjectForKey:dataUid];
 }
 
 @end

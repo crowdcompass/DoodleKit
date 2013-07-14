@@ -18,6 +18,7 @@ typedef NSUInteger DKDoodleToolType;
 
 @interface DKDrawingStrokeDefinition : NSObject < NSCoding >
 
+@property (nonatomic, readonly) NSString *uid;
 @property (nonatomic, assign) DKDoodleToolType toolType;
 @property (nonatomic, assign) CGPoint initialPoint;
 @property (nonatomic, retain) NSArray *dataPoints;

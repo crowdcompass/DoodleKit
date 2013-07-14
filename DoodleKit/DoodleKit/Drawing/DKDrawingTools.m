@@ -11,10 +11,19 @@
 
 @implementation DKDrawingStrokeDefinition
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        _uid = [self uniqueIdentifier];
+    }
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
     
     self = [super init];
     if (self) {
+        _uid = [aDecoder decodeObjectForKey:@"uid"];
         _toolType = [aDecoder decodeIntegerForKey:@"toolType"];
         _initialPoint = [aDecoder decodeCGPointForKey:@"initialPoint"];
         _dataPoints = [aDecoder decodeObjectForKey:@"dataPoints"];
@@ -25,9 +34,26 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
+    [aCoder encodeObject:_uid forKey:@"uid"];
     [aCoder encodeInteger:_toolType forKey:@"toolType"];
     [aCoder encodeCGPoint:_initialPoint forKey:@"initialPoint"];
     [aCoder encodeObject:_dataPoints forKey:@"dataPoints"];
+}
+
+// return a new autoreleased UUID string
+- (NSString *)uniqueIdentifier
+{
+    // create a new UUID which you own
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+    
+    // create a new CFStringRef (toll-free bridged to NSString)
+    // that you own
+    NSString *uuidString = (NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid));
+    
+    // release the UUID
+    CFRelease(uuid);
+    
+    return uuidString;
 }
 
 @end

@@ -66,11 +66,12 @@
     // Send to delegate
     __weak DKSerializer *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf.delegate startDrawingWithTool:strokeDefinitionAgain.toolType atPoint:strokeDefinitionAgain.initialPoint];
+        //NSLog(@"Drawing Doodle Data with %@ touches", @([strokeDefinitionAgain.dataPoints count]));
+        [weakSelf.delegate startDrawingDoodleData:strokeDefinitionAgain.uid withTool:strokeDefinitionAgain.toolType atPoint:strokeDefinitionAgain.initialPoint];
         for (NSObject *dataPoint in strokeDefinitionAgain.dataPoints) {
-            [weakSelf.delegate drawDKPointData:dataPoint];
+            [weakSelf.delegate drawDoodleData:strokeDefinitionAgain.uid withDKPointData:dataPoint];
         }
-        [weakSelf.delegate finishDrawing];
+        [weakSelf.delegate finishDrawingDoodleData:strokeDefinitionAgain.uid];
     });
 
 }

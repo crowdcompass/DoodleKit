@@ -28,6 +28,7 @@
 @property (nonatomic) NSUInteger localPlayerIndex;
 @property (nonatomic) CGSize tileSize;
 @property (nonatomic) BOOL playingAgain;
+@property (nonatomic, strong) NSString *imageName;
 
 @property (nonatomic) GTHostNegotiator *negotiator;
 @end
@@ -83,11 +84,12 @@
     }
 
     [self addDoodleViewWithActiveArea:self.localPlayerArea];
+}
+
+- (NSString *)newImageName
+{
     NSArray *imageNames = [NSArray arrayWithObjects:@"doodle01",@"doodle02",@"doodle03",@"doodle04",@"doodle05",@"doodle06", nil];
-    UIImage *toTile = [UIImage imageNamed:[imageNames objectAtIndex:arc4random()%[imageNames count]]];
-    _tiler = [[DPImageBoardTiler alloc] initWithImage:toTile tileSize:self.tileSize delegate:self];
-    _tiler.userIndex = self.localPlayerIndex;
-    [_tiler tile];
+    return [imageNames objectAtIndex:arc4random()%[imageNames count]];
 }
 
 - (BOOL)shouldAutorotate {
@@ -152,16 +154,17 @@
     NSLog(@"doodlerDidChangeDuration");
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
     
-    [messenger sendDataToAllPlayers:[NSData dataWithBytes:&duration length:sizeof(float)] withFlag:DemoLogicFlag];
+    NSString *newImageName = [self newImageName];
+    
+    NSDictionary *payload = @{ @"duration": @(duration), @"imageName": newImageName };
+    [messenger sendDataToAllPlayers:[NSKeyedArchiver archivedDataWithRootObject:payload] withFlag:DemoLogicFlag];
+    self.imageName = newImageName;
     [self handleChangedDoodlerDuration];
 }
 
 - (void)handleChangedDoodlerDuration {
     if (self.playingAgain == YES) {
         [self.drawingView removeFromSuperview];
-        [self.tileViews each:^(DKPlayerBoardView *v) {
-            [v removeFromSuperview];
-        }];
         [self setBoard];
         self.playingAgain = NO;
     }
@@ -217,16 +220,30 @@
     self.drawingView.userInteractionEnabled = YES;
 }
 
-- (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID
-{
-    float duration;
-    [data getBytes:&duration length:sizeof(float)];
+- (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
+    NSDictionary *payload = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    float duration = [payload[@"duration"] floatValue];
+    self.imageName = payload[@"imageName"];
     self.playingAgain = YES;
     [self handleChangedDoodlerDuration];
 
     [self.toolbar setDuration:duration];
     NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"matchDidReceiveData: %@", dataString);
+}
+
+- (void)setImageName:(NSString *)imageName
+{
+    _imageName = imageName;
+    
+    [self.tileViews each:^(DKPlayerBoardView *v) {
+        [v removeFromSuperview];
+    }];
+    
+    UIImage *toTile = [UIImage imageNamed:self.imageName];
+    _tiler = [[DPImageBoardTiler alloc] initWithImage:toTile tileSize:self.tileSize delegate:self];
+    _tiler.userIndex = self.localPlayerIndex;
+    [_tiler tile];
 }
 
 @end

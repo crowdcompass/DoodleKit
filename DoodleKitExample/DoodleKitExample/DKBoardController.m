@@ -13,8 +13,6 @@
 #import "GTMatchMessenger.h"
 
 @interface DKBoardController ()<DKDoodleViewDelegate, DPSwatchToolbarDelegate>
-@property (nonatomic) UILabel *startGameLabel;
-@property (nonatomic) UILabel *iAmHostLabel;
 
 @property (nonatomic) NSInteger playerCount;
 @property (nonatomic) GKMatch *match;
@@ -61,18 +59,6 @@
     [button sizeToFit];
     button.center = CGPointMake(50.f, 200.f);
     [self.view addSubview:button];
-
-    UILabel *startGameLabel = [self labelWithText:@"LETS GET THIS PARTY STARTED"];
-    startGameLabel.center = CGPointMake(100.f, 100.f);
-    [self.view addSubview:startGameLabel];
-    self.startGameLabel = startGameLabel;
-    [self.startGameLabel setHidden:YES];
-
-    UILabel *iAmHostLabel = [self labelWithText:@"I THINK I AM THE HOST"];
-    iAmHostLabel.center = CGPointMake(250.f, 250.f);
-    [self.view addSubview:iAmHostLabel];
-    self.iAmHostLabel = iAmHostLabel;
-    self.iAmHostLabel.hidden = YES;
 }
 
 - (void)matchmakerViewControllerWasCancelled:(GKMatchmakerViewController *)viewController
@@ -180,11 +166,11 @@
 }
 
 - (void)didStartGame {
-    [self.startGameLabel setHidden:NO];
+    NSLog(@"didStartGame");
 }
 
 - (void)didBecomeHost {
-    self.iAmHostLabel.hidden = NO;
+    NSLog(@"didBecomeHost");
 }
 
 

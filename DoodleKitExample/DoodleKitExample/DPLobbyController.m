@@ -58,7 +58,7 @@
     [self.lobbyView.button setEnabled:NO];
     
     // Start filling the lobby
-    [_connectManager startAuthenticatingLocalPlayer];
+    //[_connectManager startAuthenticatingLocalPlayer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,7 +142,7 @@
 - (void)didEstablishDataConnection {
     NSLog(@"Lobby: connection established!");
     DKBoardController *boardController = [[DKBoardController alloc] init];
-    boardController.match = _connectManager.match;
+    //boardController.match = _connectManager.match;
     [self presentViewController:boardController animated:NO completion:nil];
 }
 

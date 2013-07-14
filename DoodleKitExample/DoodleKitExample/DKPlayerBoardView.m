@@ -22,55 +22,37 @@
 - (void)prepInitialState
 {
     self.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.1f];
+    [self addTarget:self action:@selector(fadeOut) forControlEvents:UIControlEventTouchDown];
+    [self addTarget:self action:@selector(fadeIn) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)tileTapRecognized:(UITapGestureRecognizer *)recognizer {
-    toggleImageTile(recognizer.view);
+- (void)fadeOut {
+    [UIView animateWithDuration:.25
+                         animations:^{
+                             self.alpha = 0.f;
+                         }];
 }
 
-void toggleImageTile(UIView *tile) {
-    if (tile.alpha >= .9f) {
-        //fade out
-        [UIView animateWithDuration:.12
+- (void)fadeIn {
+    [UIView animateWithDuration:.25
                          animations:^{
-                             tile.alpha = 0.02f;
+                             self.alpha = 1.f;
                          }];
-    } else {
-        //fade in
-        [UIView animateWithDuration:.12
-                         animations:^{
-                             tile.alpha = .98f;
-                         }];
-    }
 }
 
 - (void)setReady
 {
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tileTapRecognized:)];
-    [self addGestureRecognizer:tapRecognizer];
-
     UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
     imageView.frame = self.bounds;
     [self addSubview:imageView];
 }
 
-
-//- (id)initWithFrame:(CGRect)frame
-//{
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        // Initialization code
-//    }
-//    return self;
-//}
-//
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)revealPermanently
 {
-    // Drawing code
+    [UIView animateWithDuration:.25
+                     animations:^{
+                         self.alpha = 0.f;
+                     }];
 }
-*/
 
 @end

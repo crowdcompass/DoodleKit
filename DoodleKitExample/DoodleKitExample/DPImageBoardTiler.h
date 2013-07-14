@@ -14,7 +14,6 @@
 
 @interface DPImageBoardTiler : NSObject <DPImageBoardDataSource>
 
-//NOT ZERO INDEXED
 @property (nonatomic, assign) NSUInteger userIndex;
 
 @property (nonatomic, weak) id<DPImageBoardTilerDelegate> delegate;

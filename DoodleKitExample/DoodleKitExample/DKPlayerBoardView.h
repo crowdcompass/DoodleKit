@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DKPlayerBoardView : UIView
+@interface DKPlayerBoardView : UIControl
 
 @property (nonatomic, retain) UIImage *image;
 
 - (void)setReady;
+- (void)revealPermanently;
 
 @end

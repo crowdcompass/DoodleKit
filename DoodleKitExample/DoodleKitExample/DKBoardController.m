@@ -23,6 +23,10 @@
 
 @property (nonatomic) NSInteger playerCount;
 @property (nonatomic, strong) NSMutableArray *tileViews;
+@property (nonatomic) CGRect localPlayerArea;
+@property (nonatomic) NSUInteger localPlayerIndex;
+@property (nonatomic) CGSize tileSize;
+@property (nonatomic) BOOL playingAgain;
 
 @property (nonatomic) GTHostNegotiator *negotiator;
 @end
@@ -35,6 +39,7 @@
     if (self) {
         self.playerCount = 2;
         self.tileViews = [NSMutableArray arrayWithCapacity:4];
+        self.playingAgain = NO;
     }
     return self;
 }
@@ -44,16 +49,33 @@
     [super viewDidLoad];
     [self addToolbar];
     
-    CGSize tileSize = CGSizeMake(768.f / 2.f, 960.f / 2.f);
+    // Begin fake player data
+    NSString *localPlayerID = @"G:12347";
+    NSArray *sortedPlayerIDs = [NSArray arrayWithObjects:@"G:12345",@"G:12346",@"G:12347",@"G:12348", nil];
+    self.localPlayerIndex = [sortedPlayerIDs indexOfObject:localPlayerID];
+    // End fake player data
+
+    self.tileSize = CGSizeMake(768.f / 2.f, 960.f / 2.f);
+
+    NSArray *origins = [NSArray arrayWithObjects:
+                       [NSValue valueWithCGPoint:CGPointMake(0.f, 0.f)],
+                       [NSValue valueWithCGPoint:CGPointMake(self.tileSize.width, 0.f)],
+                       [NSValue valueWithCGPoint:CGPointMake(0.f, self.tileSize.height)],
+                       [NSValue valueWithCGPoint:CGPointMake(self.tileSize.width, self.tileSize.height)], nil];
     
-    [self addDoodleViewWithActiveArea:CGRectMake(0.0f, 960.f / 2.f, tileSize.width, tileSize.height)];
+    CGPoint localPlayerOrigin = [[origins objectAtIndex:self.localPlayerIndex] CGPointValue];
     
-    //TODO: random from a bunch of images, maybe image picker?
-    UIImage *toTile = [UIImage imageNamed:@"doodle01"];
-    _tiler = [[DPImageBoardTiler alloc] initWithImage:toTile tileSize:tileSize delegate:self];
-    
-    //TODO: hook up a real user index;
-    _tiler.userIndex = 3;
+    self.localPlayerArea = CGRectMake(localPlayerOrigin.x, localPlayerOrigin.y, self.tileSize.width, self.tileSize.height);    
+    [self setBoard];
+}
+
+- (void)setBoard
+{
+    [self addDoodleViewWithActiveArea:self.localPlayerArea];
+    NSArray *imageNames = [NSArray arrayWithObjects:@"doodle01",@"doodle02",@"doodle03",@"doodle04",@"doodle05",@"doodle06", nil];
+    UIImage *toTile = [UIImage imageNamed:[imageNames objectAtIndex:arc4random()%[imageNames count]]];
+    _tiler = [[DPImageBoardTiler alloc] initWithImage:toTile tileSize:self.tileSize delegate:self];
+    _tiler.userIndex = self.localPlayerIndex;
     [_tiler tile];
 }
 
@@ -170,7 +192,21 @@
 
 - (void)toolbarCountdownDidFinish
 {
-    
+    self.playingAgain = YES;
+    self.drawingView.userInteractionEnabled = NO;
+    [self.tileViews each: ^(id obj) {
+        [obj revealPermanently];
+    }];
+    [self.toolbar removeFromSuperview];
+    [self addToolbar];
+}
+
+- (void)doodlerDidChangeDuration {
+    if (self.playingAgain == YES) {
+        [self.drawingView removeFromSuperview];
+        [self setBoard];
+        self.playingAgain = NO;
+    }
 }
 
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch
@@ -201,7 +237,7 @@
             DKPlayerBoardView *tileView = [[DKPlayerBoardView alloc] initWithFrame:[tiler frameForIndex:indexKey.unsignedIntegerValue]];
             tileView.image = image;
             [selfRef.view addSubview:tileView];
-            [self.tileViews addObject:tileView];
+            [selfRef.tileViews addObject:tileView];
         });
     }
 }

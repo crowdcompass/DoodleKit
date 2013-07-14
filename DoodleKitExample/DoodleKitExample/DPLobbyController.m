@@ -91,7 +91,9 @@
     NSLog(@"Lobby: We have new players %@", players);
     NSArray *tempArray = [players arrayByAddingObject:_localPlayer];
 
-    self.allPlayers = [tempArray sortedArrayUsingSelector:@selector(playerID)];
+    self.allPlayers = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [((GKPlayer *)obj1).playerID compare:((GKPlayer *)obj2).playerID];
+    }];
     
     __block NSUInteger lastIdx;
     [_allPlayers enumerateObjectsUsingBlock:^(GKPlayer *player, NSUInteger idx, BOOL *stop) {

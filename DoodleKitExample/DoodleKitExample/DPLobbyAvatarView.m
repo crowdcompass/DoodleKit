@@ -38,7 +38,7 @@ UIImage* imageForPlayerNumber(NSUInteger playerIndex, BOOL loaded) {
             break;
         case 3:
             if (loaded) {
-                imageName = @"player_orange";
+                imageName = @"player_yellow";
             } else {
                 imageName = @"player_unloaded";
             }

@@ -67,7 +67,7 @@
     [_strokeDefinition encodeWithCoder:coder];
     [coder finishEncoding];
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
-    [messenger sendDataToAllPlayers:strokeDef withFlag:DoodleFlag];
+    [messenger sendDataToHost:strokeDef withFlag:DoodleFlag];
 }
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;

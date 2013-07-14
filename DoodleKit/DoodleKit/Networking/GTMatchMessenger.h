@@ -34,5 +34,6 @@ extern NSInteger const DoodleFlag;
 
 @property (nonatomic, copy) NSString *hostPlayerID;
 @property (nonatomic) GKMatch *match;
+@property (nonatomic, getter = isHost) BOOL host;
 
 @end

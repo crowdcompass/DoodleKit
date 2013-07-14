@@ -30,6 +30,10 @@ static GTMatchMessenger *shared = nil;
     return shared;
 }
 
+- (BOOL)isHost {
+    return self.hostPlayerID == nil;
+}
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -62,32 +66,45 @@ static GTMatchMessenger *shared = nil;
 - (void)sendDataToAllPlayers:(NSData *)data withFlag:(NSInteger)flag {
 //    assert(self.match);
 
-    data = [self payloadForData:data withFlag:flag];
+    NSData *flaggedData = [self payloadForData:data withFlag:flag];
     if (flag == DoodleFlag) {
-        [self match:self.match didReceiveData:data fromPlayer:nil];
+        NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
+        [receiver match:self.match didReceiveData:data fromPlayer:nil];
     }
 
-    NSLog(@"Sending data to all players");
     NSError *error;
-    [self.match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
+    [self.match sendDataToAllPlayers:flaggedData withDataMode:GKMatchSendDataReliable error:&error];
     if (error) { assert(0); }
 }
 
 - (void)sendDataToHost:(NSData *)data withFlag:(NSInteger)flag {
 //    assert(self.match);
 
-    data = [self payloadForData:data withFlag:flag];
+    NSData *flaggedData = [self payloadForData:data withFlag:flag];
 
-    NSLog(@"Sending data to all players");
+    if (flag == DoodleFlag && self.isHost) {
+        NSError *error;
+        [self.match sendDataToAllPlayers:flaggedData withDataMode:GKMatchSendDataReliable error:&error];
+        NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
+        [receiver match:self.match didReceiveData:data fromPlayer:nil];
+        return;
+    }
+
     NSError *error;
-    [self.match sendData:data toPlayers:@[ self.hostPlayerID ] withDataMode:GKMatchSendDataReliable error:&error];
-    if (error) { assert(0); }
+    if (!self.isHost) {
+        [self.match sendData:flaggedData toPlayers:@[ self.hostPlayerID ] withDataMode:GKMatchSendDataReliable error:&error];
+        if (error) { assert(0); }
+    }
 }
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID
 {
     NSInteger flag = [self flagFromPayload:data];
     data = [self dataFromPayload:data];
+
+    if (flag == DoodleFlag && self.isHost) {
+        [self sendDataToAllPlayers:data withFlag:DoodleFlag];
+    }
 
     NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
     [receiver match:match didReceiveData:data fromPlayer:playerID];

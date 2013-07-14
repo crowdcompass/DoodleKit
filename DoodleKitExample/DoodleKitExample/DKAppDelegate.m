@@ -43,12 +43,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 
 
-    self.window.rootViewController = [[DKBoardController alloc] init];
-    [self.window makeKeyAndVisible];
-
-//    DPLobbyController *lobbyController = [[DPLobbyController alloc] initWithPlayer:nil];
-//    self.window.rootViewController = lobbyController;
+//    self.window.rootViewController = [[DKBoardController alloc] init];
 //    [self.window makeKeyAndVisible];
+
+    DPLobbyController *lobbyController = [[DPLobbyController alloc] initWithPlayer:nil];
+    self.window.rootViewController = lobbyController;
+    [self.window makeKeyAndVisible];
 
 //    //TEST CODE
 //    self.window.backgroundColor = [UIColor grayColor];

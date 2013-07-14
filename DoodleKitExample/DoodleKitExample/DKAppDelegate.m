@@ -44,10 +44,6 @@ void uncaughtExceptionHandler(NSException *exception) {
         }
     }];
 
-
-    self.sessionManager = [DKDoodleSessionManager sharedManager];
-    [self.sessionManager start];
-
 //    self.window.rootViewController = [[DKBoardController alloc] init];
 //    [self.window makeKeyAndVisible];
 

@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) DKDoodleSessionManager *doodleSessionManager;
 
-@property (nonatomic, strong) GKLocalPlayer *localPlayer;
+@property (nonatomic, strong) DKDoodleArtist *doodleArtist;
 @property (nonatomic, strong) NSArray *allPlayers;
 
 
@@ -35,7 +35,7 @@
 - (id)initWithPlayer:(DPPlayer *)player {
     self = [super init];
     if (self) {
-        self.doodleSessionManager = [[DKDoodleSessionManager alloc] init];
+        self.doodleSessionManager = [DKDoodleSessionManager sharedManager];
         _doodleSessionManager.delegate = self;
         
         self.allPlayers = [NSArray array];
@@ -57,8 +57,11 @@
 
 //    [self.lobbyView.button setEnabled:NO];
 
-    // Start filling the lobby
-    //[_connectManager startAuthenticatingLocalPlayer];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    DKDoodleSessionManager *sessionManager = [DKDoodleSessionManager sharedManager];
+    [sessionManager startAuthenticatingLocalPlayer];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,9 +86,9 @@
 #pragma mark -
 #pragma mark DPConnectManagerDelegate
 
-- (void)didAuthenticateLocalPlayer:(GKLocalPlayer *)player {
-    self.localPlayer = player;
-    [self.lobbyView setPlayerName:player.alias forPlayerIndex:1];
+- (void)didAuthenticateLocalPlayer:(DKDoodleArtist *)doodleArtist {
+    self.doodleArtist = doodleArtist;
+    [self.lobbyView setPlayerName:doodleArtist.displayName forPlayerIndex:1];
     //[player loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
     //    [self.lobbyView setPlayerAvatar:photo forPlayerIndex:1];
     //    NSLog(@"Got Photo");
@@ -97,7 +100,7 @@
 
 - (void)didUpdatePlayers:(NSArray *)players {
     NSLog(@"Lobby: We have new players %@", players);
-    NSArray *tempArray = [players arrayByAddingObject:_localPlayer];
+    NSArray *tempArray = [players arrayByAddingObject:_doodleArtist];
 
     self.allPlayers = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [((GKPlayer *)obj1).playerID compare:((GKPlayer *)obj2).playerID];

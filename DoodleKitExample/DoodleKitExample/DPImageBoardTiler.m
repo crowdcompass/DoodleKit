@@ -10,6 +10,7 @@
 
 @interface DPImageBoardTiler() {
     CGSize _tileSize;
+    dispatch_once_t onceToken;
 }
 
 @property (nonatomic, strong) UIImage *originalImage;
@@ -35,15 +36,16 @@
         _originalImage = image;
         _userIndex = 0;
         _delegate = delegate;
+        onceToken = 0;
     }
     
     return self;
 }
 
 - (void)tile {
-    if (_userIndex > 4) [NSException raise:NSInternalInconsistencyException format:@"must set player index (1-4)"];
+    if (_userIndex > 3) [NSException raise:NSInternalInconsistencyException format:@"must set player index (0-3)"];
     
-    for (NSUInteger i = 1; i <= 4; i++) {
+    for (NSUInteger i = 0; i <= 3; i++) {
         if (i == _userIndex) continue;
         
         [self tileRect:[self frameForIndex:i]
@@ -67,7 +69,6 @@
             }
         }
         if (done) {
-            static dispatch_once_t onceToken;
             //FIXME: hack preventing this from firing multiple times
             dispatch_once(&onceToken, ^{
                 [selfRef.delegate imageTilerFinished:selfRef
@@ -82,8 +83,8 @@
 #pragma mark - DPImageBoardDataSource
 
 - (CGRect)frameForIndex:(NSUInteger)index {
-    CGFloat x = (index == 1 || index == 3) ? 0.f : _tileSize.width;
-    CGFloat y = (index <= 2) ? 0.f : _tileSize.height;
+    CGFloat x = (index == 0 || index == 2) ? 0.f : _tileSize.width;
+    CGFloat y = (index <= 1) ? 0.f : _tileSize.height;
     y += 44.f;
     CGRect rectForIndex = CGRectMake(x, y, _tileSize.width, _tileSize.height);
     return rectForIndex;

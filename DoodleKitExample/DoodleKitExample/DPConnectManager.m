@@ -108,6 +108,7 @@ static const int MAX_PLAYERS = 3;
 
 
 - (void)startSearchingForPlayers {
+    __weak DPConnectManager *connectManger = self;
     [[GKMatchmaker sharedMatchmaker] startBrowsingForNearbyPlayersWithReachableHandler:^(NSString *playerID, BOOL reachable) {
         if (reachable) {
             NSLog(@"Player to invite: %@", playerID);
@@ -118,7 +119,7 @@ static const int MAX_PLAYERS = 3;
             if (_playersToInvite.count == (MIN_PLAYERS - 1)) {
                 NSLog(@"startSearching: BOOYAH all players found, stopping the search!");
                 [[GKMatchmaker sharedMatchmaker] stopBrowsingForNearbyPlayers];
-                [self createMatch];
+                [connectManger createMatch];
             }
         }
         else {

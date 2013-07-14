@@ -78,6 +78,10 @@
 
 - (void)setBoard
 {
+    if (self.playingAgain == YES) {
+        self.tileViews = [NSMutableArray arrayWithCapacity:4];
+    }
+
     [self addDoodleViewWithActiveArea:self.localPlayerArea];
     NSArray *imageNames = [NSArray arrayWithObjects:@"doodle01",@"doodle02",@"doodle03",@"doodle04",@"doodle05",@"doodle06", nil];
     UIImage *toTile = [UIImage imageNamed:[imageNames objectAtIndex:arc4random()%[imageNames count]]];

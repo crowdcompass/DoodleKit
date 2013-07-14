@@ -103,7 +103,7 @@
     }];
     
     for (; lastIdx < 4; lastIdx++) {
-        [self.lobbyView setPlayerName:@"." forPlayerIndex:(lastIdx + 1)];
+        [self.lobbyView setPlayerName:nil forPlayerIndex:(lastIdx + 1)];
     }
     
 #warning Modify this to set players required to 4

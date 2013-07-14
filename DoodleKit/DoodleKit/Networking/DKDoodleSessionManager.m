@@ -17,7 +17,7 @@ typedef NSUInteger DKDoodleMessageType;
 
 #define kDoodleMessageIDKey     @"id"
 
-static NSInteger const playerCount = 3;
+static NSInteger const playerCount = 2;
 
 static DKDoodleSessionManager *sharedInstance;
 
@@ -83,6 +83,7 @@ static DKDoodleSessionManager *sharedInstance;
 
 - (void)handleStartGame {
     NSLog(@"LETS START THE GAME!");
+    [self.delegate didStartGame];
 }
 
 + (instancetype)sharedManager {

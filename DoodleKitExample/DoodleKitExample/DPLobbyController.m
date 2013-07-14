@@ -132,6 +132,11 @@
 //    }
 }
 
+- (void)didStartGame {
+    DKBoardController *boardController = [[DKBoardController alloc] init];
+    [self presentViewController:boardController animated:NO completion:nil];
+}
+
 - (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
     NSLog(@"didReceiveData from Player");
 }

@@ -23,6 +23,7 @@
 - (void)didAuthenticateLocalPlayer:(DKDoodleArtist *)doodleArtist;
 - (void)artistDidConnect:(DKDoodleArtist *)doodleArtist;
 - (void)artistDidDisconnect:(DKDoodleArtist *)doodleArtist;
+- (void)didStartGame;
 
 @end
 

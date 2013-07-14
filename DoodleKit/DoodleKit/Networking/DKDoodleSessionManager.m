@@ -161,7 +161,7 @@ static DKDoodleSessionManager *sharedInstance;
     NSArray *peers = [self.session peersWithConnectionState:GKPeerStateConnected];
     NSLog(@"MY PEER COUNT IS: %d", peers.count);
     if (peers.count == playerCount - 1) {
-        NSLog(@"WE HAVE A GAME!");
+        [self.delegate canStartGame];
     }
 }
 

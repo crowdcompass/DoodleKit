@@ -53,6 +53,7 @@
     [self.view addSubview:lobbyView];
     self.lobbyView = lobbyView;
     
+    [self.lobbyView.button setEnabled:NO];
     [self.lobbyView.button addTarget:self action:@selector(startPressed) forControlEvents:UIControlEventTouchUpInside];
 
 //    [self.lobbyView.button setEnabled:NO];
@@ -147,6 +148,10 @@
 - (void)didStartGame {
     DKBoardController *boardController = [[DKBoardController alloc] initWithArtists:_doodleArtists];
     [self presentViewController:boardController animated:NO completion:nil];
+}
+
+- (void)canStartGame {
+    [self.lobbyView.button setEnabled:YES];
 }
 
 - (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {

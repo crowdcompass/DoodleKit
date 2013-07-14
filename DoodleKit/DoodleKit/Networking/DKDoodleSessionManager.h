@@ -25,6 +25,7 @@
 - (void)artistDidConnect:(DKDoodleArtist *)doodleArtist;
 - (void)artistDidDisconnect:(DKDoodleArtist *)doodleArtist;
 - (void)didStartGame;
+- (void)canStartGame;
 
 @end
 

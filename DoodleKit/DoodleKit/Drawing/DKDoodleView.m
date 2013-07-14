@@ -118,11 +118,23 @@
     // TODO: draw only the updated part of the image
     [self drawPath];
 #else
-    [self.image drawInRect:self.bounds];
+    //[self.image drawInRect:self.bounds];
     
-    for (id<ACEDrawingTool> currentTool in [self.currentTools allValues]) {
-        [currentTool draw];
-    }
+    //for (id<ACEDrawingTool> currentTool in [self.currentTools allValues]) {
+    //    [currentTool draw];
+    //}
+    
+    NSLog(@"start of drawRect");
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextClearRect(context, rect);
+    UIImage *image = self.image;
+    CGRect imageRect = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    CGContextTranslateCTM(context, 0, image.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    CGContextDrawImage(context, imageRect, image.CGImage);
+    NSLog(@"end of drawRect");
     
 #endif
 }
@@ -346,7 +358,26 @@
         drawBox.size.width += self.lineWidth * 4.0;
         drawBox.size.height += self.lineWidth * 4.0;
         
-        [self setNeedsDisplayInRect:drawBox];
+        UIGraphicsBeginImageContextWithOptions(drawBox.size, NO, 0.0);
+        //UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0.0);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        //CGContextClearRect(context, drawBox);
+        
+        // override in subclass
+        [(ACEDrawingPenTool *)currentTool drawInContext:context];
+        //[self drawWithContext:context withWidth:self.frame.size.width withHeight:self.frame.size.height];
+        
+        // Returns an image based on the contents of the current bitmap-based graphics context
+        //UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+        //self.image = theImage;
+        UIGraphicsEndImageContext();
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setNeedsDisplayInRect:drawBox];
+            //[self setNeedsDisplayInRect:self.bounds];
+        });
+
     } else {
         DKRectanglePoint *rectPoint = (DKRectanglePoint *)pointData;
         [currentTool moveFromPoint:rectPoint.topLeftPoint toPoint:rectPoint.bottomRightPoint];

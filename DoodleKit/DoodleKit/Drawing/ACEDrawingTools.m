@@ -85,6 +85,16 @@ CGPoint midPoint(CGPoint p1, CGPoint p2)
     CGContextStrokePath(context);
 }
 
+- (void)drawInContext:(CGContextRef)context {
+	CGContextAddPath(context, path);
+    CGContextSetLineCap(context, kCGLineCapRound);
+    CGContextSetLineWidth(context, self.lineWidth);
+    CGContextSetStrokeColorWithColor(context, self.lineColor.CGColor);
+    CGContextSetBlendMode(context, kCGBlendModeNormal);
+    CGContextSetAlpha(context, self.lineAlpha);
+    CGContextStrokePath(context);
+}
+
 - (void)dealloc
 {
     CGPathRelease(path);

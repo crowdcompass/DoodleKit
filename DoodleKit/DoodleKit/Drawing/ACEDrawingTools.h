@@ -59,7 +59,7 @@
 }
 
 - (CGRect)addPathPreviousPreviousPoint:(CGPoint)p2Point withPreviousPoint:(CGPoint)p1Point withCurrentPoint:(CGPoint)cpoint;
-
+- (void)drawInContext:(CGContextRef)context;
 @end
 
 #pragma mark -

@@ -33,8 +33,6 @@ extern NSInteger const DoodleFlag;
 
 
 @property (nonatomic, copy) NSString *hostPlayerID;
-@property (nonatomic, weak) GTHostNegotiator *negotiator;
-@property (nonatomic, weak) DKSerializer *serializer;
 @property (nonatomic) GKMatch *match;
 
 @end

@@ -121,14 +121,9 @@ void toggleImageTile(UIView *tile) {
         GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
         messenger.match = self.match;
         
-        messenger.serializer = self.drawingView.serializer;
-
         GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
         negotiator.delegate = self;
         negotiator.match = self.match;
-        //self.match.delegate = negotiator;
-
-        messenger.negotiator = negotiator;
 
         self.negotiator = negotiator;
         [self.negotiator start];

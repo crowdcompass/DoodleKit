@@ -20,7 +20,7 @@
 @property (nonatomic, strong) DKDoodleSessionManager *doodleSessionManager;
 
 @property (nonatomic, strong) DKDoodleArtist *doodleArtist;
-@property (nonatomic, strong) NSArray *allPlayers;
+@property (nonatomic, strong) NSMutableArray *doodleArtists;
 
 
 //target/action
@@ -38,7 +38,7 @@
         self.doodleSessionManager = [DKDoodleSessionManager sharedManager];
         _doodleSessionManager.delegate = self;
         
-        self.allPlayers = [NSArray array];
+        self.doodleArtists = [NSMutableArray array];
     }
     
     return self;
@@ -84,7 +84,7 @@
 
 //////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark DPConnectManagerDelegate
+#pragma mark DKDoodleSessionManager
 
 - (void)didAuthenticateLocalPlayer:(DKDoodleArtist *)doodleArtist {
     self.doodleArtist = doodleArtist;
@@ -98,23 +98,44 @@
     //playe
 }
 
-- (void)didUpdatePlayers:(NSArray *)players {
-    NSLog(@"Lobby: We have new players %@", players);
-    NSArray *tempArray = [players arrayByAddingObject:_doodleArtist];
-
-    self.allPlayers = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [((GKPlayer *)obj1).playerID compare:((GKPlayer *)obj2).playerID];
+- (void)artistDidConnect:(DKDoodleArtist *)doodleArtist {
+    [self.doodleArtists addObject:doodleArtist];
+    
+    [_doodleArtists sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [((DKDoodleArtist *)obj1).peerID compare:((DKDoodleArtist *)obj2).peerID];
     }];
     
+    [self updatePlayerAvatars];
+    
+}
+
+- (void)artistDidDisconnect:(DKDoodleArtist *)aDoodleArtist {
+    __block NSUInteger lastIdx = NSNotFound;
+    [_doodleArtists enumerateObjectsUsingBlock:^(DKDoodleArtist *doodleArtist, NSUInteger idx, BOOL *stop) {
+        if ([doodleArtist.peerID isEqualToString:aDoodleArtist.peerID]) {
+            lastIdx = idx;
+            *stop = YES;
+        }
+    }];
+    
+    if (lastIdx != NSNotFound) {
+        [_doodleArtists removeObjectAtIndex:lastIdx];
+    }
+    
+    [self updatePlayerAvatars];
+}
+
+- (void)updatePlayerAvatars {
+
     __block NSUInteger lastIdx;
-    [_allPlayers enumerateObjectsUsingBlock:^(GKPlayer *player, NSUInteger idx, BOOL *stop) {
-        [self.lobbyView setPlayerName:player.alias forPlayerIndex:(idx + 1)];
+    [_doodleArtists enumerateObjectsUsingBlock:^(DKDoodleArtist *doodleArtist, NSUInteger idx, BOOL *stop) {
+        [self.lobbyView setPlayerName:doodleArtist.displayName forPlayerIndex:idx +1];
         //[player loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
         //    [self.lobbyView setPlayerAvatar:photo forPlayerIndex:1];
         //    NSLog(@"Got Photo");
         //}];
         
-        if ((idx + 1) > 4) {
+        if (idx >= 4) {
             lastIdx = idx;
             *stop = YES;
         }
@@ -123,13 +144,7 @@
     for (; lastIdx < 4; lastIdx++) {
         [self.lobbyView setPlayerName:nil forPlayerIndex:(lastIdx + 1)];
     }
-    
-#warning Modify this to set players required to 4
-    [self.lobbyView.button setEnabled:([_allPlayers count] > 1)];
-    
-//    if (([_allPlayers count] > 1)) {
-//        [self.connectManager createMatch];
-//    }
+
 }
 
 - (void)didStartGame {

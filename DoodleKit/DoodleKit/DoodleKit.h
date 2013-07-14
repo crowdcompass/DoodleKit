@@ -12,3 +12,4 @@
 #import <DoodleKit/DKSerializer.h>
 #import <DoodleKit/GTHostNegotiator.h>
 #import <DoodleKit/GTMatchMessenger.h>
+#import <DoodleKit/DKDoodleSessionManager.h>

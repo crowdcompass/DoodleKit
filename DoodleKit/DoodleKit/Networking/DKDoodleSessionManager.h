@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *displayName;
 @property (nonatomic, copy) NSString *playerID;
 @property (nonatomic, copy) NSString *peerID;
+@property (nonatomic, assign) BOOL isLocal;
 
 @end
 
@@ -31,6 +32,7 @@
 
 @property (nonatomic, weak) id<DKDoodleSessionManagerDelegate> delegate;
 @property (nonatomic, strong) DKDoodleArtist *doodleArtist;
+@property (nonatomic, strong) NSMutableDictionary *doodleArtistPeers;
 
 + (instancetype)sharedManager;
 - (void)start;

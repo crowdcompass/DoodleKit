@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GameKit/GameKit.h>
+#import <DoodleKit/DoodleKit.h>
 
 @interface DPPlayer : NSObject
 
 @property (nonatomic, strong) NSNumber *playerNumber;
-@property (nonatomic, strong) GKPlayer *gkPlayer;
+@property (nonatomic, strong) DKDoodleArtist *doodleArtist;
 
 - (id)initWithPlayerNumber:(NSNumber *)number;
 

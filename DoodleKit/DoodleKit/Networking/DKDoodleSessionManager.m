@@ -19,7 +19,7 @@ typedef NSUInteger DKDoodleMessageType;
 
 #define kDoodleMessageIDKey     @"id"
 
-static NSInteger const playerCount = 2;
+static NSInteger const playerCount = 4;
 
 static DKDoodleSessionManager *sharedInstance;
 
@@ -130,6 +130,7 @@ static DKDoodleSessionManager *sharedInstance;
             DKDoodleArtist *doodleArtist = [[DKDoodleArtist alloc] init];
             doodleArtist.displayName = localPlayer.alias;
             doodleArtist.playerID = localPlayer.playerID;
+            doodleArtist.isLocal = YES;
             self.doodleArtist = doodleArtist;
             
             if (_delegate && [_delegate respondsToSelector:@selector(didAuthenticateLocalPlayer:)]) {
@@ -150,6 +151,7 @@ static DKDoodleSessionManager *sharedInstance;
     session.delegate = self;
     session.available = YES;
     [session setDataReceiveHandler:self withContext:0];
+    _doodleArtist.peerID = session.peerID;
 
     self.session = session;
 }
@@ -166,10 +168,30 @@ static DKDoodleSessionManager *sharedInstance;
     if (state == GKPeerStateAvailable) {
         [self.session connectToPeer:peerID withTimeout:15];
     } else if (state == GKPeerStateConnected) {
+        
+        if (![peerID isEqualToString:_doodleArtist.peerID]) {
+            DKDoodleArtist *doodleArtist = [[DKDoodleArtist alloc] init];
+            doodleArtist.peerID = peerID;
+            doodleArtist.displayName = [session displayNameForPeer:peerID];
+            doodleArtist.isLocal = NO;
+            
+            [_doodleArtistPeers setObject:doodleArtist forKey:peerID];
+            
+            [_delegate artistDidConnect:doodleArtist];
+        }
+
         [self poll];
 
         if (self.hostID) {
             [self handleDeclareHostFromPeer:self.hostID];
+        }
+    } else if (state == GKPeerStateDisconnected) {
+        if (![peerID isEqualToString:_doodleArtist.peerID]) {
+            DKDoodleArtist *doodleArtist = [_doodleArtistPeers objectForKey:peerID];
+            if (doodleArtist) {
+                [_doodleArtistPeers removeObjectForKey:peerID];
+                [_delegate artistDidDisconnect:doodleArtist];
+            }
         }
     }
 }
@@ -188,7 +210,11 @@ static DKDoodleSessionManager *sharedInstance;
 }
 
 - (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error {
-
+    
+    DKDoodleArtist *doodleArtist = [_doodleArtistPeers objectForKey:peerID];
+    if (doodleArtist) {
+        [_delegate artistDidDisconnect:doodleArtist];
+    }
 }
 
 - (void)session:(GKSession *)session didFailWithError:(NSError *)error {

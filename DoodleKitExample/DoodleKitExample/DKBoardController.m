@@ -87,7 +87,7 @@
 
 - (NSString *)newImageName
 {
-    NSArray *imageNames = [NSArray arrayWithObjects:@"doodle01",@"doodle02",@"doodle03",@"doodle04",@"doodle05",@"doodle06", nil];
+    NSArray *imageNames = [NSArray arrayWithObjects:@"doodle07",@"doodle08",@"doodle09",@"doodle10",@"doodle11", nil];
     return [imageNames objectAtIndex:arc4random()%[imageNames count]];
 }
 

@@ -22,6 +22,14 @@
 
 @implementation DKSerializer
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        [[GTMatchMessenger sharedMessenger] registerDataChannelWithFlag:DoodleFlag object:self];
+    }
+    return self;
+}
+
 - (DKDoodleToolType)toolType { return _toolType; }
 - (CGPoint)initialPoint { return _initialPoint; }
 - (NSArray *)dataPoints { return [NSArray arrayWithArray:_dataPoints]; }
@@ -59,7 +67,7 @@
     [_strokeDefinition encodeWithCoder:coder];
     [coder finishEncoding];
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
-    [messenger sendDoodleDataToAllPlayers:strokeDef];
+    [messenger sendDataToAllPlayers:strokeDef withFlag:DoodleFlag];
 }
 
 - (void)didReceiveDoodleData:(NSData *)strokeDef

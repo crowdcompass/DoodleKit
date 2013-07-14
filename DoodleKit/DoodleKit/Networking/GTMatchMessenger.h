@@ -12,6 +12,10 @@
 #import "DKSerializer.h"
 #import <GameKit/GameKit.h>
 
+NSInteger const InternalFlag = 1 << 0;
+NSInteger const DoodleFlag = 1 << 1;
+
+
 @class GTHostNegotiator;
 @class DKSerializer;
 
@@ -19,11 +23,10 @@
 
 + (id)sharedMessenger;
 
-- (void)sendInternalDataToAllPlayers:(NSData *)data;
-- (void)sendInternalDataToHost:(NSData *)data;
+- (void)registerDataChannelWithFlag:(NSInteger)flag object:(NSObject *)object;
 
-- (void)sendDoodleDataToAllPlayers:(NSData *)data;
-- (void)sendDoodleDataToHost:(NSData *)data;
+- (void)sendDataToAllPlayers:(NSData *)data withFlag:(NSInteger)flag;
+- (void)sendDataToHost:(NSData *)data withFlag:(NSInteger)flag;
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 

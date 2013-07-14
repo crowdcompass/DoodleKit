@@ -8,10 +8,9 @@
 
 #import "GTMatchMessenger.h"
 
-static NSInteger const InternalFlag = 1 << 0;
-static NSInteger const DoodleFlag = 1 << 1;
 
 @interface GTMatchMessenger ()
+@property (nonatomic) NSMutableDictionary *channelLookup;
 
 @end
 
@@ -25,6 +24,14 @@ static GTMatchMessenger *shared = nil;
         shared = [[self alloc] init];
     });
     return shared;
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.channelLookup = [@{} mutableCopy];
+    }
+    return self;
 }
 
 - (NSInteger)flagFromPayload:(NSData *)payload {
@@ -43,10 +50,18 @@ static GTMatchMessenger *shared = nil;
     return prelude;
 }
 
-- (void)sendInternalDataToAllPlayers:(NSData *)data {
+- (void)registerDataChannelWithFlag:(NSInteger)flag object:(NSObject *)object
+{
+    self.channelLookup[@(flag)] = object;
+}
+
+- (void)sendDataToAllPlayers:(NSData *)data withFlag:(NSInteger)flag {
     assert(self.match);
 
-    data = [self payloadForData:data withFlag:InternalFlag];
+    data = [self payloadForData:data withFlag:flag];
+    if (flag == DoodleFlag) {
+        [self match:self.match didReceiveData:data fromPlayer:nil];
+    }
 
     NSLog(@"Sending data to all players");
     NSError *error;
@@ -54,12 +69,12 @@ static GTMatchMessenger *shared = nil;
     if (error) { assert(0); }
 }
 
-- (void)sendInternalDataToHost:(NSData *)data {
+- (void)sendDataToHost:(NSData *)data withFlag:(NSInteger)flag {
     assert(self.match);
-    NSLog(@"Sending data to host");
 
-    data = [self payloadForData:data withFlag:InternalFlag];
+    data = [self payloadForData:data withFlag:flag];
 
+    NSLog(@"Sending data to all players");
     NSError *error;
     [self.match sendData:data toPlayers:@[ self.hostPlayerID ] withDataMode:GKMatchSendDataReliable error:&error];
     if (error) { assert(0); }
@@ -69,29 +84,12 @@ static GTMatchMessenger *shared = nil;
 {
     NSInteger flag = [self flagFromPayload:data];
     data = [self dataFromPayload:data];
+
     if (flag == InternalFlag) {
         [self.negotiator match:match didReceiveData:data fromPlayer:playerID];
     } else if (flag == DoodleFlag) {
         [self.serializer didReceiveDoodleData:data];
     }
-}
-
-- (void)sendDoodleDataToHost:(NSData *)data
-{
-    
-}
-
-- (void)sendDoodleDataToAllPlayers:(NSData *)data
-{
-    assert(self.match);
-
-    data = [self payloadForData:data withFlag:DoodleFlag];
-
-    NSLog(@"Sending data to all players");
-    NSError *error;
-    [self.match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
-    [self match:self.match didReceiveData:data fromPlayer:nil];
-    if (error) { assert(0); }
 }
 
 @end

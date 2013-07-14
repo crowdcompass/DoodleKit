@@ -8,7 +8,16 @@
 
 #import "DKDoodleSessionManager.h"
 
-static NSInteger const playerCount = 2;
+enum DKDoodleMessageType {
+    DKDoodleMessageTypeDeclareHost = 0,
+    DKDoodleMessageTypeSubmitToHost,
+    DKDoodleMessageTypeStartGame,
+    };
+typedef NSUInteger DKDoodleMessageTyep;
+
+#define kDoodleMessageIDKey     @"id"
+
+static NSInteger const playerCount = 3;
 
 static DKDoodleSessionManager *sharedInstance;
 

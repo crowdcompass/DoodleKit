@@ -13,20 +13,22 @@
 @interface DPConnectManager ()
 
 @property (nonatomic, strong) NSMutableArray *playersToInvite; // an array of player IDs
-@property (nonatomic, strong) GKMatch *match;
+@property (nonatomic, strong) NSMutableDictionary *playersConnected; // a dictionary of GKPlayers by ID
+@property (nonatomic, strong) NSMutableDictionary *playersWithData; // a dictionary of GKPlayers by ID
 @property (nonatomic, strong) GKMatchRequest *matchRequest;
 @property (nonatomic, strong) GKMatchmaker *matchMaker;
 @property BOOL matchStarted;
 
 - (void)disconnectFromMatch;
 - (void)finishMatchMaking;
+- (GKPlayer *)playerForID:(NSString *)playerID;
 
 @end
 
 @implementation DPConnectManager
 
-static const int MIN_PLAYERS = 2;
-static const int MAX_PLAYERS = 2;
+static const int MIN_PLAYERS = 3;
+static const int MAX_PLAYERS = 3;
 
 
 + (DPConnectManager *)sharedConnectManager {
@@ -43,6 +45,8 @@ static const int MAX_PLAYERS = 2;
     if (self) {
         self.playersToInvite = [NSMutableArray array];
         self.players = [NSMutableDictionary dictionary];
+        self.playersConnected = [NSMutableDictionary dictionary];
+        self.playersWithData = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -109,6 +113,13 @@ static const int MAX_PLAYERS = 2;
             NSLog(@"Player to invite: %@", playerID);
             [self.playersToInvite addObject:playerID];
             [self fetchDataForPlayer:playerID];
+
+            //check if we are aware of all potential players
+            if (_playersToInvite.count == MAX_PLAYERS) {
+                NSLog(@"startSearching: BOOYAH all players found, stopping the search!");
+                [[GKMatchmaker sharedMatchmaker] stopBrowsingForNearbyPlayers];
+                [self createMatch];
+            }
         }
         else {
             [self.playersToInvite removeObject:playerID];
@@ -133,13 +144,21 @@ static const int MAX_PLAYERS = 2;
     }];
 }
 
+- (GKPlayer *)playerForID:(NSString *)playerID {
+    GKPlayer *player = [_players objectForKey:playerID];
+    if (!player) {
+        NSLog(@"playerForID %@ failed to find a player", playerID);
+    }
+    return player;
+}
+
 //////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Match Management
 
 
 - (void)createMatch {
-    NSLog(@"Sending match request");
+    NSLog(@"createMatch: Sending match request");
     GKMatchRequest *request = [[GKMatchRequest alloc] init];
     request.minPlayers = MIN_PLAYERS;
     request.maxPlayers = MAX_PLAYERS;
@@ -171,13 +190,13 @@ static const int MAX_PLAYERS = 2;
             [_delegate didCreateMatch:self.match];
         }
         
-        NSLog(@"Expected players %d", match.expectedPlayerCount);
+        NSLog(@"createMatch: Expected players %d", match.expectedPlayerCount);
     }];
 }
 
 - (void)finishMatchMaking {
     [[GKMatchmaker sharedMatchmaker] finishMatchmakingForMatch:self.match];
-    [[GKMatchmaker sharedMatchmaker] stopBrowsingForNearbyPlayers];
+//    [[GKMatchmaker sharedMatchmaker] stopBrowsingForNearbyPlayers];
     
     NSLog(@"The Players are %@", self.match.playerIDs);
     if (self.match.playerIDs.count > 0) {
@@ -196,7 +215,15 @@ static const int MAX_PLAYERS = 2;
     
     NSLog(@"Attempting to disconnect from match %@", _match);
     [self.match disconnect];
+    if (_delegate && [_delegate respondsToSelector:@selector(didDisconnectFromMatch:)]) {
+        [_delegate didDisconnectFromMatch:self.match];
+    }
     self.match = nil;
+    
+    [self.playersConnected removeAllObjects];
+    [self.players removeAllObjects];
+    [self.playersToInvite removeAllObjects];
+    
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -206,12 +233,15 @@ static const int MAX_PLAYERS = 2;
 - (void)match:(GKMatch *)match player:(NSString *)playerID didChangeState:(GKPlayerConnectionState)state {
     NSLog(@"matchPlayerDIdChangeState");
     
+    GKPlayer *player = [self playerForID:playerID];
+    
     switch (state) {
         case GKPlayerStateUnknown:
             NSLog(@"!! Unknown player connection state");
             break;
         case GKPlayerStateConnected:
             NSLog(@"Player %@ connected to match %@", playerID, match);
+            [self.playersConnected setObject:player forKey:playerID];
             break;
         case GKPlayerStateDisconnected:
             NSLog(@"Player %@ DISconnected from match %@", playerID, match);
@@ -221,7 +251,7 @@ static const int MAX_PLAYERS = 2;
             break;
     }
     
-    if (!self.matchStarted && match.expectedPlayerCount == 0) {
+    if (!self.matchStarted && self.playersConnected.count == (MIN_PLAYERS - 1)) {
         NSLog(@"TIME TO START THE MATCH YO");
         self.matchStarted = YES;
         [self finishMatchMaking];
@@ -237,8 +267,18 @@ static const int MAX_PLAYERS = 2;
     NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"matchDidReceiveData %@ %@ %@", match, message, playerID);
     
+    GKPlayer *player = [self playerForID:playerID];
+    
     if (_delegate && [_delegate respondsToSelector:@selector(didReceiveData:fromPlayer:)]) {
         [_delegate didReceiveData:data fromPlayer:playerID];
+    }
+    [self.playersWithData setObject:player forKey:playerID];
+    
+    //if we've received data from all players, then we're set
+    if (self.playersWithData.count == (MIN_PLAYERS - 1)) {
+        if (_delegate && [_delegate respondsToSelector:@selector(didEstablishDataConnection)]) {
+            [_delegate didEstablishDataConnection];
+        }
     }
 }
 

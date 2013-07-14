@@ -19,6 +19,7 @@
 @property (nonatomic, strong) GKLocalPlayer *localPlayer;
 @property (nonatomic, strong) NSArray *allPlayers;
 
+
 //target/action
 - (void)startPressed;
 
@@ -120,12 +121,14 @@
 }
 
 - (void)didCreateMatch:(GKMatch *)match {
-    DKBoardController *boardController = [[DKBoardController alloc] init];
-    boardController.match = match;
     
-    [self presentViewController:boardController animated:NO completion:nil];
-
 }
 
+- (void)didEstablishDataConnection {
+    NSLog(@"Lobby: connection established!");
+    DKBoardController *boardController = [[DKBoardController alloc] init];
+    boardController.match = _connectManager.match;
+    [self presentViewController:boardController animated:NO completion:nil];
+}
 
 @end

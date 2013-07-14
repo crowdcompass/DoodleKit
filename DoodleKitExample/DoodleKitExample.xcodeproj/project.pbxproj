@@ -26,6 +26,18 @@
 		7840AA481790FF8F005B1A2B /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA471790FF8F005B1A2B /* GameKit.framework */; };
 		7840AA4A1790FF9B005B1A2B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7840AA491790FF9B005B1A2B /* QuartzCore.framework */; };
 		7843DB2B179210770033E335 /* DPImageBoardTiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7843DB2A179210770033E335 /* DPImageBoardTiler.m */; };
+		7843DB3B179231670033E335 /* doodle01.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB2F179231670033E335 /* doodle01.png */; };
+		7843DB3C179231670033E335 /* doodle01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB30179231670033E335 /* doodle01@2x.png */; };
+		7843DB3D179231670033E335 /* doodle02.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB31179231670033E335 /* doodle02.png */; };
+		7843DB3E179231670033E335 /* doodle02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB32179231670033E335 /* doodle02@2x.png */; };
+		7843DB3F179231670033E335 /* doodle03.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB33179231670033E335 /* doodle03.png */; };
+		7843DB40179231670033E335 /* doodle03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB34179231670033E335 /* doodle03@2x.png */; };
+		7843DB41179231670033E335 /* doodle04.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB35179231670033E335 /* doodle04.png */; };
+		7843DB42179231670033E335 /* doodle04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB36179231670033E335 /* doodle04@2x.png */; };
+		7843DB43179231670033E335 /* doodle05.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB37179231670033E335 /* doodle05.png */; };
+		7843DB44179231670033E335 /* doodle05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB38179231670033E335 /* doodle05@2x.png */; };
+		7843DB45179231670033E335 /* doodle06.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB39179231670033E335 /* doodle06.png */; };
+		7843DB46179231670033E335 /* doodle06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7843DB3A179231670033E335 /* doodle06@2x.png */; };
 		7856E7C21791B9D4001161CF /* DPLobbyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C11791B9D4001161CF /* DPLobbyController.m */; };
 		7856E7C51791BAAC001161CF /* DPLobbyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C41791BAAC001161CF /* DPLobbyView.m */; };
 		7856E7C81791BAFE001161CF /* DPLobbyAvatarsContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7856E7C71791BAFE001161CF /* DPLobbyAvatarsContainerView.m */; };
@@ -99,6 +111,18 @@
 		7843DB29179210770033E335 /* DPImageBoardTiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPImageBoardTiler.h; sourceTree = "<group>"; };
 		7843DB2A179210770033E335 /* DPImageBoardTiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPImageBoardTiler.m; sourceTree = "<group>"; };
 		7843DB2C179215D70033E335 /* DPImageBoardDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPImageBoardDataSource.h; sourceTree = "<group>"; };
+		7843DB2F179231670033E335 /* doodle01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doodle01.png; path = Resources/doodles/doodle01.png; sourceTree = "<group>"; };
+		7843DB30179231670033E335 /* doodle01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "doodle01@2x.png"; path = "Resources/doodles/doodle01@2x.png"; sourceTree = "<group>"; };
+		7843DB31179231670033E335 /* doodle02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doodle02.png; path = Resources/doodles/doodle02.png; sourceTree = "<group>"; };
+		7843DB32179231670033E335 /* doodle02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "doodle02@2x.png"; path = "Resources/doodles/doodle02@2x.png"; sourceTree = "<group>"; };
+		7843DB33179231670033E335 /* doodle03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doodle03.png; path = Resources/doodles/doodle03.png; sourceTree = "<group>"; };
+		7843DB34179231670033E335 /* doodle03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "doodle03@2x.png"; path = "Resources/doodles/doodle03@2x.png"; sourceTree = "<group>"; };
+		7843DB35179231670033E335 /* doodle04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doodle04.png; path = Resources/doodles/doodle04.png; sourceTree = "<group>"; };
+		7843DB36179231670033E335 /* doodle04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "doodle04@2x.png"; path = "Resources/doodles/doodle04@2x.png"; sourceTree = "<group>"; };
+		7843DB37179231670033E335 /* doodle05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doodle05.png; path = Resources/doodles/doodle05.png; sourceTree = "<group>"; };
+		7843DB38179231670033E335 /* doodle05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "doodle05@2x.png"; path = "Resources/doodles/doodle05@2x.png"; sourceTree = "<group>"; };
+		7843DB39179231670033E335 /* doodle06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doodle06.png; path = Resources/doodles/doodle06.png; sourceTree = "<group>"; };
+		7843DB3A179231670033E335 /* doodle06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "doodle06@2x.png"; path = "Resources/doodles/doodle06@2x.png"; sourceTree = "<group>"; };
 		7856E7C01791B9D4001161CF /* DPLobbyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLobbyController.h; sourceTree = "<group>"; };
 		7856E7C11791B9D4001161CF /* DPLobbyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLobbyController.m; sourceTree = "<group>"; };
 		7856E7C31791BAAC001161CF /* DPLobbyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLobbyView.h; sourceTree = "<group>"; };
@@ -254,6 +278,7 @@
 		7840AA311790FF77005B1A2B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7843DB2D1792315A0033E335 /* doodles */,
 				78ACAC4F1791021000C8F296 /* assets */,
 				7840AA321790FF77005B1A2B /* DoodleKitExample-Info.plist */,
 				7840AA331790FF77005B1A2B /* InfoPlist.strings */,
@@ -264,6 +289,25 @@
 				7840AA401790FF77005B1A2B /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7843DB2D1792315A0033E335 /* doodles */ = {
+			isa = PBXGroup;
+			children = (
+				7843DB2F179231670033E335 /* doodle01.png */,
+				7843DB30179231670033E335 /* doodle01@2x.png */,
+				7843DB31179231670033E335 /* doodle02.png */,
+				7843DB32179231670033E335 /* doodle02@2x.png */,
+				7843DB33179231670033E335 /* doodle03.png */,
+				7843DB34179231670033E335 /* doodle03@2x.png */,
+				7843DB35179231670033E335 /* doodle04.png */,
+				7843DB36179231670033E335 /* doodle04@2x.png */,
+				7843DB37179231670033E335 /* doodle05.png */,
+				7843DB38179231670033E335 /* doodle05@2x.png */,
+				7843DB39179231670033E335 /* doodle06.png */,
+				7843DB3A179231670033E335 /* doodle06@2x.png */,
+			);
+			name = doodles;
 			sourceTree = "<group>";
 		};
 		78ACAC4F1791021000C8F296 /* assets */ = {
@@ -407,6 +451,18 @@
 				D7F25D36179215D900181591 /* Icon@2x.png in Resources */,
 				D7F25D37179215D900181591 /* iTunesArtwork.png in Resources */,
 				D7F25D38179215D900181591 /* iTunesArtwork@2x.png in Resources */,
+				7843DB3B179231670033E335 /* doodle01.png in Resources */,
+				7843DB3C179231670033E335 /* doodle01@2x.png in Resources */,
+				7843DB3D179231670033E335 /* doodle02.png in Resources */,
+				7843DB3E179231670033E335 /* doodle02@2x.png in Resources */,
+				7843DB3F179231670033E335 /* doodle03.png in Resources */,
+				7843DB40179231670033E335 /* doodle03@2x.png in Resources */,
+				7843DB41179231670033E335 /* doodle04.png in Resources */,
+				7843DB42179231670033E335 /* doodle04@2x.png in Resources */,
+				7843DB43179231670033E335 /* doodle05.png in Resources */,
+				7843DB44179231670033E335 /* doodle05@2x.png in Resources */,
+				7843DB45179231670033E335 /* doodle06.png in Resources */,
+				7843DB46179231670033E335 /* doodle06@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

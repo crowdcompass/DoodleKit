@@ -10,6 +10,6 @@
 
 @protocol DPImageBoardDataSource <NSObject>
 
-- (UIImageView *)viewForIndex:(NSUInteger)index;
+- (CGRect)frameForIndex:(NSUInteger)index;
 
 @end

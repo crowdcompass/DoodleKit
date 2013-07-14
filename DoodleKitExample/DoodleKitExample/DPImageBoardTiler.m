@@ -30,6 +30,7 @@
     
     self = [super init];
     if (self) {
+        _tiledImages = [NSMutableDictionary dictionaryWithCapacity:4];
         _tileSize = CGSizeMake(768.f / 2.f, 960.f / 2.f);
         _originalImage = image;
         _userIndex = 0;
@@ -45,34 +46,47 @@
     for (NSUInteger i = 1; i <= 4; i++) {
         if (i == _userIndex) continue;
         
-        CGFloat x = (i == 0 || i == 2) ? 0.f : _tileSize.width;
-        CGFloat y = (i < 2) ? 0.f : _tileSize.height;
-        CGRect rectForIndex = CGRectMake(x, y, _tileSize.width, _tileSize.height);
-        [self tileRect:rectForIndex index:i];
+        [self tileRect:[self frameForIndex:i]
+                 index:i];
     }
 }
 
 - (void)tileRect:(CGRect)rect index:(NSUInteger)index {
     __weak DPImageBoardTiler *selfRef = self;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        @autoreleasepool {
-            selfRef.tiledImages[@(index)] = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(self.originalImage.CGImage, rect)];
-            @synchronized(selfRef.tiledImages) {
-                if (selfRef.tiledImages.count == 3u) {
-                    [selfRef.delegate imageTilerFinished:self];
-                }
+    __block BOOL done = NO;
+    dispatch_queue_t hiPriority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    dispatch_async(hiPriority, ^{
+    @autoreleasepool {
+        CGFloat scale = [[UIScreen mainScreen] scale];
+        CGRect scaledRect = CGRectMake(rect.origin.x * scale, rect.origin.y * scale, rect.size.width * scale, rect.size.height * scale);
+        selfRef.tiledImages[@(index)] = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(self.originalImage.CGImage, scaledRect)];
+        @synchronized(selfRef.tiledImages) {
+            if (selfRef.tiledImages.count == 3u) {
+                done = YES;
             }
         }
+        if (done) {
+            static dispatch_once_t onceToken;
+            //FIXME: hack preventing this from firing multiple times
+            dispatch_once(&onceToken, ^{
+                [selfRef.delegate imageTilerFinished:selfRef
+                                         tiledImages:selfRef.tiledImages];
+            });
+        }
+    }
+        
     });
-    
-    
 }
 
 #pragma mark - DPImageBoardDataSource
 
-- (UIImageView *)viewForIndex:(NSUInteger)index {
-    return self.tiledImages[@(index)];
+- (CGRect)frameForIndex:(NSUInteger)index {
+    CGFloat x = (index == 1 || index == 3) ? 0.f : _tileSize.width;
+    CGFloat y = (index <= 2) ? 0.f : _tileSize.height;
+    y += 44.f;
+    CGRect rectForIndex = CGRectMake(x, y, _tileSize.width, _tileSize.height);
+    return rectForIndex;
 }
 
 

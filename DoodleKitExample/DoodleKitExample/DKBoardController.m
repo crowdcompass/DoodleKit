@@ -7,11 +7,16 @@
 //
 
 #import "DKBoardController.h"
-#import "DPSwatchToolbar.h"
 #import <DoodleKit/DoodleKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface DKBoardController ()<DKDoodleViewDelegate, DPSwatchToolbarDelegate>
+#import "DPImageBoardTiler.h"
+
+#import "DPSwatchToolbar.h"
+
+@interface DKBoardController ()<DKDoodleViewDelegate, DPSwatchToolbarDelegate, DPImageBoardTilerDelegate>
+
+@property (nonatomic, strong) DPImageBoardTiler *tiler;
 
 @end
 
@@ -22,6 +27,13 @@
     [super viewDidLoad];
     [self addToolbar];
     [self addDoodleView];
+    
+    //TODO: random from a bunch of images, maybe image picker?
+    UIImage *toTile = [UIImage imageNamed:@"doodle01"];
+    _tiler = [[DPImageBoardTiler alloc] initWithImage:toTile delegate:self];
+    //TODO: hook up a real user index;
+    _tiler.userIndex = 1;
+    [_tiler tile];
 }
 
 - (BOOL)shouldAutorotate {
@@ -81,6 +93,22 @@
 - (void)doodlerDidSelectTrash
 {
 
+}
+
+#pragma mark DPImageBoardTiler
+
+- (void)imageTilerFinished:(DPImageBoardTiler *)tiler tiledImages:(NSDictionary *)images {
+    __weak DKBoardController *selfRef = self;
+    
+    for (NSNumber *indexKey in images) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = images[indexKey];
+            UIImageView *tileView = [[UIImageView alloc] initWithImage:image];
+            tileView.frame = [tiler frameForIndex:indexKey.unsignedIntegerValue];
+            NSLog(@"ADDING TILE %@", tileView.description);
+            [selfRef.view addSubview:tileView];
+        });
+    }
 }
 
 @end

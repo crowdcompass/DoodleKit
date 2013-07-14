@@ -14,6 +14,7 @@
 
 @interface DPImageBoardTiler : NSObject <DPImageBoardDataSource>
 
+//NOT ZERO INDEXED
 @property (nonatomic, assign) NSUInteger userIndex;
 
 @property (nonatomic, weak) id<DPImageBoardTilerDelegate> delegate;
@@ -26,6 +27,6 @@
 
 @protocol DPImageBoardTilerDelegate <NSObject>
 
-- (void)imageTilerFinished:(DPImageBoardTiler *)tiler;
+- (void)imageTilerFinished:(DPImageBoardTiler *)tiler tiledImages:(NSDictionary *)images;
 
 @end

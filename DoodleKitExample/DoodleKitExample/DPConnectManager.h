@@ -15,13 +15,14 @@
 - (void)didUpdatePlayers:(NSArray *)players;
 - (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 - (void)didUpdatePlayer:(NSString *)playerID withState:(GKPlayerConnectionState)state;
+- (void)didCreateMatch:(GKMatch *)match;
 
 @end
 
 @interface DPConnectManager : NSObject <GKMatchDelegate>
 
 @property (nonatomic, weak) id<DPConnectManagerDelegate> delegate;
-@property (nonatomic, strong) NSMutableArray *players; // an array of GKPlayers
+@property (nonatomic, strong) NSMutableDictionary *players; // an array of GKPlayers
 
 + (DPConnectManager *)sharedConnectManager;
 - (void)startAuthenticatingLocalPlayer;

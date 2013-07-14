@@ -42,7 +42,7 @@ static const int MAX_PLAYERS = 2;
     self = [super init];
     if (self) {
         self.playersToInvite = [NSMutableArray array];
-        self.players = [NSMutableArray array];
+        self.players = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -110,15 +110,25 @@ static const int MAX_PLAYERS = 2;
             [self.playersToInvite addObject:playerID];
             [self fetchDataForPlayer:playerID];
         }
+        else {
+            [self.playersToInvite removeObject:playerID];
+            
+            [GKPlayer loadPlayersForIdentifiers:[NSArray arrayWithObject:playerID] withCompletionHandler:^(NSArray *players, NSError *error) {
+                [self.players removeObjectForKey:playerID];
+                if (_delegate && [_delegate respondsToSelector:@selector(didUpdatePlayers:)]) {
+                    [_delegate didUpdatePlayers:[_players allValues]];
+                }
+            }];
+        }
     }];
 }
 
 - (void)fetchDataForPlayer:(NSString *)playerID {
     [GKPlayer loadPlayersForIdentifiers:[NSArray arrayWithObject:playerID] withCompletionHandler:^(NSArray *players, NSError *error) {
         NSLog(@"Received players %@", players);
-        [self.players addObjectsFromArray:players];
+        [self.players setObject:[players lastObject] forKey:playerID];
         if (_delegate && [_delegate respondsToSelector:@selector(didUpdatePlayers:)]) {
-            [_delegate didUpdatePlayers:_players];
+            [_delegate didUpdatePlayers:[_players allValues]];
         }
     }];
 }
@@ -156,7 +166,9 @@ static const int MAX_PLAYERS = 2;
         }
         if (match) {
             self.match = match;
-            self.match.delegate = self;            
+            self.match.delegate = self;
+            
+            [_delegate didCreateMatch:self.match];
         }
         
         NSLog(@"Expected players %d", match.expectedPlayerCount);

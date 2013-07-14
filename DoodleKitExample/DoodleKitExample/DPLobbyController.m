@@ -105,6 +105,10 @@
     
 #warning Modify this to set players required to 4
     [self.lobbyView.button setEnabled:([_allPlayers count] > 1)];
+    
+    if (([_allPlayers count] > 1)) {
+        [self.connectManager createMatch];
+    }
 }
 
 - (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
@@ -115,6 +119,13 @@
     NSLog(@"didUpdatePlayer");
 }
 
+- (void)didCreateMatch:(GKMatch *)match {
+    DKBoardController *boardController = [[DKBoardController alloc] init];
+    boardController.match = match;
+    
+    [self presentViewController:boardController animated:NO completion:nil];
+
+}
 
 
 @end

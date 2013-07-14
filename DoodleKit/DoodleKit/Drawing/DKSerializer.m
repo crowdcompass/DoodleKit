@@ -66,6 +66,9 @@
     NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:strokeDef];
     [_strokeDefinition encodeWithCoder:coder];
     [coder finishEncoding];
+
+    _toolType = DKDoodleToolTypeNone;
+
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
     [messenger sendDataToHost:strokeDef withFlag:DoodleFlag];
 }
@@ -75,7 +78,6 @@
     NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     __block DKDrawingStrokeDefinition *strokeDefinitionAgain = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];
     
-    _toolType = DKDoodleToolTypeNone;
     _initialPoint = CGPointMake(0.f, 0.f);
     
     // Send to delegate

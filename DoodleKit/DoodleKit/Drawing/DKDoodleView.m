@@ -17,7 +17,7 @@
 #define kDefaultLineWidth       10.0f
 #define kDefaultLineAlpha       1.0f
 
-#define kDefaultFrameSpliceRate 1
+#define kDefaultFrameSpliceRate 10
 
 // experimental code
 #define PARTIAL_REDRAW          0

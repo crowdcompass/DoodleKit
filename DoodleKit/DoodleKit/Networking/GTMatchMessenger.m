@@ -93,6 +93,7 @@ static GTMatchMessenger *shared = nil;
     NSError *error;
     if (!self.isHost) {
         [self.match sendData:flaggedData toPlayers:@[ self.hostPlayerID ] withDataMode:GKMatchSendDataReliable error:&error];
+
         if (error) { assert(0); }
     }
 }

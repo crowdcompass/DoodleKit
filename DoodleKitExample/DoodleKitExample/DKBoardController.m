@@ -18,7 +18,6 @@
 @property (nonatomic) GKMatch *match;
 
 @property (nonatomic) GTHostNegotiator *negotiator;
-@property (nonatomic) GTMatchMessenger *messenger;
 @end
 
 @implementation DKBoardController
@@ -79,18 +78,19 @@
     if (match.expectedPlayerCount == 0) {
         [self dismissViewControllerAnimated:YES completion:nil];
 
-        GTMatchMessenger *messenger = [[GTMatchMessenger alloc] initWithMatch:self.match];
-        self.messenger = messenger;
-        self.drawingView.serializer.messenger = self.messenger;
-        self.messenger.serializer = self.drawingView.serializer;
+        GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+        messenger.match = self.match;
+        
+        self.drawingView.serializer.messenger = messenger;
+        messenger.serializer = self.drawingView.serializer;
 
         GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
         negotiator.delegate = self;
         negotiator.match = self.match;
-        negotiator.messenger = self.messenger;
+        negotiator.messenger = messenger;
         //self.match.delegate = negotiator;
 
-        self.messenger.negotiator = negotiator;
+        messenger.negotiator = negotiator;
 
         self.negotiator = negotiator;
         [self.negotiator start];
@@ -101,7 +101,8 @@
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID
 {
     NSLog(@"I AM RECEIVING DATA");
-    [self.messenger match:match didReceiveData:data fromPlayer:playerID];
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    [messenger match:match didReceiveData:data fromPlayer:playerID];
 }
 
 

@@ -17,7 +17,7 @@
 
 @interface GTMatchMessenger : NSObject
 
-- (id)initWithMatch:(GKMatch *)match;
++ (id)sharedMessenger;
 
 - (void)sendInternalDataToAllPlayers:(NSData *)data;
 - (void)sendInternalDataToHost:(NSData *)data;
@@ -31,5 +31,6 @@
 @property (nonatomic, copy) NSString *hostPlayerID;
 @property (nonatomic, weak) GTHostNegotiator *negotiator;
 @property (nonatomic, weak) DKSerializer *serializer;
+@property (nonatomic) GKMatch *match;
 
 @end

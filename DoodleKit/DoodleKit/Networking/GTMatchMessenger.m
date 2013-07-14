@@ -12,17 +12,19 @@ static NSInteger const InternalFlag = 1 << 0;
 static NSInteger const DoodleFlag = 1 << 1;
 
 @interface GTMatchMessenger ()
-@property (nonatomic) GKMatch *match;
+
 @end
+
+static GTMatchMessenger *shared = nil;
 
 @implementation GTMatchMessenger
 
-- (id)initWithMatch:(GKMatch *)match {
-    self = [super init];
-    if (self) {
-        self.match = match;
-    }
-    return self;
++ (id)sharedMessenger {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shared = [[self alloc] init];
+    });
+    return shared;
 }
 
 - (NSInteger)flagFromPayload:(NSData *)payload {

@@ -363,6 +363,7 @@
     // init the bezier path
 
     id<ACEDrawingTool> currentTool = [self toolWithCurrentSettingsAndType:strokeDefinition.toolType];
+    if (!currentTool) { return; }
     currentTool.lineWidth = strokeDefinition.penWidth;
     currentTool.lineColor = strokeDefinition.penColor;
     currentTool.lineAlpha = strokeDefinition.penAlpha;

@@ -159,6 +159,9 @@
 - (void)handleChangedDoodlerDuration {
     if (self.playingAgain == YES) {
         [self.drawingView removeFromSuperview];
+        [self.tileViews each:^(DKPlayerBoardView *v) {
+            [v removeFromSuperview];
+        }];
         [self setBoard];
         self.playingAgain = NO;
     }

@@ -27,7 +27,6 @@
 - (void)animateSwatchesIn;
 - (void)animateTimerAndTrashIn;
 - (void)swatchSelected:(id)swatch;
-- (void)didSelectEraser;
 - (void)didTrash;
 
 @end

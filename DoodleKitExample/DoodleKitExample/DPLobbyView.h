@@ -15,5 +15,6 @@
 @property (nonatomic, strong) DPStartDoodleButton *button;
 
 - (void)setPlayerName:(NSString *)name forPlayerIndex:(NSUInteger)playerIndex;
+- (void)setPlayerAvatar:(UIImage *)image forPlayerIndex:(NSUInteger)playerIndex;
 
 @end

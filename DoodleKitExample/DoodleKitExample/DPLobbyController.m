@@ -83,6 +83,11 @@
 - (void)didAuthenticateLocalPlayer:(GKLocalPlayer *)player {
     self.localPlayer = player;
     [self.lobbyView setPlayerName:player.alias forPlayerIndex:1];
+    //[player loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
+    //    [self.lobbyView setPlayerAvatar:photo forPlayerIndex:1];
+    //    NSLog(@"Got Photo");
+    //}];
+    
     //self.
     //playe
 }
@@ -98,6 +103,11 @@
     __block NSUInteger lastIdx;
     [_allPlayers enumerateObjectsUsingBlock:^(GKPlayer *player, NSUInteger idx, BOOL *stop) {
         [self.lobbyView setPlayerName:player.alias forPlayerIndex:(idx + 1)];
+        //[player loadPhotoForSize:GKPhotoSizeSmall withCompletionHandler:^(UIImage *photo, NSError *error) {
+        //    [self.lobbyView setPlayerAvatar:photo forPlayerIndex:1];
+        //    NSLog(@"Got Photo");
+        //}];
+        
         if ((idx + 1) > 4) {
             lastIdx = idx;
             *stop = YES;

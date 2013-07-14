@@ -86,6 +86,11 @@ const CGFloat kPartyButtonYLandscape = 580.f;
     [view setName:name];
 }
 
+- (void)setPlayerAvatar:(UIImage *)image forPlayerIndex:(NSUInteger)playerIndex {
+    DPLobbyAvatarView *view = [self.avatarsView avatarForPlayerNumber:playerIndex];
+    [view.avatarView setImage:image];
+    [view.avatarView setNeedsDisplay];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

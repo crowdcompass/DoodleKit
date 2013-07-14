@@ -67,11 +67,6 @@ static GTMatchMessenger *shared = nil;
 //    assert(self.match);
 
     NSData *flaggedData = [self payloadForData:data withFlag:flag];
-    if (flag == DoodleFlag) {
-        NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
-        [receiver match:self.match didReceiveData:data fromPlayer:nil];
-    }
-
     NSError *error;
     [self.match sendDataToAllPlayers:flaggedData withDataMode:GKMatchSendDataReliable error:&error];
     if (error) { assert(0); }
@@ -81,14 +76,6 @@ static GTMatchMessenger *shared = nil;
 //    assert(self.match);
 
     NSData *flaggedData = [self payloadForData:data withFlag:flag];
-
-    if (flag == DoodleFlag && self.isHost) {
-        NSError *error;
-        [self.match sendDataToAllPlayers:flaggedData withDataMode:GKMatchSendDataReliable error:&error];
-        NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
-        [receiver match:self.match didReceiveData:data fromPlayer:nil];
-        return;
-    }
 
     NSError *error;
     if (!self.isHost) {
@@ -103,9 +90,6 @@ static GTMatchMessenger *shared = nil;
     NSInteger flag = [self flagFromPayload:data];
     data = [self dataFromPayload:data];
 
-    if (flag == DoodleFlag && self.isHost) {
-        [self sendDataToAllPlayers:data withFlag:DoodleFlag];
-    }
 
     NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
     [receiver match:match didReceiveData:data fromPlayer:playerID];

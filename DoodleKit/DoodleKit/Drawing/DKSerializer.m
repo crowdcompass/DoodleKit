@@ -70,7 +70,8 @@
     _toolType = DKDoodleToolTypeNone;
 
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
-    [messenger sendDataToHost:strokeDef withFlag:DoodleFlag];
+    [messenger sendDataToAllPlayers:strokeDef withFlag:DoodleFlag];
+    [self match:nil didReceiveData:strokeDef fromPlayer:nil];
 }
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;

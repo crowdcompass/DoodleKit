@@ -152,6 +152,7 @@
     self.drawingView = doodleView;
     self.drawingView.delegate = self;
     self.drawingView.activeArea = activeArea;
+    self.drawingView.userInteractionEnabled = NO;
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.drawingView];
@@ -218,6 +219,7 @@
     [self.tileViews each: ^(id obj) {
         [obj setReady];
     }];
+    self.drawingView.userInteractionEnabled = YES;
 }
 
 @end

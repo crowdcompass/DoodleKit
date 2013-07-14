@@ -23,7 +23,6 @@
 @property (nonatomic, assign) CGFloat lineAlpha;
 @property (nonatomic, assign) CGRect activeArea;
 
-
 // get the current drawing
 @property (nonatomic, strong, readonly) UIImage *image;
 @property (nonatomic, readonly) NSUInteger undoSteps;

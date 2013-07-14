@@ -13,6 +13,7 @@
 
 NSInteger const InternalFlag = 1;
 NSInteger const DoodleFlag = 2;
+NSInteger const DemoLogicFlag = 3;
 
 @interface GTMatchMessenger ()
 @property (nonatomic) NSMutableDictionary *channelLookup;
@@ -29,6 +30,10 @@ static GTMatchMessenger *shared = nil;
         shared = [[self alloc] init];
     });
     return shared;
+}
+
+- (BOOL)isHost {
+    return self.hostPlayerID == nil;
 }
 
 - (id)init {
@@ -81,9 +86,8 @@ static GTMatchMessenger *shared = nil;
 - (void)sendDataToHost:(NSData *)data withFlag:(NSInteger)flag {
 //    assert(self.match);
 
-    data = [self payloadForData:data withFlag:flag];
+    NSData *flaggedData = [self payloadForData:data withFlag:flag];
 
-    NSLog(@"Sending data to all players");
     NSError *error;
 
     assert(0);
@@ -95,8 +99,9 @@ static GTMatchMessenger *shared = nil;
     NSInteger flag = [self flagFromPayload:data];
     data = [self dataFromPayload:data];
 
+
     NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
-    [receiver match:match didReceiveData:data fromPlayer:playerID];
+    [receiver didReceiveData:data fromPlayer:playerID];
 }
 
 @end

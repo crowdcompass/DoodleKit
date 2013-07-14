@@ -17,7 +17,7 @@
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch;
 - (void)doodlerDidSelectEraser;
 - (void)doodlerDidSelectTrash;
-- (void)doodlerDidChangeDuration;
+- (void)doodlerDidChangeDuration:(float)duration;
 
 @end
 
@@ -29,6 +29,7 @@
 
 - (void)showToolbar;
 - (void)startCountdown;
+- (void)setDuration:(float)duration;
 
 
 @end

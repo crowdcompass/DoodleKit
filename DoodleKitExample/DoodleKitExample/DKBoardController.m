@@ -36,6 +36,7 @@
         self.playerCount = 2;
         self.tileViews = [NSMutableArray arrayWithCapacity:4];
     }
+    [[GTMatchMessenger sharedMessenger] registerDataChannelWithFlag:DemoLogicFlag object:self];
     return self;
 }
 
@@ -62,14 +63,10 @@
     //if (_match.expectedPlayerCount == 0) {
         GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
         
-        messenger.serializer = self.drawingView.serializer;
-        
         GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
         negotiator.delegate = self;
         negotiator.match = self.match;
         //self.match.delegate = negotiator;
-        
-        messenger.negotiator = negotiator;
         
         self.negotiator = negotiator;
         [self.negotiator start];
@@ -93,7 +90,7 @@
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error
 {
-
+    
 }
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)match
@@ -105,14 +102,9 @@
 
         GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
         
-        messenger.serializer = self.drawingView.serializer;
-
         GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
         negotiator.delegate = self;
         negotiator.match = self.match;
-        //self.match.delegate = negotiator;
-
-        messenger.negotiator = negotiator;
 
         self.negotiator = negotiator;
         [self.negotiator start];
@@ -171,6 +163,13 @@
     
 }
 
+- (void)doodlerDidChangeDuration:(float)duration {
+    NSLog(@"doodlerDidChangeDuration");
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    
+    [messenger sendDataToAllPlayers:[NSData dataWithBytes:&duration length:sizeof(float)] withFlag:DemoLogicFlag];
+}
+
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch
 {
     self.drawingView.lineWidth = 6.0f;
@@ -212,12 +211,22 @@
     NSLog(@"didBecomeHost");
 }
 
+
 - (void)toolbarWarmupDidFinish
 {
     [self.tileViews each: ^(id obj) {
         [obj setReady];
     }];
     self.drawingView.userInteractionEnabled = YES;
+}
+
+- (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID
+{
+    float duration;
+    [data getBytes:&duration length:sizeof(float)];
+    [self.toolbar setDuration:duration];
+    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"matchDidReceiveData: %@", dataString);
 }
 
 @end

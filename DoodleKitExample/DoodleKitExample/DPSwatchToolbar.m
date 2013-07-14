@@ -292,24 +292,31 @@
 #pragma mark Button Actions
 
 - (void)didChangeDuration:(id)button {
+    float duration = 0.f;
     if ([button isEqual:_fifteenButton]) {
         NSLog(@"duration changed to 15");
-        _progressView.countdownDuration = 15.0;
+        duration = 15.0;
     } else if ([button isEqual:_thirtyButton]) {
         NSLog(@"duration changed to 30");
-        _progressView.countdownDuration = 30.0;
+        duration = 30.0;
     } else if ([button isEqual:_fortyFiveButton]) {
         NSLog(@"duration changed to 45");
-        _progressView.countdownDuration = 45.0;
+        duration = 45.0;
     }
+   
+    [self setDuration:duration];
     
-    if (_delegate && [_delegate respondsToSelector:@selector(doodlerDidChangeDuration)]) {
-        [_delegate doodlerDidChangeDuration];
+    if (_delegate && [_delegate respondsToSelector:@selector(doodlerDidChangeDuration:)]) {
+        [_delegate doodlerDidChangeDuration:_progressView.countdownDuration];
     }
-    
-    [self animateDurationButtonsOut];
 }
 
+- (void)setDuration:(float)duration
+{
+    _progressView.countdownDuration = duration;
+    [self animateDurationButtonsOut];
+
+}
 
 //////////////////////////////////////////////////////////////////////
 #pragma mark -

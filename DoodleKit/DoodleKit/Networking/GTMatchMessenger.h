@@ -12,12 +12,13 @@
 
 extern NSInteger const InternalFlag;
 extern NSInteger const DoodleFlag;
+extern NSInteger const DemoLogicFlag;
 
 @class GTHostNegotiator;
 @class DKSerializer;
 
 @protocol GTMatchMessengerReceiver
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
+- (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 @end
 
 @interface GTMatchMessenger : NSObject
@@ -33,7 +34,7 @@ extern NSInteger const DoodleFlag;
 
 
 @property (nonatomic, copy) NSString *hostPlayerID;
-@property (nonatomic, weak) GTHostNegotiator *negotiator;
-@property (nonatomic, weak) DKSerializer *serializer;
+@property (nonatomic) GKMatch *match;
+@property (nonatomic, getter = isHost) BOOL host;
 
 @end

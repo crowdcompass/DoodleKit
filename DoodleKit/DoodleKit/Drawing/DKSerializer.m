@@ -69,15 +69,16 @@
     NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:strokeDef];
     [_strokeDefinition encodeWithCoder:coder];
     [coder finishEncoding];
-    
+
     _strokeDefinition = nil;
     _dataPoints = nil;
     
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
     [messenger sendDataToAllPlayers:strokeDef withFlag:DoodleFlag];
+    [self didReceiveData:strokeDef fromPlayer:nil];
 }
 
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
+- (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 {
     NSKeyedUnarchiver *decodeer = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     __block DKDrawingStrokeDefinition *strokeDefinition = [[DKDrawingStrokeDefinition alloc] initWithCoder:decodeer];

@@ -16,6 +16,7 @@ enum DPPieProgressViewState {
     };
 
 #define kCountdownTimeInSeconds 30.0
+#define kCountdownTimeFrequency 25.0
 
 #define kPieRedColor [UIColor colorWithRed:240.0/255.0 green:70.0/255.0 blue:50.0/255.0 alpha:1.0]
 #define kPieYellowColor [UIColor colorWithRed:250.0/255.0 green:208.0/255.0 blue:60.0/255.0 alpha:1.0]
@@ -30,6 +31,7 @@ enum DPPieProgressViewState {
 
 @property (nonatomic) enum DPPieProgressViewState warmingUpState;
 @property (nonatomic, strong) __block NSTimer *countdownTimer;
+@property (nonatomic) NSTimeInterval startTime;
 
 - (void)warmUp;
 - (void)didWarmUp;
@@ -50,7 +52,6 @@ enum DPPieProgressViewState {
 	self.pieFillColor = self.pieBorderColor;
     self.warmingUpState = PieReady;
     self.pieBackgroundColor = kPieRedColor;
-    self.countdownDuration = kCountdownTimeInSeconds;
     [self.countdownTimer invalidate];
     self.countdownTimer = nil;
 }
@@ -129,16 +130,21 @@ enum DPPieProgressViewState {
 }
 
 - (void)startCountdown {
-     _countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 block:^(NSTimeInterval time) {
-        self.progress = self.progress + (1.0/(_countdownDuration*60.0));
-        if (self.progress == 1.0f) {
-            [_countdownTimer invalidate];
-            _countdownTimer = nil;
-            if (_delegate && [_delegate respondsToSelector:@selector(pieTimerDidExpire)]) {
-                [_delegate pieTimerDidExpire];
-                [self reset];
-            }
-        }
+    self.startTime = CACurrentMediaTime();
+     _countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/kCountdownTimeFrequency block:^(NSTimeInterval time) {
+         NSTimeInterval currentTime = CACurrentMediaTime();
+         double timeElapsed = currentTime - _startTime;
+         float percentage = ((timeElapsed) / self.countdownDuration);
+         self.progress = percentage;
+         NSLog(@"Percentage %f, time elapsed: %f, total time: %f", percentage, timeElapsed, self.countdownDuration);
+         if (self.progress >= 1.0f) {
+             [_countdownTimer invalidate];
+             _countdownTimer = nil;
+             if (_delegate && [_delegate respondsToSelector:@selector(pieTimerDidExpire)]) {
+                 [_delegate pieTimerDidExpire];
+                 [self reset];
+             }
+         }
         
     } repeats:YES];
 }

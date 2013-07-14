@@ -10,17 +10,34 @@
 
 #import <GameKit/GameKit.h>
 
+@interface DKDoodleArtist : NSObject
+
+@property (nonatomic, copy) NSString *displayName;
+@property (nonatomic, copy) NSString *playerID;
+@property (nonatomic, copy) NSString *peerID;
+
+@end
+
 @protocol DKDoodleSessionManagerDelegate <NSObject>
+
+- (void)didAuthenticateLocalPlayer:(DKDoodleArtist *)doodleArtist;
+- (void)artistDidConnect:(DKDoodleArtist *)doodleArtist;
+- (void)artistDidDisconnect:(DKDoodleArtist *)doodleArtist;
 
 @end
 
 @interface DKDoodleSessionManager : NSObject  <GKSessionDelegate>
+
+@property (nonatomic, weak) id<DKDoodleSessionManagerDelegate> delegate;
+@property (nonatomic, strong) DKDoodleArtist *doodleArtist;
 
 + (instancetype)sharedManager;
 - (void)start;
 - (void)poll;
 - (void)createMatch;
 
-@property (nonatomic, weak) id<DKDoodleSessionManagerDelegate> delegate;
+- (void)startAuthenticatingLocalPlayer;
+
 
 @end
+

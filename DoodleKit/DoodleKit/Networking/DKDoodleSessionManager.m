@@ -21,6 +21,10 @@ static NSInteger const playerCount = 3;
 
 static DKDoodleSessionManager *sharedInstance;
 
+@implementation DKDoodleArtist : NSObject
+
+@end
+
 @interface DKDoodleSessionManager ()
 @property (nonatomic, strong) GKSession *session;
 @property (nonatomic, copy) NSString *hostID;
@@ -98,9 +102,39 @@ static DKDoodleSessionManager *sharedInstance;
     return self;
 }
 
+/**
+   Authenticate the local user. If the user needs to sign in to GameCenter,
+  + then the GK UI is presented modally using the Application handle
+  + */
+- (void)startAuthenticatingLocalPlayer {
+    __weak GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    [localPlayer setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
+        // We need to auth
+        if (viewController) {
+            UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+            [rootViewController presentViewController:viewController animated:YES completion:nil];
+        }
+        
+        // We are authenticated
+        if (localPlayer.authenticated) {
+            DKDoodleArtist *doodleArtist = [[DKDoodleArtist alloc] init];
+            doodleArtist.displayName = localPlayer.alias;
+            doodleArtist.playerID = localPlayer.playerID;
+            self.doodleArtist = doodleArtist;
+            
+            if (_delegate && [_delegate respondsToSelector:@selector(didAuthenticateLocalPlayer:)]) {
+                [_delegate didAuthenticateLocalPlayer:doodleArtist];
+            }
+
+            [self start];
+            
+        }
+    }];
+}
+
 - (void)start {
     GKSession *session = [[GKSession alloc] initWithSessionID:@"com.crowdcompass.DoodleParty"
-                                                  displayName:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
+                                                  displayName:_doodleArtist.displayName
                                                   sessionMode:GKSessionModePeer];
 
     session.delegate = self;

@@ -142,7 +142,7 @@
 - (void)toolbarCountdownDidFinish
 {
     self.playingAgain = YES;
-    self.drawingView.userInteractionEnabled = NO;
+    self.drawingView.activeArea = CGRectMake(0.f, 0.f, 0.f, 0.f);
     [self.tileViews each: ^(id obj) {
         [obj revealPermanently];
     }];

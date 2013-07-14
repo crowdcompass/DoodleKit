@@ -24,6 +24,7 @@
     self.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.1f];
     [self addTarget:self action:@selector(fadeOut) forControlEvents:UIControlEventTouchDown];
     [self addTarget:self action:@selector(fadeIn) forControlEvents:UIControlEventTouchUpInside];
+    [self addTarget:self action:@selector(fadeIn) forControlEvents:UIControlEventTouchDragExit];
 }
 
 - (void)fadeOut {
@@ -49,6 +50,9 @@
 
 - (void)revealPermanently
 {
+    [self removeTarget:self action:@selector(fadeOut) forControlEvents:UIControlEventTouchDown];
+    [self removeTarget:self action:@selector(fadeIn) forControlEvents:UIControlEventTouchUpInside];
+    [self removeTarget:self action:@selector(fadeIn) forControlEvents:UIControlEventTouchDragExit];
     [UIView animateWithDuration:.25
                      animations:^{
                          self.alpha = 0.f;

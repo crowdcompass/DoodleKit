@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GameKit/GameKit.h>
 #import <DoodleKit/DoodleKit.h>
 
 @class DKDoodleView;
@@ -18,7 +17,6 @@
 @property (weak, nonatomic) DPSwatchToolbar *toolbar;
 @property (weak, nonatomic) DKDoodleView *drawingView;
 
-@property (nonatomic) GKMatch *match;
-
+- (id)initWithArtists:(NSArray *)artists;
 
 @end

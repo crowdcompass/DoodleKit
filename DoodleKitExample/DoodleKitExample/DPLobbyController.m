@@ -145,7 +145,7 @@
 }
 
 - (void)didStartGame {
-    DKBoardController *boardController = [[DKBoardController alloc] init];
+    DKBoardController *boardController = [[DKBoardController alloc] initWithArtists:_doodleArtists];
     [self presentViewController:boardController animated:NO completion:nil];
 }
 

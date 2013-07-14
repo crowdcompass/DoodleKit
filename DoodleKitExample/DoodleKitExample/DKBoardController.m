@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) DPImageBoardTiler *tiler;
 
+@property (nonatomic, strong) NSArray *players;
 @property (nonatomic) NSInteger playerCount;
 @property (nonatomic, strong) NSMutableArray *tileViews;
 @property (nonatomic) CGRect localPlayerArea;
@@ -33,13 +34,13 @@
 
 @implementation DKBoardController
 
-- (id)init
-{
+- (id)initWithArtists:(NSArray *)artists {
     self = [super init];
     if (self) {
-        self.playerCount = 2;
+        self.playerCount = [artists count];
         self.tileViews = [NSMutableArray arrayWithCapacity:4];
         self.playingAgain = NO;
+        self.players = artists;
     }
     [[GTMatchMessenger sharedMessenger] registerDataChannelWithFlag:DemoLogicFlag object:self];
     return self;
@@ -50,10 +51,15 @@
     [super viewDidLoad];
     [self addToolbar];
     
-    // Begin fake player data
-    NSString *localPlayerID = @"G:12347";
-    NSArray *sortedPlayerIDs = [NSArray arrayWithObjects:@"G:12345",@"G:12346",@"G:12347",@"G:12348", nil];
-    self.localPlayerIndex = [sortedPlayerIDs indexOfObject:localPlayerID];
+    __block NSUInteger indexOfLocalPlayer;
+    [_players enumerateObjectsUsingBlock:^(DKDoodleArtist *artist, NSUInteger idx, BOOL *stop) {
+        if (artist.isLocal) {
+            indexOfLocalPlayer = idx;
+            *stop = YES;
+        }
+    }];
+    
+    self.localPlayerIndex = indexOfLocalPlayer;
     // End fake player data
 
     self.tileSize = CGSizeMake(768.f / 2.f, 960.f / 2.f);
@@ -80,21 +86,6 @@
     [_tiler tile];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    self.match.delegate = self;
-    //if (_match.expectedPlayerCount == 0) {
-        GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
-        
-        GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
-        negotiator.delegate = self;
-        negotiator.match = self.match;
-        //self.match.delegate = negotiator;
-        
-        self.negotiator = negotiator;
-        [self.negotiator start];
-        
-    //}
-}
 - (BOOL)shouldAutorotate {
     return NO;
 }
@@ -103,44 +94,6 @@
 {
     return UIInterfaceOrientationMaskPortrait;
 }
-
-- (void)matchmakerViewControllerWasCancelled:(GKMatchmakerViewController *)viewController
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-}
-
-- (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error
-{
-    
-}
-
-- (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)match
-{
-    self.match = match;
-    self.match.delegate = self;
-    if (match.expectedPlayerCount == 0) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-
-        GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
-        
-        GTHostNegotiator *negotiator = [[GTHostNegotiator alloc] init];
-        negotiator.delegate = self;
-        negotiator.match = self.match;
-
-        self.negotiator = negotiator;
-        [self.negotiator start];
-
-    }
-}
-
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID
-{
-    NSLog(@"I AM RECEIVING DATA");
-    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
-    [messenger match:match didReceiveData:data fromPlayer:playerID];
-}
-
 
 - (UILabel *)labelWithText:(NSString *)text {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];

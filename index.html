@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Knewave' rel='stylesheet' type='text/css'>
+    
+    <link rel="stylesheet" type="text/css" href="css/doodlekit.css">
+    
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="example">
+        <img src="images/ipad.png" alt="Doodle Party">
+      </div>
+      
+      <hr>
+      
+      <div class="row">
+        <div class="col-2a">
+          <div class="padding">
+            <h1>DoodleKit</h1>
+            <p class="tagline">Social drawing for iOS devices.</p>
+            <p>
+              <a class="button" href="https://github.com/crowdcompass/DoodleKit">View on Github</a>
+            </p>
+            <p>DoodleKit manages up to four users drawings on a single canvas, allowing doodlers to create and share content across their devices.</p>
+            <p>A demo app, Doodle Party, is included in the repository.</p>
+            <p>Developed with care and exhaustion at <a href="http://www.iosdevcamp.org">iOSDevCamp 2013</a>.</p>
+            <a href="http://www.iosdevcamp.org">
+              <img src="images/iosdevcamp.png" alt="iOSDevCamp" style="margin-top:10px">
+            </a>
+          </div>
+        </div>
+        
+        <div class="col-2b">
+          <div class="padding setup">
+            <h3>Install via <a href="http://cocoapods.org">Cocoapods</a></h3>
+            <ol>
+              <li>Add this to your Podfile:
+                <pre>pod 'DoodleKit', git https://github.com/crowdcompass.com/DoodleKit.git</pre></li>
+              <li>Import the DoodleKit header.
+                <pre>#import &lt;DoodleKit/DoodleKit.h&gt;</pre>
+              </li>
+              <li>Add the drawing view to your view.
+                <pre>
+DKDoodleView *doodleView = [[DKDoodleView alloc] initWithFrame:theFrame];
+doodleView.delegate = self;
+[parentView addSubview:doodleView];
+                </pre>
+              </li>
+              <li>Set the tool properties on doodleView, this controls the drawing paths.
+                <pre>
+doodleView.toolType = DKDoodleToolTypePen;
+doodleView.lineWidth = 6.0f;
+doodleView.lineColor = [UIColor greenColor];
+                </pre>
+              </li>
+            </ol>
+            
+            <h3>Adding Networking</h3>
+            <ol>
+              <li>Configure the iOS app in iTunes Connect to use GameCenter.</li>
+              <li>Initialize the <code>DKDoodleSessionManager</code>
+                <pre>DKDoodleSessionManager *sessionManager = [DKDoodleSessionManager sharedManager];</pre>
+              </li>
+              <li>Authenticate the player in GameCenter.
+                <pre>[sessionManager startAuthenticatingLocalPlayer];</pre>
+              </li>
+              <li>Implement the <code>DKDoodleSessionManager</code> delegate protocol, in order to display connectivity status. <em>This is optional.</em></li>
+              <li>Implement <code>didStartGame</code> protocol method. This will launch a ViewController that has a DKDoodleView on the view. The view will automatically render drawing on all connected devices.</li>
+            </ol>
+            
+          </div>
+        </div>
+      </div>
+        
+    </div>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+  padding: 10px 0 50px 0;
+  margin: 0;
+}
+
+h1 {
+  font-family: 'Shadows Into Light', cursive;
+/*  font-family: 'Knewave', cursive;*/
+  font-size: 92px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: 24px;
+  margin-top: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 18px;
+  margin-top: 16px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+a {
+  color: #8972ab;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.example img {
+  margin-bottom:10px;
+}
+
+.tagline {
+  margin-bottom: 20px;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 1.4;
+  color: #666;
+}
+
+div {
+  display:block;
+}
+
+.setup {
+  margin-top: 40px;
+}
+
+ol {
+  -webkit-padding-start: 24px;
+}
+
+code, pre {
+  background-color: #f2f9f5;
+  border-radius: 0;
+  color: #a28dc1;
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+  padding: 2px 4px;
+  font-size: 90%;
+  white-space: pre;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  
+}
+
+pre {
+  width: 390px;
+}
+
+hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #fff;
+  height: 0;
+  display: block;
+  -webkit-margin-before: 0.5em;
+  -webkit-margin-after: 0.5em;
+  -webkit-margin-start: auto;
+  -webkit-margin-end: auto;
+}
+
+.button {
+  display: block;
+  width: 98%;
+  padding: 14px 0;
+  font-size: 18px;
+  border-radius: 0;
+  background-color: #a28dc1;
+  border-color: #8972ab;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  margin-bottom:20px;
+}
+.button:hover {
+  background-color: #8972ab;
+}
+
+.button:active {
+  background-color: #8972ab;
+}
+
+.row {
+}
+
+.row::before, .row::after {
+  content: " ";
+  display: table;
+}
+
+.row::after {
+  clear: both;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.container::after {
+  clear:both;
+}
+
+.col-2 {
+  width: 50%;
+  float:left;
+  position: relative;
+  min-height: 1px;
+}
+.col-2a {
+  width: 42%;
+  float:left;
+  position: relative;
+  min-height: 1px;
+}
+.col-2b {
+  width: 58%;
+  float:left;
+  position: relative;
+  min-height: 1px;
+}
+
+.padding {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+

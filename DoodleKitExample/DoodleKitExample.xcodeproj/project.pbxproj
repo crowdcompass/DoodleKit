@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		068CBCC0179286000036DA79 /* DKPlayerBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 068CBCBF179286000036DA79 /* DKPlayerBoardView.m */; };
 		06F3CF571791DF6300E27A07 /* DKBoardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06F3CF561791DF6300E27A07 /* DKBoardController.m */; };
 		5A6985D11791096B009542EE /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6985D01791096B009542EE /* SSPieProgressView.m */; };
 		5ACB97301791253A00EC86EF /* DPSwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACB972F1791253A00EC86EF /* DPSwatch.m */; };
@@ -98,6 +99,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		068CBCBE179286000036DA79 /* DKPlayerBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKPlayerBoardView.h; sourceTree = "<group>"; };
+		068CBCBF179286000036DA79 /* DKPlayerBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKPlayerBoardView.m; sourceTree = "<group>"; };
 		06F3CF551791DF6300E27A07 /* DKBoardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKBoardController.h; sourceTree = "<group>"; };
 		06F3CF561791DF6300E27A07 /* DKBoardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKBoardController.m; sourceTree = "<group>"; };
 		18D87A63EBAB4176AF5C7047 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -240,6 +243,8 @@
 				7856E7CA1791BB48001161CF /* DPLobbyAvatarView.m */,
 				5ACB97381791D55E00EC86EF /* DPPieTimer.h */,
 				5ACB97391791D55E00EC86EF /* DPPieTimer.m */,
+				068CBCBE179286000036DA79 /* DKPlayerBoardView.h */,
+				068CBCBF179286000036DA79 /* DKPlayerBoardView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -607,6 +612,7 @@
 				7856E7D21791FA5A001161CF /* DPStartDoodleButton.m in Sources */,
 				7843DB2B179210770033E335 /* DPImageBoardTiler.m in Sources */,
 				5ACB973D17923D4900EC86EF /* DPConnectManager.m in Sources */,
+				068CBCC0179286000036DA79 /* DKPlayerBoardView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

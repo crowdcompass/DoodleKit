@@ -13,28 +13,16 @@
 #import "DPImageBoardTiler.h"
 #import "DPSwatchToolbar.h"
 #import "GTMatchMessenger.h"
+#import "DKPlayerBoardView.h"
 
-void toggleImageTile(UIView *tile) {
-    if (tile.alpha >= .9f) {
-        //fade out
-        [UIView animateWithDuration:.12
-                         animations:^{
-                             tile.alpha = 0.02f;
-                         }];
-    } else {
-        //fade in
-        [UIView animateWithDuration:.12
-                         animations:^{
-                             tile.alpha = .98f;
-                         }];
-    }
-}
+#import <BlocksKit/NSArray+BlocksKit.h>
 
 @interface DKBoardController ()<DKDoodleViewDelegate, DPSwatchToolbarDelegate, DPImageBoardTilerDelegate>
 
 @property (nonatomic, strong) DPImageBoardTiler *tiler;
 
 @property (nonatomic) NSInteger playerCount;
+@property (nonatomic, strong) NSMutableArray *tileViews;
 
 @property (nonatomic) GTHostNegotiator *negotiator;
 @end
@@ -46,6 +34,7 @@ void toggleImageTile(UIView *tile) {
     self = [super init];
     if (self) {
         self.playerCount = 2;
+        self.tileViews = [NSMutableArray arrayWithCapacity:4];
     }
     return self;
 }
@@ -244,27 +233,27 @@ void toggleImageTile(UIView *tile) {
     for (NSNumber *indexKey in images) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = images[indexKey];
-            UIImageView *tileView = [[UIImageView alloc] initWithImage:image];
-            tileView.userInteractionEnabled = YES;
-            
-            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tileTapRecognized:)];
-            [tileView addGestureRecognizer:tapRecognizer];
-            
-            tileView.frame = [tiler frameForIndex:indexKey.unsignedIntegerValue];
+            DKPlayerBoardView *tileView = [[DKPlayerBoardView alloc] initWithFrame:[tiler frameForIndex:indexKey.unsignedIntegerValue]];
+            tileView.image = image;
             [selfRef.view addSubview:tileView];
+            [self.tileViews addObject:tileView];
         });
     }
 }
 
-- (void)tileTapRecognized:(UITapGestureRecognizer *)recognizer {
-    toggleImageTile(recognizer.view);
-}
 - (void)didStartGame {
     NSLog(@"didStartGame");
 }
 
 - (void)didBecomeHost {
     NSLog(@"didBecomeHost");
+}
+
+- (void)toolbarWarmupDidFinish
+{
+    [self.tileViews each: ^(id obj) {
+        [obj setReady];
+    }];
 }
 
 @end

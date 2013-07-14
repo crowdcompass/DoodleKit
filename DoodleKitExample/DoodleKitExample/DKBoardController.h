@@ -13,7 +13,7 @@
 @class DKDoodleView;
 @class DPSwatchToolbar;
 
-@interface DKBoardController : UIViewController <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GTHostNegotiatorDelegate>
+@interface DKBoardController : UIViewController <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GTHostNegotiatorDelegate, GTMatchMessengerReceiver>
 
 @property (weak, nonatomic) DPSwatchToolbar *toolbar;
 @property (weak, nonatomic) DKDoodleView *drawingView;

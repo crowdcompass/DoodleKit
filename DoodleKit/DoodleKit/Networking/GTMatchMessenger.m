@@ -12,6 +12,7 @@
 
 NSInteger const InternalFlag = 1;
 NSInteger const DoodleFlag = 2;
+NSInteger const DemoLogicFlag = 3;
 
 @interface GTMatchMessenger ()
 @property (nonatomic) NSMutableDictionary *channelLookup;
@@ -92,7 +93,7 @@ static GTMatchMessenger *shared = nil;
 
 
     NSObject<GTMatchMessengerReceiver> *receiver = self.channelLookup[@(flag)];
-    [receiver match:match didReceiveData:data fromPlayer:playerID];
+    [receiver didReceiveData:data fromPlayer:playerID];
 }
 
 @end

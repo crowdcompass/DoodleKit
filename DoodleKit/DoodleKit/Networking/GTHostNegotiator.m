@@ -46,7 +46,7 @@ static NSInteger const StartGameFlag = 1 << 3;
     [self.delegate didStartGame];
 }
 
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
+- (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
     //NSInteger flag = [self flagFromPayload:data];
     NSDictionary *dictionary = [self dictionaryFromPayload:data];
 

@@ -47,6 +47,7 @@ void toggleImageTile(UIView *tile) {
     if (self) {
         self.playerCount = 2;
     }
+    [[GTMatchMessenger sharedMessenger] registerDataChannelWithFlag:DemoLogicFlag object:self];
     return self;
 }
 
@@ -123,7 +124,7 @@ void toggleImageTile(UIView *tile) {
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error
 {
-
+    
 }
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)match
@@ -210,6 +211,13 @@ void toggleImageTile(UIView *tile) {
     
 }
 
+- (void)doodlerDidChangeDuration:(float)duration {
+    NSLog(@"doodlerDidChangeDuration");
+    GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
+    
+    [messenger sendDataToAllPlayers:[NSData dataWithBytes:&duration length:sizeof(float)] withFlag:DemoLogicFlag];
+}
+
 - (void)doodlerDidChangeToSwatch:(DPSwatch *)swatch
 {
     self.drawingView.lineWidth = 10.0f;
@@ -256,6 +264,16 @@ void toggleImageTile(UIView *tile) {
 
 - (void)didBecomeHost {
     NSLog(@"didBecomeHost");
+}
+
+- (void)didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID
+{
+    float duration;
+    [data getBytes:&duration length:sizeof(float)];
+    [self.toolbar setDuration:duration];
+    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"matchDidReceiveData: %@", dataString);
+    
 }
 
 @end

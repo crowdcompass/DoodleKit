@@ -196,7 +196,10 @@
     GTMatchMessenger *messenger = [GTMatchMessenger sharedMessenger];
     
     [messenger sendDataToAllPlayers:[NSData dataWithBytes:&duration length:sizeof(float)] withFlag:DemoLogicFlag];
-    
+    [self handleChangedDoodlerDuration];
+}
+
+- (void)handleChangedDoodlerDuration {
     if (self.playingAgain == YES) {
         [self.drawingView removeFromSuperview];
         [self setBoard];
@@ -258,6 +261,9 @@
 {
     float duration;
     [data getBytes:&duration length:sizeof(float)];
+    self.playingAgain = YES;
+    [self handleChangedDoodlerDuration];
+
     [self.toolbar setDuration:duration];
     NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"matchDidReceiveData: %@", dataString);

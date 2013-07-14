@@ -17,14 +17,16 @@ typedef NSUInteger DKDoodleMessageType;
 
 #define kDoodleMessageIDKey     @"id"
 
-static NSInteger const playerCount = 2;
+static NSInteger const playerCount = 3;
 
 static DKDoodleSessionManager *sharedInstance;
 
 @interface DKDoodleSessionManager ()
 @property (nonatomic, strong) GKSession *session;
-
+@property (nonatomic, copy) NSString *hostID;
 @property (nonatomic, strong) NSMutableSet *peerIDs;
+
+@property (nonatomic, strong) NSMutableSet *commitedClients;
 @end
 
 @implementation DKDoodleSessionManager
@@ -35,7 +37,18 @@ static DKDoodleSessionManager *sharedInstance;
 }
 
 - (void)receiveDictionary:(NSDictionary *)dictionary fromPeer:(NSString *)peer {
-    DKDoodleMessageType messageType = dictionary[kDoodleMessageIDKey];
+    DKDoodleMessageType messageType = [dictionary[kDoodleMessageIDKey] intValue];
+    switch (messageType) {
+        case DKDoodleMessageTypeDeclareHost: {
+            [self handleDeclareHostFromPeer:peer];
+        } break;
+        case DKDoodleMessageTypeSubmitToHost: {
+            [self handleSubmitToHostFromPeer:peer];
+        } break;
+        case DKDoodleMessageTypeStartGame: {
+            [self handleStartGame];
+        } break;
+    }
     NSLog(@"%d", messageType);
     NSLog(@"%@", dictionary);
 }
@@ -45,6 +58,27 @@ static DKDoodleSessionManager *sharedInstance;
     NSError *error;
     [self.session sendData:data toPeers:peers withDataMode:GKSendDataReliable error:&error];
     assert(!error);
+}
+
+- (void)handleDeclareHostFromPeer:(NSString *)peer {
+    self.hostID = peer;
+
+    NSArray *peers = [self.session peersWithConnectionState:GKPeerStateConnected];
+    if (peers.count == playerCount - 1) {
+        [self sendDictionary:@{ kDoodleMessageIDKey: @(DKDoodleMessageTypeSubmitToHost) } toPeers:@[ self.hostID ]];
+    }
+}
+
+- (void)handleSubmitToHostFromPeer:(NSString *)peer {
+    [self.commitedClients addObject:peer];
+    if (self.commitedClients.count == playerCount - 1) {
+        [self sendDictionary:@{ kDoodleMessageIDKey: @(DKDoodleMessageTypeStartGame) } toPeers:[self.commitedClients allObjects]];
+        [self handleStartGame];
+    }
+}
+
+- (void)handleStartGame {
+    NSLog(@"LETS START THE GAME!");
 }
 
 + (instancetype)sharedManager {
@@ -59,6 +93,7 @@ static DKDoodleSessionManager *sharedInstance;
     self = [super init];
     if (self) {
         self.peerIDs = [NSMutableSet set];
+        self.commitedClients = [NSMutableSet set];
     }
     return self;
 }
@@ -88,6 +123,10 @@ static DKDoodleSessionManager *sharedInstance;
         [self.session connectToPeer:peerID withTimeout:15];
     } else if (state == GKPeerStateConnected) {
         [self poll];
+
+        if (self.hostID) {
+            [self handleDeclareHostFromPeer:self.hostID];
+        }
     }
 }
 
@@ -102,7 +141,6 @@ static DKDoodleSessionManager *sharedInstance;
     NSError *error;
     [self.session acceptConnectionFromPeer:peerID error:&error];
     assert(!error);
-
 }
 
 - (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error {
